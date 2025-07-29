@@ -104,8 +104,8 @@ Students who have some basic familiarity with Python.
 
 ### Prerequisites
 
-Detail any prerequisite skills needed to attend this course, with links to other relevant materials/courses if possible.
-
+Basic familiarity with Python. Course webpage is here: 
+[Introduction to Python](https://cambiotraining.github.io/data-analysis-in-r-and-python/)
 
 <!-- Training Developer note: comment the following section out if you did not assign levels to your exercises -->
 ### Exercises
