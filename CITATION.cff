@@ -11,11 +11,11 @@ message: >-
   the information in your own work.
 type: dataset
 authors:
-  - given-names: "Name"
-    family-names: "Surname"
+  - given-names: "Soumya"
+    family-names: "Banerjee"
     affiliation: "Institution or Affiliation"
-    website: "https://your.website.here"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    website: "https://sites.google.com/site/neelsoumya"
+    orcid: "https://orcid.org/0000-0001-7748-9885"
     alias: "edit author contribution roles"
 repository-code: "https://github.com/cambiotraining/ml-unsupervised"
 url: "https://cambiotraining.github.io/ml-unsupervised/"
