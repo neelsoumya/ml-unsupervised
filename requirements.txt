@@ -5,3 +5,7 @@ tensorflow
 scikit-learn
 seaborn
 matplotlib
+nbclient
+scipy
+scanpy
+PyYAML
