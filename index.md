@@ -11,7 +11,81 @@ until this message has been removed.
 
 ## Overview 
 
-Include a one-paragraph summary of the course here. 
+### Session 1 (half‑day) *Introduction to unsupervised learning*
+
+1. **Introduction to unsupervised learning and normalization:**  
+   Understand the fundamental principles of unsupervised learning and recognize the role that data normalization plays in preparing datasets for analysis.
+
+2. **Why normalization is required:**  
+   Explain why normalization is necessary to ensure that features with different scales do not unduly influence unsupervised learning algorithms.
+
+3. **Why dimensionality reduction is required**
+   
+   Why you need dimensionality reduction. 
+
+
+5. **Basics of dimensionality reduction:**  
+   Describe the core concepts of dimensionality reduction. Then describe Principal Component Analysis (PCA), including how it reduces dimensionality by identifying directions of maximum variance.
+
+6. **Evaluating unsupervised learning results**
+
+   How to check the performance and quality of your unsupervised learning results.
+
+---
+
+### Session 2 (half‑day) *Basics of dimensionality reduction*
+
+1. **Basic applications of PCA:**  
+   Apply PCA to real datasets, interpret the resulting principal components, and discuss how these components can reveal underlying structure.
+
+2. **Curse of dimensionality:**  
+   Explain the concept of the curse of dimensionality and its implications for the performance and interpretability of clustering and dimensionality‑reduction algorithms.
+
+3. **PCA and t‑SNE:**  
+   Compare and contrast PCA and t‑Distributed Stochastic Neighbor Embedding (t‑SNE) as two popular techniques for dimensionality reduction and data visualization.
+
+4. **Basics of t‑SNE:**  
+   Explain how t‑SNE projects high‑dimensional data into two or three dimensions while preserving local similarities between points.
+
+5. **Applications to data:**  
+   Demonstrate the use of both PCA and t‑SNE on sample datasets to visualize clustering tendencies and uncover hidden patterns.
+
+
+---
+
+### Session 3 (half‑day) *Basics of Clustering*
+
+1. **Clustering:**  
+   Define clustering in the context of unsupervised learning and outline its importance in discovering groupings within data.
+
+2. **Basics of k‑means:**  
+   Describe the k‑means clustering algorithm, including how cluster centroids are initialized and updated to minimize within‑cluster variance.
+
+3. **Basics of hierarchical clustering:**  
+   Explain the steps of hierarchical clustering, heatmaps, agglomerative approaches, and interpret dendrograms.
+
+4. **Deciding on your clustering approach:**  
+   Situations in which you would want to apply hierarchical clustering. Discuss specific use cases: such as when the number of clusters is unknown or when a tree‑based representation is desired—where hierarchical clustering is advantageous.
+
+---
+
+### Session 4 (half‑day) *Practical applications (hands-on)*
+
+1. **When *not* to apply PCA and t‑SNE:**  
+   Identify situations where PCA or t‑SNE may produce misleading results or be computationally infeasible, and propose alternative strategies.
+
+
+2. **Practical applications:**  
+   Explore real‑world scenarios where unsupervised learning methods provide actionable insights across various domains.
+
+3. **Practical applications of PCA, t‑SNE and hierarchical clustering to biological data:**  
+   Apply PCA, t‑SNE, and hierarchical clustering to biological datasets (e.g., gene expression or single‑cell data), interpret the results, and discuss biological insights gained.
+
+4. **Evaluating unsupervised learning methods**   
+   How to evaluate these techniques on different kinds of data (single-cell data, electronic healthcare records, social sciences data): these are used to generate hypotheses. Motivations for next steps.
+
+
+
 
 ::: {.callout-tip}
 ### Learning Objectives
@@ -25,7 +99,7 @@ Include a one-paragraph summary of the course here.
 
 ### Target Audience
 
-Brief description of target audience here.
+Students who have some basic familiarity with Python.
 
 
 ### Prerequisites
@@ -63,6 +137,9 @@ If you think you should be added as an author, please get in touch with us.
 ## Acknowledgements
 
 <!-- if there are no acknowledgements we can delete this section -->
-
+- We thank Martin van Rongen, Vicki Hodgson, Hugo Tavares, Paul Fannon, Matt Castle and the Bioinformatics Facility Training Team for their support and guidance.
+- [Introduction to Statistical Learning in Python](https://www.statlearning.com/)
+<!--
 - List any other sources of materials that were used.
 - Or other people that may have advised during the material development (but are not authors).
+-->
