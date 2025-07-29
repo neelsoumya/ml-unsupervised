@@ -1,0 +1,98 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Applied Unsupervised Machine Learning",
+    "section": "",
+    "text": "Overview",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Welcome",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Applied Unsupervised Machine Learning",
+    "section": "",
+    "text": "Session 1 (half‑day) Introduction to unsupervised learning\n\nIntroduction to unsupervised learning and normalization:\nUnderstand the fundamental principles of unsupervised learning and recognize the role that data normalization plays in preparing datasets for analysis.\nWhy normalization is required:\nExplain why normalization is necessary to ensure that features with different scales do not unduly influence unsupervised learning algorithms.\nWhy dimensionality reduction is required\nWhy you need dimensionality reduction.\nBasics of dimensionality reduction:\nDescribe the core concepts of dimensionality reduction. Then describe Principal Component Analysis (PCA), including how it reduces dimensionality by identifying directions of maximum variance.\nEvaluating unsupervised learning results\nHow to check the performance and quality of your unsupervised learning results.\n\n\n\n\nSession 2 (half‑day) Basics of dimensionality reduction\n\nBasic applications of PCA:\nApply PCA to real datasets, interpret the resulting principal components, and discuss how these components can reveal underlying structure.\nCurse of dimensionality:\nExplain the concept of the curse of dimensionality and its implications for the performance and interpretability of clustering and dimensionality‑reduction algorithms.\nPCA and t‑SNE:\nCompare and contrast PCA and t‑Distributed Stochastic Neighbor Embedding (t‑SNE) as two popular techniques for dimensionality reduction and data visualization.\nBasics of t‑SNE:\nExplain how t‑SNE projects high‑dimensional data into two or three dimensions while preserving local similarities between points.\nApplications to data:\nDemonstrate the use of both PCA and t‑SNE on sample datasets to visualize clustering tendencies and uncover hidden patterns.\n\n\n\n\nSession 3 (half‑day) Basics of Clustering\n\nClustering:\nDefine clustering in the context of unsupervised learning and outline its importance in discovering groupings within data.\nBasics of k‑means:\nDescribe the k‑means clustering algorithm, including how cluster centroids are initialized and updated to minimize within‑cluster variance.\nBasics of hierarchical clustering:\nExplain the steps of hierarchical clustering, heatmaps, agglomerative approaches, and interpret dendrograms.\nDeciding on your clustering approach:\nSituations in which you would want to apply hierarchical clustering. Discuss specific use cases: such as when the number of clusters is unknown or when a tree‑based representation is desired—where hierarchical clustering is advantageous.\n\n\n\n\nSession 4 (half‑day) Practical applications (hands-on)\n\nWhen not to apply PCA and t‑SNE:\nIdentify situations where PCA or t‑SNE may produce misleading results or be computationally infeasible, and propose alternative strategies.\nPractical applications:\nExplore real‑world scenarios where unsupervised learning methods provide actionable insights across various domains.\nPractical applications of PCA, t‑SNE and hierarchical clustering to biological data:\nApply PCA, t‑SNE, and hierarchical clustering to biological datasets (e.g., gene expression or single‑cell data), interpret the results, and discuss biological insights gained.\nEvaluating unsupervised learning methods\nHow to evaluate these techniques on different kinds of data (single-cell data, electronic healthcare records, social sciences data): these are used to generate hypotheses. Motivations for next steps.\n\n\n\n\n\n\n\nLearning Objectives\n\n\n\n\nList course learning objectives here.\nThese describe concepts the learners should grasp and techniques they should be able to use by the end of the course.\nYou can think of these as completing the phrase “after this course, the participant should be able to…”\nThey are not supposed to be as detailed as the learning objectives of each section, but more high-level.\n\n\n\n\n\nTarget Audience\nStudents who have some basic familiarity with Python.\n\n\nPrerequisites\nDetail any prerequisite skills needed to attend this course, with links to other relevant materials/courses if possible.\n\n\n\nExercises\nExercises in these materials are labelled according to their level of difficulty:\n\n\n\n\n\n\n\nLevel\nDescription\n\n\n\n\n  \nExercises in level 1 are simpler and designed to get you familiar with the concepts and syntax covered in the course.\n\n\n  \nExercises in level 2 combine different concepts together and apply it to a given task.\n\n\n  \nExercises in level 3 require going beyond the concepts and syntax introduced to solve new problems.",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Welcome",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#citation-authors",
+    "href": "index.html#citation-authors",
+    "title": "Applied Unsupervised Machine Learning",
+    "section": "Citation & Authors",
+    "text": "Citation & Authors\nPlease cite these materials if:\n\nYou adapted or used any of them in your own teaching.\nThese materials were useful for your research work. For example, you can cite us in the methods section of your paper: “We carried our analyses based on the recommendations in YourReferenceHere”.\n\n\nYou can cite these materials as:\n\n\"Banerjee\", \". (2025). \"Applied Unsupervised Machine Learning\". \"https://cambiotraining.github.io/ml-unsupervised/\"\n\nOr in BibTeX format:\n@misc{YourReferenceHere,\n  author = {\"Banerjee\", \"Soumya\"},\n  month = {7},\n  title = {\"Applied Unsupervised Machine Learning\"},\n  url = {\"https://cambiotraining.github.io/ml-unsupervised/\"},\n  year = {2025}\n}\nAbout the authors:\n\"Soumya\" \"Banerjee\"  \nAffiliation: \"University of Cambridge\" Roles: \"edit author contribution roles\"",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Welcome",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "Applied Unsupervised Machine Learning",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\n\n\nWe thank Martin van Rongen, Vicki Hodgson, Hugo Tavares, Paul Fannon, Matt Castle and the Bioinformatics Facility Training Team for their support and guidance.\nIntroduction to Statistical Learning in Python",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Welcome",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Data & Setup",
+    "section": "",
+    "text": "Data\nThe data used in these materials is provided as a zip file. Download and unzip the folder to your Desktop to follow along with the materials.\nDownload",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Welcome",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data & Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#software",
+    "href": "setup.html#software",
+    "title": "Data & Setup",
+    "section": "Software",
+    "text": "Software\n\nQuarto\nTo develop and render the course materials website, you will need to install Quarto:\n\nDownload and install Quarto (available for all major OS).\nIf you are developing materials using executable .qmd documents, it is recommended that you also install the extensions for your favourite IDE (e.g. RStudio, VS Code).\nIf you are developing materials using JupyterLab or Jupyter Notebooks, please install Jupytext.\n\nUse the paired notebook feature to have synchronised .ipynb/.qmd files. Only .qmd files should be pushed to the repository (.ipynb files have been added to .gitignore).",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Welcome",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data & Setup</span>"
+    ]
+  },
+  {
+    "objectID": "materials/00-template.html",
+    "href": "materials/00-template.html",
+    "title": "3  Template Page",
+    "section": "",
+    "text": "3.1 Section\nHeadings for material sections start at level 2.\nMore guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Section title",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Template Page</span>"
+    ]
+  },
+  {
+    "objectID": "materials/00-template.html#summary",
+    "href": "materials/00-template.html#summary",
+    "title": "3  Template Page",
+    "section": "3.2 Summary",
+    "text": "3.2 Summary\n\n\n\n\n\n\nKey Points\n\n\n\n\nLast section of the page is a bulleted summary of the key points",
+    "crumbs": [
+      "{{< iconify fa6-brands github size=lg title='CRIT GitHub' >}}",
+      "Section title",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Template Page</span>"
+    ]
+  }
+]
