@@ -15,7 +15,7 @@ Note that we use tabsets to provide instructions for all three major operating s
 
 If you are attending one of our workshops, we will provide a training environment with all of the required software and data.  
 If you want to setup your own computer to run the analysis demonstrated on this course, you can follow the instructions below.
-:::
+
 
 ## Data
 
@@ -31,6 +31,8 @@ Download and unzip the folder to your Desktop to follow along with the materials
 
 ### 📦 Installation Instructions (for Google Colab)
 
+<!--
+>
 ### 1. Clone the repository (optional, for full access)
 ```python
 !git clone https://github.com/neelsoumya/python_machine_learning.git
@@ -58,6 +60,8 @@ or
 ```
 
 ---
+
+-->
 
 **How to use in Colab:**
 - Open a new notebook in Google Colab (https://colab.research.google.com/).
