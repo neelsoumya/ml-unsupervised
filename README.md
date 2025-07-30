@@ -30,3 +30,9 @@ source .venv/bin/activate
 
 <!--* Preview Quarto markdown-->
 
+* Render using quarto
+
+```python
+quarto render
+```
+
