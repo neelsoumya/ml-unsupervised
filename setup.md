@@ -29,6 +29,45 @@ Download and unzip the folder to your Desktop to follow along with the materials
 
 ## Software
 
+### 📦 Installation Instructions (for Google Colab)
+
+### 1. Clone the repository (optional, for full access)
+```python
+!git clone https://github.com/neelsoumya/python_machine_learning.git
+%cd python_machine_learning
+```
+
+### 2. Install required Python packages
+
+
+```python
+!pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib
+```
+
+or
+
+```python
+!pip install -r requirements.txt
+```
+
+
+### 3. (Optional) Download specific files directly from GitHub
+```python
+# Example: Download a specific notebook
+!wget https://raw.githubusercontent.com/neelsoumya/python_machine_learning/main/PCA_movie_ratings.ipynb
+```
+
+---
+
+**How to use in Colab:**
+- Open a new notebook in Google Colab (https://colab.research.google.com/).
+- Run the above commands in code cells.
+- You can now open and run any of the notebooks or scripts from the repository.
+
+**Repository link:**  
+[https://github.com/neelsoumya/python_machine_learning](https://github.com/neelsoumya/python_machine_learning)
+
+<!--
 ### Quarto
 
 To develop and render the course materials website, you will need to install _Quarto_:
@@ -37,6 +76,8 @@ To develop and render the course materials website, you will need to install _Qu
 - If you are developing materials using executable `.qmd` documents, it is recommended that you also install the extensions for your favourite IDE (e.g. RStudio, VS Code).
 - If you are developing materials using **JupyterLab** or **Jupyter Notebooks**, please install [Jupytext](https://jupytext.readthedocs.io/en/latest/install.html).
   - Use the [paired notebook](https://jupytext.readthedocs.io/en/latest/paired-notebooks.html) feature to have synchronised `.ipynb`/`.qmd` files. Only `.qmd` files should be pushed to the repository (`.ipynb` files have been added to `.gitignore`).
+
+-->
 
 <!--
 ### R and RStudio
