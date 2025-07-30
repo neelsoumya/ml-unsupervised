@@ -164,7 +164,7 @@ We thank Martin van Rongen, Vicki Hodgson, Hugo Tavares, Paul Fannon, Matt Castl
 
 ## Resources
 
-- [ISLP book](https://www.statlearning.com/)
+- [Introduction to Statistical Learning in Python book](https://www.statlearning.com/)
 
 - [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
 
@@ -184,7 +184,7 @@ import os
 os.cpu_count()
 ```
 
-```{python}
+```{python test2}
 print("Hello")
 ```
 
