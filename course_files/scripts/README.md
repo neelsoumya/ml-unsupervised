@@ -4,5 +4,6 @@ Scripts for generating data
 
 2. `dragon_data.csv` created using `dragon_data.py`
 
+3. `python_basics.py` is a Python script that contains basic Python commands and functions for data analysis, including importing packages, reading data, and plotting.
 
 
