@@ -72,6 +72,73 @@ plt.show()
 
 ```
 
+
+## Normalization (Z-score Standardization)
+
+Normalization, specifically Z-score standardization, is a data scaling technique that transforms your data to have a mean of 0 and a standard deviation of 1. This is useful for many machine learning algorithms that are sensitive to the scale of input features.
+
+The formula for Z-score is:
+
+$$ z = \frac{x - \mu}{\sigma} $$
+
+Where:
+- $x$ is the original data point.
+- $\mu$ is the mean of the data.
+- $\sigma$ is the standard deviation of the data.
+
+
+```{python ch2-longtailed}
+import numpy as np
+import pandas as pd
+
+# Sample data from a long-tailed (exponential) distribution
+np.random.seed(42)
+data = np.random.exponential(scale=2.0, size=1000)
+
+# Calculate mean and standard deviation
+mean = np.mean(data)
+std_dev = np.std(data)
+
+# Apply Z-score normalization
+normalized_data = (data - mean) / std_dev
+
+print("Original Data (first 10):", data[:10])
+print("Mean:", mean)
+print("Standard Deviation:", std_dev)
+print("Normalized Data (first 10):", normalized_data[:10])
+
+# You can also use scikit-learn's StandardScaler for this
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+normalized_data_sklearn = scaler.fit_transform(data.reshape(-1, 1))
+
+```
+
+```{python ch2-normalization-plot}
+
+import matplotlib.pyplot as plt
+
+# Plot original data histogram
+plt.figure(figsize=(8, 4))
+plt.hist(data, bins=10, color='skyblue', edgecolor='black', alpha=0.7, density=True)
+plt.title('Original Data Distribution')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# Plot normalized data histogram
+plt.figure(figsize=(8, 4))
+plt.hist(normalized_data, bins=10, color='salmon', edgecolor='black', alpha=0.7, density=True)
+plt.title('Normalized Data Distribution (Z-score)')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.grid(True, alpha=0.3)
+plt.show()
+
+```
+
 ## Setup
 
 ```{python}
@@ -125,6 +192,8 @@ plt.show()
 - PCA reduces dimensionality for visualization.
 - KMeans finds clusters in unlabeled data.
 
----
+## References
 
-*Edit this template to add your own data
+[1] [Article on normalization on Wikipedia](https://en.wikipedia.org/wiki/Standard_score)
+
+---
