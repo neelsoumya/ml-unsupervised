@@ -64,9 +64,17 @@ or
 -->
 
 **How to use in Colab:**
-- Open a new notebook in [Google Colab](https://colab.research.google.com/).
-- Run the above commands in code cells.
-- You can now open and run any of the notebooks or scripts from the repository.
+
+- Open a new notebook in [Google Colab](https://colab.research.google.com/)
+
+- Run the commands in code cells.
+
+- You can now create notebooks and run any of the scripts in Google Colab.
+
+- If you want to run the notebooks in Colab, you can also use the "Open in Colab" badge below:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com)
+
 
 **Repository link:**  
 [https://github.com/neelsoumya/python_machine_learning](https://github.com/neelsoumya/python_machine_learning)
