@@ -8,6 +8,6 @@ This folder has the slides. It may not all fit in here (due to size limitations 
 
 # Acknowledgements
 
-Paul Fannon, Martin van Rongen and the Bioinformatics Training Facility
+We thank Paul Fannon, Vicki Hodgson and Martin van Rongen for all their help and the Bioinformatics Training Facility.
 
 
