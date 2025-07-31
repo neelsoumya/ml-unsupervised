@@ -364,20 +364,8 @@ We thank Martin van Rongen, Vicki Hodgson, Hugo Tavares, Paul Fannon, Matt Castl
 - [Mathematics behind unsupervised machine learning](https://mml-book.github.io/book/mml-book.pdf)
 
 
-## Code Cell
 
-Here is a Python code cell:
-
-```{python test1}
-import os
-os.cpu_count()
-```
-
-```{python test2}
-print("Hello")
-```
-
-
+<!--
 ## Equation
 
 Use LaTeX to write equations:
@@ -385,3 +373,5 @@ Use LaTeX to write equations:
 $$
 \chi' = \sum_{i=1}^n k_i s_i^2
 $$
+
+-->
