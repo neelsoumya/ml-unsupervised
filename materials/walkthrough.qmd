@@ -150,6 +150,11 @@ from mpl_toolkits.mplot3d import Axes3D
 #| echo: false
 
 
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
+# 1. Generate synthetic 3D data (three clusters)
 np.random.seed(0)
 n = 30
 means = [(-2, 0, 0), (2, 0, 0), (0, 2, 2)]
@@ -173,11 +178,11 @@ plane_points = mean_3d + grid_x[..., None] * components[0] + grid_y[..., None] *
 # 4. Inverse transform scores to get projections back into 3D
 proj_3d = pca.inverse_transform(scores)
 
-# 5. Plotting
-fig = plt.figure(figsize=(12, 6))
+# 5. Plotting with vertical layout (2 rows, 1 column)
+fig = plt.figure(figsize=(8, 10))
 
-# Left: 3D scatter with PCA plane and projection lines
-ax1 = fig.add_subplot(1, 2, 1, projection='3d')
+# Top: 3D scatter with PCA plane and projection lines
+ax1 = fig.add_subplot(2, 1, 1, projection='3d')
 ax1.scatter(data[:, 0], data[:, 1], data[:, 2], c=labels)
 ax1.plot_surface(
     plane_points[:, :, 0],
@@ -197,8 +202,8 @@ ax1.set_xlabel('X₁')
 ax1.set_ylabel('X₂')
 ax1.set_zlabel('X₃')
 
-# Right: 2D scatter of PCA scores
-ax2 = fig.add_subplot(1, 2, 2)
+# Bottom: 2D scatter of PCA scores
+ax2 = fig.add_subplot(2, 1, 2)
 ax2.scatter(scores[:, 0], scores[:, 1], c=labels)
 ax2.set_title('Projection onto first two PCs')
 ax2.set_xlabel('First principal component')
@@ -219,6 +224,99 @@ This is shown using the notebook below:
 
 [PCA lossy notebook](https://github.com/neelsoumya/python_machine_learning/blob/main/PCA_image_lossy_concept.ipynb)
 -->
+
+**NOTE (IMPORTANT CONCEPT)** 
+
+Dimensionality reduction techniques (such as PCA) always lose some information. In other words, it is *lossy*.
+
+### Lesson on lossy compression (PCA applied to image)
+
+### Learning Objectives
+
+* Understand how Principal Component Analysis (PCA) can be applied to images.
+* Observe how PCA captures the most significant patterns in image data.
+* Visualize how the number of principal components affects image reconstruction.
+* Appreciate the trade-off between compression and information loss.
+
+### Key Concepts
+
+* **PCA** is a dimensionality reduction technique that identifies directions (principal components) along which the variance in the data is maximized.
+* Images can be viewed as high-dimensional data (each pixel as a feature), and PCA helps reduce that dimensionality while preserving key patterns.
+
+### Procedure Overview
+
+1. **Load and display an image** from a URL.
+2. **Apply PCA to each RGB channel** of the image separately.
+3. **Reconstruct the image** using an increasing number of principal components.
+4. **Visualize the reconstructions** to show how few components capture most of the image's structure.
+
+```{python ch1-pca-lossy-image}
+
+#| echo: false
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+import requests
+from PIL import Image
+from io import BytesIO
+
+# Load the image from GitHub
+url = "https://raw.githubusercontent.com/neelsoumya/python_machine_learning/main/images/rose_after_valentines_day.png"
+response = requests.get(url)
+img = Image.open(BytesIO(response.content)).convert("RGB")
+
+# Resize for computational ease (optional)
+img = img.resize((img.width // 4, img.height // 4))
+img_np = np.array(img)
+
+# Display original image
+plt.figure(figsize=(5, 5))
+plt.title("Original Image")
+plt.imshow(img_np)
+plt.axis("off")
+plt.show()
+
+# Function to apply PCA to each color channel
+def pca_on_channel(channel_data, n_components):
+    original_shape = channel_data.shape
+    flat_data = channel_data.reshape(-1, 1)
+    pca = PCA(n_components=n_components)
+    reduced = pca.fit_transform(flat_data)
+    reconstructed = pca.inverse_transform(reduced)
+    return reconstructed.reshape(original_shape)
+
+# Apply PCA to each channel separately with varying components
+components_list = [1, 5, 10, 20, 50]
+fig, axs = plt.subplots(1, len(components_list), figsize=(15, 5))
+
+for i, n_components in enumerate(components_list):
+    # Flatten each channel for PCA
+    reconstructed_channels = []
+    for c in range(3):  # RGB
+        channel = img_np[:, :, c]
+        h, w = channel.shape
+        pca = PCA(n_components=n_components)
+        reduced = pca.fit_transform(channel)
+        reconstructed = pca.inverse_transform(reduced)
+        reconstructed_channels.append(reconstructed)
+
+    reconstructed_img = np.stack(reconstructed_channels, axis=2).astype(np.uint8)
+    axs[i].imshow(reconstructed_img)
+    axs[i].set_title(f"{n_components} PC")
+    axs[i].axis("off")
+
+plt.suptitle("Image Reconstruction with Varying Principal Components", fontsize=14)
+plt.tight_layout()
+plt.show()
+
+```
+
+### Takeaway Message
+
+PCA can significantly reduce image data dimensionality while preserving salient features, making it a powerful tool for image compression and understanding. However, perfect reconstruction is only possible with all components, revealing the balance between efficiency and fidelity.
+
 
 
 ## Activity: Playable version of PCA in browser
@@ -246,15 +344,6 @@ This is shown using the notebook below:
   - **Supervised:** With labels, focus on predicting a known outcome 
 
 
-## Refresher on Python
-
-* Import packages
-
-* Read in a file using `pandas`
-
-* Plotting using `matplotlib`
-
-TODO:
 
 
 ## Acknowledgements

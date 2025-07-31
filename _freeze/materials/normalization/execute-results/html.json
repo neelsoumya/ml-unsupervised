@@ -1,0 +1,12 @@
+{
+  "hash": "9b9e7f5b5cfd141752f9a0e0c1d6b65f",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Normalizing your data\"\nformat: html\n---\n\n# Introduction\n\nThis Quarto notebook demonstrates basic unsupervised machine learning concepts using Python.\n\n## Learning Objectives\n\n- Understand the difference between supervised and unsupervised learning.\n- Apply PCA and clustering to example data.\n- Visualize results with matplotlib.\n\n## Setup\n\n::: {#51b10325 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom sklearn.decomposition import PCA\nfrom sklearn.cluster import KMeans\n```\n:::\n\n\n## Example Data\n\n::: {#e3f100d3 .cell execution_count=2}\n``` {.python .cell-code}\n# Generate synthetic data\nnp.random.seed(42)\nX = np.vstack([\n    np.random.normal(loc=[0, 0], scale=1, size=(50, 2)),\n    np.random.normal(loc=[5, 5], scale=1, size=(50, 2))\n])\nplt.scatter(X[:, 0], X[:, 1])\nplt.title(\"Synthetic Data\")\nplt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![](normalization_files/figure-html/cell-3-output-1.png){width=569 height=431}\n:::\n:::\n\n\n## PCA Example\n\n::: {#78828684 .cell execution_count=3}\n``` {.python .cell-code}\npca = PCA(n_components=2)\nX_pca = pca.fit_transform(X)\nplt.scatter(X_pca[:, 0], X_pca[:, 1])\nplt.title(\"PCA Projection\")\nplt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![](normalization_files/figure-html/cell-4-output-1.png){width=569 height=431}\n:::\n:::\n\n\n## Clustering Example\n\n::: {#946ef262 .cell execution_count=4}\n``` {.python .cell-code}\nkmeans = KMeans(n_clusters=2, random_state=42)\nlabels = kmeans.fit_predict(X)\nplt.scatter(X[:, 0], X[:, 1], c=labels)\nplt.title(\"KMeans Clustering\")\nplt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![](normalization_files/figure-html/cell-5-output-1.png){width=569 height=431}\n:::\n:::\n\n\n## Conclusion\n\n- PCA reduces dimensionality for visualization.\n- KMeans finds clusters in unlabeled data.\n\n---\n\n*Edit this template to add your own data\n\n",
+    "supporting": [
+      "normalization_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
