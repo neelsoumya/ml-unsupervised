@@ -39,8 +39,6 @@ import numpy as np
 # 2. READING DATA WITH PANDAS FROM GITHUB
 # ============================================================================
 
-print("\n Loading data from GitHub...")
-
 # GitHub URL for the diabetes data
 # Convert from GitHub web URL to raw data URL
 github_url = "https://raw.githubusercontent.com/cambiotraining/ml-unsupervised/main/course_files/data/diabetes_sample_data.csv"
