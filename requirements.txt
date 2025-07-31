@@ -6,6 +6,7 @@ scikit-learn
 seaborn
 matplotlib
 nbclient
+nbformat
 scipy
 scanpy
 PyYAML
