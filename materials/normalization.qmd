@@ -88,59 +88,49 @@ Where:
 - $\sigma$ is the standard deviation of the data.
 
 
-```{python ch2-longtailed}
+```{python ch2-gen_data}
 import numpy as np
-import pandas as pd
-
-# Sample data from a long-tailed (exponential) distribution
-np.random.seed(42)
-data = np.random.exponential(scale=2.0, size=1000)
-
-# Calculate mean and standard deviation
-mean = np.mean(data)
-std_dev = np.std(data)
-
-# Apply Z-score normalization
-normalized_data = (data - mean) / std_dev
-
-print("Original Data (first 10):", data[:10])
-print("Mean:", mean)
-print("Standard Deviation:", std_dev)
-print("Normalized Data (first 10):", normalized_data[:10])
-
-# You can also use scikit-learn's StandardScaler for this
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
+# 1. Generate age and weight data
+np.random.seed(42)
+age = np.random.normal(45, 15, 100)  # 100 people, mean age 45, std 15
+age = np.clip(age, 18, 80)  # Keep ages between 18-80
+
+weight = 70 + (age - 45) * 0.3 + np.random.normal(0, 10, 100)  # Weight correlated with age
+weight = np.clip(weight, 45, 120)  # Keep weights between 45-120 kg
+
+print("Original data:")
+print(f"Age: mean={age.mean():.1f}, std={age.std():.1f}")
+print(f"Weight: mean={weight.mean():.1f}, std={weight.std():.1f}")
+
+# 2. Normalize the data
 scaler = StandardScaler()
-normalized_data_sklearn = scaler.fit_transform(data.reshape(-1, 1))
+data = np.column_stack((age, weight))
+normalized_data = scaler.fit_transform(data)
 
-```
+age_normalized = normalized_data[:, 0]
+weight_normalized = normalized_data[:, 1]
 
-```{python ch2-normalization-plot}
-
-# TODO:
-#. 1. generate age and weight data
-#. 2. normalize those
-#  3. visualize those
-
-import matplotlib.pyplot as plt
-
-# Plot original data histogram
-plt.figure(figsize=(8, 4))
-plt.hist(data, bins=10, color='skyblue', edgecolor='black', alpha=0.7, density=True)
-plt.title('Original Data Distribution')
-plt.xlabel('Value')
+# Histogram: Age (Original)
+plt.figure(figsize=(6, 4))
+plt.hist(age, bins=20, alpha=0.7)
+plt.title('Age Distribution (Original)')
+plt.xlabel('Age')
 plt.ylabel('Frequency')
 plt.grid(True, alpha=0.3)
 plt.show()
 
-# Plot normalized data histogram
-plt.figure(figsize=(8, 4))
-plt.hist(normalized_data, bins=10, color='salmon', edgecolor='black', alpha=0.7, density=True)
-plt.title('Normalized Data Distribution (Z-score)')
-plt.xlabel('Value')
+# Histogram: Age (Normalized)
+plt.figure(figsize=(6, 4))
+plt.hist(age_normalized, bins=20, alpha=0.7)
+plt.title('Age Distribution (Normalized)')
+plt.xlabel('Age (Z-score)')
 plt.ylabel('Frequency')
-plt.grid(True, alpha=0.3)
+plt.grid(True, alpha=0.7)
+
+plt.tight_layout()
 plt.show()
 
 ```
@@ -159,7 +149,8 @@ from sklearn.cluster import KMeans
 ## Example Data
 
 ```{python}
-#| echo: true
+#| echo: false
+
 # Generate synthetic data
 np.random.seed(42)
 X = np.vstack([
@@ -185,7 +176,8 @@ plt.show()
 ## Clustering Example
 
 ```{python}
-#| echo: true
+#| echo: false
+
 kmeans = KMeans(n_clusters=2, random_state=42)
 labels = kmeans.fit_predict(X)
 plt.scatter(X[:, 0], X[:, 1], c=labels)
@@ -193,13 +185,145 @@ plt.title("KMeans Clustering")
 plt.show()
 ```
 
-## Conclusion
 
+### Goals of unsupervised learning
+
+* Finding patterns in data
+
+Here is an example from biological data (single-cell sequencing data) (the plot is from [2]).
+
+![Example tSNE ](https://gut.bmj.com/content/gutjnl/70/6/1023/F3.large.jpg)
+
+![Example heatmaps](https://gut.bmj.com/content/gutjnl/70/6/1023/F5.large.jpg)
+
+
+* Finding interesting patterns
+
+You can also use dimensionality reduction techniques (such as PCA) to find interesting patterns in your data.
+
+```{python ch2-outliers-pca}
+#| echo : false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+# Set random seed
+np.random.seed(42)
+
+# 1. Generate data with outliers
+# Main cluster
+main_data = np.random.multivariate_normal(
+    mean=[0, 0, 0],
+    cov=[[1, 0.5, 0.3],
+         [0.5, 1, 0.4],
+         [0.3, 0.4, 1]],
+    size=950
+)
+
+# Outliers
+outliers = np.random.multivariate_normal(
+    mean=[5, 5, 5],
+    cov=[[0.5, 0.1, 0.1],
+         [0.1, 0.5, 0.1],
+         [0.1, 0.1, 0.5]],
+    size=50
+)
+
+# Combine data
+data = np.vstack([main_data, outliers])
+
+# 2. Apply PCA
+scaler = StandardScaler()
+data_scaled = scaler.fit_transform(data)
+pca = PCA(n_components=2)
+data_pca = pca.fit_transform(data_scaled)
+
+# 3. Plot PCA
+plt.figure(figsize=(10, 8))
+plt.scatter(data_pca[:-50, 0], data_pca[:-50, 1], c='blue', alpha=0.6, label='Normal Data')
+plt.scatter(data_pca[-50:, 0], data_pca[-50:, 1], c='red', alpha=0.8, s=100, label='Outliers')
+plt.title('PCA Projection - Outliers Highlighted')
+plt.xlabel('PC1')
+plt.ylabel('PC2')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+
+```
+
+* Finding outliers
+
+You can also use dimensionality reduction techniques (such as PCA) to find outliers in your data.
+
+
+```{python ch2-one_outlier}
+#| echo : false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+# Set random seed
+np.random.seed(42)
+
+# 1. Generate data with one outlier
+# Main cluster
+main_data = np.random.multivariate_normal(
+    mean=[0, 0, 0],
+    cov=[[1, 0.5, 0.3],
+         [0.5, 1, 0.4],
+         [0.3, 0.4, 1]],
+    size=999
+)
+
+# Single outlier point
+outlier = np.array([[10, 10, 10]])  # One extreme outlier point
+
+# Combine data
+data = np.vstack([main_data, outlier])
+
+# 2. Apply PCA
+scaler = StandardScaler()
+data_scaled = scaler.fit_transform(data)
+pca = PCA(n_components=2)
+data_pca = pca.fit_transform(data_scaled)
+
+# 3. Plot PCA
+plt.figure(figsize=(10, 8))
+plt.scatter(data_pca[:-1, 0], data_pca[:-1, 1], c='blue', alpha=0.6, label='Normal Data')
+plt.scatter(data_pca[-1, 0], data_pca[-1, 1], c='red', alpha=0.8, s=200, label='Single Outlier')
+plt.title('PCA Projection - Single Outlier Highlighted')
+plt.xlabel('PC1')
+plt.ylabel('PC2')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+```
+
+
+* Finding hypotheses
+
+All of these can be used to generate hypotheses. These hypotheses can be tested by collecting more data.
+
+
+
+::: {.callout-tip}
+## Summary
+
+- Need to normalize data before doing dimensionality reduction
 - PCA reduces dimensionality for visualization.
 - KMeans finds clusters in unlabeled data.
+:::
+
 
 ## References
 
 [1] [Article on normalization on Wikipedia](https://en.wikipedia.org/wiki/Standard_score)
+[2] Deconvolution of monocyte responses in inflammatory bowel disease reveals an IL-1 cytokine network that regulates IL-23 in genetic and acquired IL-10 resistance Gut, 2020 https://gut.bmj.com/content/70/6/1023
 
 ---
