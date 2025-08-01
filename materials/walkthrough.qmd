@@ -108,7 +108,7 @@ Given the data below, how should we reduce the number of features and/or visuali
 | Pennsylvania| 4.8               | 22.9               | 12,801,989     |
 
 
-Importantly, we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This is a **supervised** machine learning problem.
+Importantly, we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This is a **supervised** machine learning problem [@Gareth2017].
 
 | State        | Murder (per 100k) | Robbery (per 100k) | Population   | People Who Moved (per 100k) |
 |--------------|-------------------|--------------------|--------------|-----------------------------|
