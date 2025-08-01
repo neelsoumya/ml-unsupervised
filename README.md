@@ -30,9 +30,23 @@ source .venv/bin/activate
 
 <!--* Preview Quarto markdown-->
 
+* Change the `.qmd` files
+
 * Render using quarto
 
-```python
+```bash
 quarto render
 ```
 
+* Commit files in `_freeze` folder and any other `.qmd` files changed
+
+```bash
+chmod 755 gitshell.sh
+./gitshell.sh
+```
+
+## Contact
+
+Soumya Banerjee
+
+sb2333@cam.ac.uk
