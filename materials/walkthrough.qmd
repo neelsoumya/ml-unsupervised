@@ -251,7 +251,6 @@ Dimensionality reduction techniques (such as PCA) always lose some information. 
 
 #| echo: false
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -432,9 +431,13 @@ plt.show()
 
 ### 1. **Scores and Loadings**
 
+What is being plotted on the axes (PC1 and PC2) are the `scores`.
+
 The `scores` for each principal component are calculated as follows:
 
-$PC_{1} = \alpha X + \beta Y + \gamma Z + .... $
+$$
+PC_{1} = \alpha X + \beta Y + \gamma Z + .... 
+$$
 
 where $X$, $Y$ and $Z$ are the normalized *features*.
 

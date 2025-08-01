@@ -135,7 +135,7 @@ age_normalized = normalized_data[:, 0]
 weight_normalized = normalized_data[:, 1]
 
 # Histogram: Age (Original)
-plt.figure(figsize=(6, 4))
+plt.figure()
 plt.hist(age, bins=20, alpha=0.7)
 plt.title('Age Distribution (Original)')
 plt.xlabel('Age')
@@ -144,7 +144,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 
 # Histogram: Age (Normalized)
-plt.figure(figsize=(6, 4))
+plt.figure()
 plt.hist(age_normalized, bins=20, alpha=0.7)
 plt.title('Age Distribution (Normalized)')
 plt.xlabel('Age (Z-score)')
