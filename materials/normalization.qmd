@@ -254,7 +254,7 @@ plt.show()
 
 * Finding patterns in data
 
-Here is an example from biological data (single-cell sequencing data) (the plot is from [2]).
+Here is an example from biological data (single-cell sequencing data) (the plot is from [2])[@Aschenbrenner2020].
 
 ![Example tSNE ](https://gut.bmj.com/content/gutjnl/70/6/1023/F3.large.jpg)
 
@@ -305,7 +305,7 @@ pca = PCA(n_components=2)
 data_pca = pca.fit_transform(data_scaled)
 
 # 3. Plot PCA
-plt.figure(figsize=(10, 8))
+plt.figure()
 plt.scatter(data_pca[:-50, 0], data_pca[:-50, 1], c='blue', alpha=0.6, label='Normal Data')
 plt.scatter(data_pca[-50:, 0], data_pca[-50:, 1], c='red', alpha=0.8, s=100, label='Outliers')
 plt.title('PCA Projection - Outliers Highlighted')
@@ -356,7 +356,7 @@ pca = PCA(n_components=2)
 data_pca = pca.fit_transform(data_scaled)
 
 # 3. Plot PCA
-plt.figure(figsize=(10, 8))
+plt.figure()
 plt.scatter(data_pca[:-1, 0], data_pca[:-1, 1], c='blue', alpha=0.6, label='Normal Data')
 plt.scatter(data_pca[-1, 0], data_pca[-1, 1], c='red', alpha=0.8, s=200, label='Single Outlier')
 plt.title('PCA Projection - Single Outlier Highlighted')

@@ -43,7 +43,7 @@ Download and unzip the folder to your Desktop to follow along with the materials
 
 
 ```python
-!pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib
+!pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib scanpy
 ```
 
 or
@@ -169,7 +169,24 @@ rm singularity.deb
 -->
 
 
-<!-- 
+### 2. Run locally
+
+* Install VSCode (see below).
+
+* Install required Python packages
+
+```python
+pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib scanpy
+```
+
+or
+
+```python
+pip install -r requirements.txt
+```
+
+
+
 ### Visual Studio Code
 
 ::: {.panel-tabset group="os"}
@@ -192,7 +209,7 @@ rm singularity.deb
 - Go to the [Visual Studio Code download page](https://code.visualstudio.com/Download) and download the installer for your Linux distribution. Install the package using your system's installer.
 
 :::
- -->
+
 
 <!-- 
 ## WSL2
