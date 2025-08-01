@@ -87,6 +87,27 @@ Where:
 - $\mu$ is the mean of the data.
 - $\sigma$ is the standard deviation of the data.
 
+For example, say you have two variables or *features* on very different scales. 
+
+
+| Age | Weight (g) |
+|-----|------------|
+| 25  | 65000      |
+| 30  | 70000      |
+| 35  | 75000      |
+| 40  | 80000      |
+| 45  | 85000      |
+| 50  | 90000      |
+| 55  | 95000      |
+| 60  | 100000     |
+| 65  | 105000     |
+| 70  | 110000     |
+| 75  | 115000     |
+| 80  | 120000     |
+
+If these are not brought on similar scales, weight will have a dispproportionate influence on whatever machine learning model we build.
+
+Hence we normalize each of the features *separately*, i.e. age is normalized relative to age and weight is normalized relative to weight.
 
 ```{python ch2-gen_data}
 import numpy as np
@@ -324,6 +345,7 @@ All of these can be used to generate hypotheses. These hypotheses can be tested 
 ## References
 
 [1] [Article on normalization on Wikipedia](https://en.wikipedia.org/wiki/Standard_score)
-[2] Deconvolution of monocyte responses in inflammatory bowel disease reveals an IL-1 cytokine network that regulates IL-23 in genetic and acquired IL-10 resistance Gut, 2020 https://gut.bmj.com/content/70/6/1023
+
+[2] Deconvolution of monocyte responses in inflammatory bowel disease reveals an IL-1 cytokine network that regulates IL-23 in genetic and acquired IL-10 resistance Gut, 2020 [link](https://gut.bmj.com/content/70/6/1023)
 
 ---

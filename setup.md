@@ -77,7 +77,7 @@ or
 
 
 **Repository link:**  
-[https://github.com/neelsoumya/python_machine_learning](https://github.com/neelsoumya/python_machine_learning)
+[https://cambiotraining.github.io/ml-unsupervised/](https://cambiotraining.github.io/ml-unsupervised/)
 
 <!--
 ### Quarto
