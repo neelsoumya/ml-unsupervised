@@ -3,16 +3,7 @@ title: "Introduction to Unsupervised Learning"
 format: html
 ---
 
-<!--
-## Markdown
-
-Markdown is an easy to read and write text format:
-
-- It's _plain text_ so works well with version control
-- It can be **rendered** into HTML, PDF, and more
-- Learn more at: <https://quarto.org/docs/authoring/>
--->
-
+::: {.callout-tip}
 ## Learning Objectives
 
 By the end of this module, learners will be able to:
@@ -23,15 +14,17 @@ By the end of this module, learners will be able to:
 
 * Discuss real‑world applications of unsupervised learning, such as customer segmentation, anomaly detection, and image compression.
 
-* Explain the role of unsupervised learning in exploratory data analysis and as a preprocessing step for downstream tasks.
+* Explain the role of unsupervised learning in exploratory data analysis.
 
-* Interpret principal component analysis (PCA) intuitively, including the meaning of eigenvectors and eigenvalues, to understand how PCA finds the directions of greatest variance in data.
+* Interpret principal component analysis (PCA) intuitively to understand how PCA finds the directions of greatest variance in data.
 
 * Apply dimensionality reduction to a simple multivariate dataset (e.g., crime rates and population by state) to visualize high‑dimensional data in two or three dimensions.
 
 * Differentiate unsupervised from supervised problems by examining datasets and deciding whether the task is to uncover patterns versus predict a known target variable.
 
-* Articulate the value of unsupervised learning in uncovering hidden structure in unlabelled data and its importance as data complexity and volume grow.
+* Articulate the value of unsupervised learning in uncovering hidden structure in unlabelled data and its importance as data complexity grow.
+:::
+
 
 
 ## Introduction
@@ -81,6 +74,7 @@ This is why, for instance, visual analytics tools will show outliers as distant 
 [PCA intuition](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues)
 
 
+::: {.callout-tip}
 ### Key Concept 
 
 ![Information bottleneck](images/information_bottleneck.png)
@@ -92,12 +86,17 @@ The bottleneck acts as an inductive bias that promotes dimensionality reduction,
 magine you have a huge library of biological images—say, pictures of different cell types under a microscope—and you want to teach a computer to recognize patterns in those images without telling it what any of the cells are. A “bottleneck” in this context is like asking the computer to summarize each image using only a few key words instead of the entire picture. By forcing it to compress all the rich detail down to a small summary, the computer has to figure out which features—like cell shape, size, or texture—are truly important. This is similar to how a biologist might sketch a simplified diagram of a cell, highlighting its nucleus and membrane but leaving out every ribosome and microtubule.
 
 Because the computer must recreate the original image from that stripped‑down summary, it learns to ignore random noise or unimportant quirks (like slight variations in lighting) and focus on the core characteristics shared by similar cell types. In other words, the bottleneck helps the machine discover the hidden “essence” of the data. Once you have those concise summaries, you can use them to cluster cells into groups, visualize how different cell types relate, or even feed them into a second analysis—just as you might reduce a complex DNA dataset to a handful of genetic markers before drawing a phylogenetic tree. This approach lets you explore and interpret large biological datasets more effectively, all without ever providing explicit labels.
+:::
+
 
 ### Example
 
 Given the data below, how should we reduce the number of features and/or visualize it? This is an **unsupervised** machine learning problem.
 
+::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: The columns of this data are the *features*.
+:::
+
 
 | State       | Murder (per 100k) | Robbery (per 100k) | Population     |
 |-------------|-------------------|--------------------|----------------|
@@ -219,15 +218,13 @@ plt.show()
 
 PCA does lose some information. But it can capture some/most of the salient aspects of your data. 
 
-<!--
-This is shown using the notebook below:
 
-[PCA lossy notebook](https://github.com/neelsoumya/python_machine_learning/blob/main/PCA_image_lossy_concept.ipynb)
--->
-
+::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)** 
 
 Dimensionality reduction techniques (such as PCA) always lose some information. In other words, it is *lossy*.
+:::
+
 
 ### Lesson on lossy compression (PCA applied to image)
 
@@ -318,10 +315,11 @@ plt.show()
 PCA can significantly reduce image data dimensionality while preserving salient features, making it a powerful tool for image compression and understanding. However, perfect reconstruction is only possible with all components, revealing the balance between efficiency and fidelity.
 
 
-
+::: {.callout-tip}
 ## Activity: Playable version of PCA in browser
 
 [PCA in your browser](https://projector.tensorflow.org/)
+:::
 
 
 ## Lesson Summary: Introduction to Unsupervised Learning

@@ -7,12 +7,15 @@ format: html
 
 This Quarto notebook demonstrates basic unsupervised machine learning concepts using Python.
 
+::: {.callout-tip}
 ## Learning Objectives
 
 - Refresher on Python
 - Understand the difference between supervised and unsupervised learning.
 - Apply PCA and clustering to example data.
-- Visualize results with matplotlib.
+- Visualize results.
+:::
+
 
 ## Refresher on Python
 
@@ -114,6 +117,11 @@ normalized_data_sklearn = scaler.fit_transform(data.reshape(-1, 1))
 ```
 
 ```{python ch2-normalization-plot}
+
+# TODO:
+#. 1. generate age and weight data
+#. 2. normalize those
+#  3. visualize those
 
 import matplotlib.pyplot as plt
 
