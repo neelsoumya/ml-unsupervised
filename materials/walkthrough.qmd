@@ -427,6 +427,9 @@ plt.show()
 
 ![Animation](images/pca_rotating_clean.gif)
 
+![Animation](images/pca_pendulum_animation.gif)
+
+
 ```{python ch1-intuition-app}
 #| eval: false
 #| echo: false
