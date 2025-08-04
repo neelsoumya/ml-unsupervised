@@ -10,3 +10,4 @@ nbformat
 scipy
 scanpy
 PyYAML
+pca
