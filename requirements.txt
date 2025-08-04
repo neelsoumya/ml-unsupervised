@@ -11,3 +11,4 @@ scipy
 scanpy
 PyYAML
 pca
+pillow

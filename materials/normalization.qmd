@@ -1,5 +1,5 @@
 ---
-title: "Normalizing your data"
+title: "Normalizing your data and PCA"
 format: html
 ---
 
@@ -208,9 +208,89 @@ plt.show()
 :::
 <!--close tab-->
 
+## Scree plot
 
+A scree plot is a simple graph that shows how much variance (information) each principal component explains in your data after running PCA. The x-axis shows the principal components (PC1, PC2, etc.), and the y-axis shows the proportion of variance explained by each one.
+
+You can use a scree plot to decide how many principal components to keep: look for the point where the plot levels off (the *elbow*): this tells you that adding more components doesn’t explain much more variance.
+
+
+```{python ch2-screeplot}
+
+# Scree plot: variance explained by each component
+plt.plot(range(1, len(pca.explained_variance_ratio_) + 1), pca.explained_variance_ratio_, marker='o')
+plt.title("Scree Plot")
+plt.xlabel("Principal Component")
+plt.ylabel("Variance Explained Ratio")
+plt.show()
+
+```
+
+A scree plot may have an *elbow* like the plot below.
+
+```{python ch2-screeplot-ideal}
+#| echo: false
+#| fig.cap: "An idealized scree plot"
+
+from sklearn.datasets import make_blobs
+
+# Generate synthetic data
+X, y = make_blobs(n_samples=100, n_features=5, centers=3, random_state=42)
+
+# Print the shape of the generated data
+# print(X.shape)
+
+from sklearn.preprocessing import StandardScaler
+
+# Standardize the data X
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Initialize PCA with all components
+pca = PCA(n_components=X_scaled.shape[1])
+
+# Fit PCA to the standardized data
+pca.fit(X_scaled)
+
+# Transform the standardized data
+X_pca = pca.transform(X_scaled)
+
+# Create a figure and axes for the plot
+plt.figure(figsize=(8, 5))
+
+# Plot the explained variance ratio
+plt.plot(range(1, pca.n_components_ + 1), pca.explained_variance_ratio_, marker='o', linestyle='--')
+
+# Add title and labels
+plt.title('Scree Plot')
+plt.xlabel('Principal Component')
+plt.ylabel('Explained Variance Ratio')
+
+# Add grid
+plt.grid(True)
+
+# Display the plot
+plt.show()
+
+```
+
+<!--
+## Loadings
+
+```{python ch2-loadings}
+
+# pca.components_.T
+#feature_names = ["Feature 1", "Feature 2"]  # Replace with your actual feature names if available
+#loadings = pd.DataFrame(pca.components_.T, columns=["PC1", "PC2"], index=feature_names)
+#print("PCA Loadings:")
+#print(loadings)
+
+```
+-->
 
 ## Clustering Example
+
+PCA is different to clustering where you are trying to find patterns in your data. We will encounter clustering later in the course.
 
 ```{python}
 #| echo: false
@@ -371,10 +451,19 @@ All of these can be used to generate hypotheses. These hypotheses can be tested 
 
 Load data
 
-```{python ch2-exercise-pca}}
-#| echo: true
+```python
+!pip install pca
+```
+
+```{python ch2-exercise-pca}
+#| echo: false
+#| output: false
+#| warning: false
 
 !pip install pca
+```
+
+```{python ch2-exercise-pca-loaddata}
 
 from pca import pca
 import pandas as pd
@@ -415,6 +504,26 @@ model.biplot3d()
 
 ```
 
+* Loadings
+
+*Recall*
+
+What is being plotted on the axes (PC1 and PC2) are the `scores`.
+
+The `scores` for each principal component are calculated as follows:
+
+$$
+PC_{1} = \alpha X + \beta Y + \gamma Z + .... 
+$$
+
+where $X$, $Y$ and $Z$ are the normalized *features*.
+
+The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. They are called the `loadings`.
+
+
+```{python ch2-loadings-package}
+print(model.results)
+```
 
 ## Exercise (advanced)
 
