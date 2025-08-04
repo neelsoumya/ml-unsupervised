@@ -7,3 +7,5 @@ Scripts for generating data
 3. `python_basics.py` is a Python script that contains basic Python commands and functions for data analysis, including importing packages, reading data, and plotting.
 
 4. `install_packages.R` is an R script that installs necessary packages for data analysis, including `ggplot2`, `dplyr`, and `tidyr`.
+
+5. `generate_USArrestsdata.py` creates a pandas DataFrame containing the USArrests dataset, which includes statistics on violent crime rates
