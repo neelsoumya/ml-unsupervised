@@ -1,0 +1,45 @@
+---
+title: Hands-on exercises
+---
+
+::: {.callout-tip}
+#### Learning Objectives
+
+- Bulleted list of learning objectives
+:::
+
+
+## When PCA does *not* work
+
+
+
+## Hands-on exercises
+
+
+Applications and practical exercises (hands-on exercises).
+
+<!--More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html-->
+
+
+
+
+## Summary
+
+::: {.callout-tip}
+#### Key Points
+
+- Last section of the page is a bulleted summary of the key points
+:::
+
+
+## Resources
+
+- [ISLP book](https://www.statlearning.com/)
+
+- https://www.statlearning.com/
+
+- [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
+
+- https://github.com/neelsoumya/public_teaching_unsupervised_learning
+
+- https://mlu-explain.github.io

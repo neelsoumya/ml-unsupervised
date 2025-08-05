@@ -7,3 +7,4 @@ book:
         - materials/normalization.qmd
         - materials/tsne.qmd
         - materials/clustering.qmd
+        - materials/applications.qmd

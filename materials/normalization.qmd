@@ -655,10 +655,18 @@ print(df.to_string(float_format="{:.6f}".format))
 :::
 
 
-## References
+## Resources
 
 [1] [Article on normalization on Wikipedia](https://en.wikipedia.org/wiki/Standard_score)
 
 [2] Deconvolution of monocyte responses in inflammatory bowel disease reveals an IL-1 cytokine network that regulates IL-23 in genetic and acquired IL-10 resistance Gut, 2020 [link](https://gut.bmj.com/content/70/6/1023)
+
+[3] [ISLP book](https://www.statlearning.com/)
+
+[4] https://www.statlearning.com/
+
+[5] [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
+
+[6] https://mlu-explain.github.io
 
 ---
