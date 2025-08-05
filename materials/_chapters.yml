@@ -6,3 +6,4 @@ book:
         - materials/walkthrough.qmd
         - materials/normalization.qmd
         - materials/tsne.qmd
+        - materials/clustering.qmd
