@@ -32,16 +32,16 @@ k-Means tries to draw boundaries around groups by asking “Which centroid (grou
 **Why t-SNE helps:**  
 t-SNE ignores the idea of absolute distance and instead asks, “Which cells are each cell’s few nearest neighbors?” It builds a map that keeps those local neighborhoods intact. In the final 2D picture, cells that were neighbors in the huge gene space stay neighbors on the screen, while cells that weren’t neighbors get pushed apart. This way, you still see meaningful clusters (e.g., cell types) even when dealing with hundreds or thousands of genes.
 
+```{python mnist}
+```
 
-## Hands-on Lab
 
+## Simple code to perform tSNE
 
+```{python ch3-tsne-prac}
+```
 
-<!--
-More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html
--->
-
-## Exercise
+## Exercise: Building intuition on how to use tSNE
 
 * https://distill.pub/2016/misread-tsne/
 
