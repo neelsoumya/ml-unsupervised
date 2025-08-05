@@ -1,0 +1,37 @@
+---
+title: tSNE
+---
+
+::: {.callout-tip}
+#### Learning Objectives
+
+- Bulleted list of learning objectives
+:::
+
+
+## Section
+
+Headings for material sections start at level 2. 
+
+More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html
+
+
+## Exercise
+
+* https://distill.pub/2016/misread-tsne/
+
+* How to use t-SNE effectively [@Wattenberg2016].
+
+
+## Summary
+
+::: {.callout-tip}
+#### Key Points
+
+- Last section of the page is a bulleted summary of the key points
+:::
+
+
+## References
+
+[1] [How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)

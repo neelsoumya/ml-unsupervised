@@ -5,3 +5,4 @@ book:
         - materials/00-template.md
         - materials/walkthrough.qmd
         - materials/normalization.qmd
+        - materials/tsne.qmd

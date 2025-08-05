@@ -173,10 +173,16 @@ rm singularity.deb
 
 * Install VSCode (see below).
 
+* Clone the repository (optional, for full access)
+
+```bash
+git clone https://github.com/cambiotraining/ml-unsupervised
+```
+
 * Install required Python packages
 
 ```python
-pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib scanpy
+pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib scanpy pca
 ```
 
 or
