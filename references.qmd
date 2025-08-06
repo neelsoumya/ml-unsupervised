@@ -6,8 +6,9 @@ title: "References and Resources"
 :::
 
 
-## Resources
 
+
+## Resources
 
 [1] [ISLP book](https://www.statlearning.com/)
 

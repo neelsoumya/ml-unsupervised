@@ -528,7 +528,7 @@ print(model.results)
 ## Exercise (advanced)
 
 ::: {.callout-tip}
-Look into the documentation available here for the [PCA package](::: {.callout-tip}) and plot prettier *publication ready* plots.
+Look into the documentation available here for the [PCA package](https://erdogant.github.io/pca/pages/html/Examples.html) and plot prettier *publication ready* plots.
 :::
 
 
