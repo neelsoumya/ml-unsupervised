@@ -1,5 +1,5 @@
 ---
-title: Hands-on exercises
+title: Hands-on exercises (Applications of unsupervised learning)
 ---
 
 ::: {.callout-tip}

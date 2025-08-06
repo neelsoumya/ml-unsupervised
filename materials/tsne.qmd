@@ -218,6 +218,8 @@ plt.show()
 
 * XX TODO: FILL IN THE BLANKS EXERCISE
 
+* XX TODO: Load real data from pandas
+
 
 ## Summary
 
