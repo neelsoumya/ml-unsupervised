@@ -200,25 +200,35 @@ plt.show()
 ```
 
 
+## Exercise: tSNE is stochastic
+
+* Stochasticity: play around with the `random_state` parameter. Does your tSNE plot look different to the person you are seated next to?
+
+* Play around with the `perplexity` parameter (pair up with someone)
+
+* Which value of `perplexity` should you use?
+
+
 
 ## Exercise: Building intuition on how to use tSNE
 
 
-* https://distill.pub/2016/misread-tsne/
+* [Pitfalls in using tSNE](https://distill.pub/2016/misread-tsne/)
 
-* How to use t-SNE effectively [@Wattenberg2016].
+* Let us read the paper *How to use t-SNE effectively* [@Wattenberg2016].
 
 * Distances are not preserved
 
-* Stochastic play around with `random_state`
-
-* Play around with the `perplexity` parameter (pair up with someone)
-
 * Normal does not always look normal
+
+
+## Exercise: hands-on practical applying tSNE to another dataset
 
 * XX TODO: FILL IN THE BLANKS EXERCISE
 
 * XX TODO: Load real data from pandas
+
+* How would you evaluate this?
 
 
 ## Summary
