@@ -1,9 +1,18 @@
 book:
   chapters:
-    - part: "Section title"
+    - part: "Session 1: Introduction to Unsupervised Learning"
       chapters:
         - materials/walkthrough.qmd
         - materials/normalization.qmd
+    - part: "Session 2: Dimensionality Reduction"
+      chapters:
         - materials/tsne.qmd
+    - part: "Session 3: Clustering" 
+      chapters:
         - materials/clustering.qmd
+    - part: "Session 4: Applications of Unsupervised Learning"
+      chapters:
         - materials/applications.qmd
+    - part: "Bonus Material"
+      chapters:
+        - materials/bonus_material.qmd

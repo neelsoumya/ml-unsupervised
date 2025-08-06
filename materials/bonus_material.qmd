@@ -1,0 +1,27 @@
+---
+title: Bonus Material
+---
+
+::: {.callout-tip}
+#### Learning Objectives
+
+- Bulleted list of learning objectives
+:::
+
+
+## Section
+
+* Link to 3blue1brown videos
+
+* Derivations and equations for eigenvectors
+
+* All the math you wanted to know about PCA but were afraid to ask PDF
+
+
+## Summary
+
+::: {.callout-tip}
+#### Key Points
+
+- Last section of the page is a bulleted summary of the key points
+:::
