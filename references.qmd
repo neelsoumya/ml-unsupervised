@@ -4,3 +4,13 @@ title: "References"
 
 ::: {#refs}
 :::
+
+
+## Resources
+
+
+[1] [ISLP book](https://www.statlearning.com/)
+
+[2] [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
+
+[3] [Visual explanations of machine learning algorithms](https://mlu-explain.github.io)
