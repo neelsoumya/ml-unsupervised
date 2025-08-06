@@ -15,11 +15,7 @@ title: tSNE
 
 ## The curse of dimensionality
 
-In very high-dimensional spaces, almost all the “volume” of a dataset lives near its corners, and pairwise Euclidean distances between points tend to concentrate around a single value. As dimension \(n\) grows, the volume of an inscribed ball in the hypercube \([-1,1]^n\) shrinks toward zero, and the ratio \((\max d - \min d)/\min d\) for distances \(d\) between random points rapidly approaches zero. Intuitively, “nearest” and “farthest” neighbors become indistinguishable, so any method that relies on global distances (like **k-Means**) loses its ability to meaningfully separate points into clusters.
-
-**k-Means clustering** exemplifies this breakdown: it repeatedly assigns each point to its nearest centroid based on squared-distance comparisons. When all inter-point distances look almost the same, tiny shifts in centroid positions barely affect those assignments, leading to noisy labels and flat optimization landscapes with no clear gradients. In practice, k-Means can “get stuck” or fail to discover any meaningful grouping once dimensions rise into the dozens or hundreds.
-
-**t-SNE** sidesteps these problems by focusing only on **local** similarities rather than global distances. It first converts pairwise distances in the high-dimensional space into a distribution of affinities \(p_{ij}\) using Gaussian kernels centered on each point. Then it searches for a low-dimensional embedding whose Student-t affinity distribution \(q_{ij}\) best matches \(p_{ij}\). By emphasizing the preservation of each point’s nearest neighbors and using a heavy-tailed low-dimensional kernel to push dissimilar points apart, t-SNE highlights local clusters even when global geometry has become uninformative—making it a far more effective visualization and exploratory tool in very high dimensions.
+In very high-dimensional spaces, almost all the “volume” of a dataset lives near its corners, and pairwise Euclidean distances between points tend to concentrate around a single value. 
 
 
 ## Simplified explanations
@@ -32,20 +28,195 @@ k-Means tries to draw boundaries around groups by asking “Which centroid (grou
 **Why t-SNE helps:**  
 t-SNE ignores the idea of absolute distance and instead asks, “Which cells are each cell’s few nearest neighbors?” It builds a map that keeps those local neighborhoods intact. In the final 2D picture, cells that were neighbors in the huge gene space stay neighbors on the screen, while cells that weren’t neighbors get pushed apart. This way, you still see meaningful clusters (e.g., cell types) even when dealing with hundreds or thousands of genes.
 
+## TLDR (Simple explanation)
+
+t-SNE (pronounced "tee-snee") is a tool that helps us look at complex data by making it easier to see patterns.
+
+### Imagine this:
+- You have a big box of mixed beads. Each bead has many features: color, size, shape, weight, etc.
+- It is hard to see how the beads are similar or different just by looking at all these features at once.
+
+### What t-SNE does:
+- t-SNE takes all those features and creates a simple map (like a 2D picture).
+- In this map, beads that are similar to each other are placed close together.
+- Beads that are very different are placed far apart.
+
+
+## Pictorial explanation of tSNE
+
+High-dimensional beads (hard to see groups):
+
+[🔴] [🔵] [🟢] [🟡] [🔴] [🟢] [🔵] [🟡] [🔴] [🟢] [🔵] [🟡]
+
+Each bead has many features (color, size, shape, etc.)
+
+        |
+        v
+
+t-SNE makes a simple 2D map:
+
+[🔴]   [🔴]   [🔴]
+         |      |
+[🔵]   [🔵]   [🔵]
+
+[🟢]   [🟢]   [🟢]
+
+[🟡]   [🟡]   [🟡]
+
+Now, similar beads are grouped together.
+
+
+**In summary:**  
+t-SNE is like a magic tool that turns complicated data into a simple picture, so we can easily see groups and patterns—even if we do not understand the math behind it!
+
+### Why is this useful?
+- It helps us see groups or clusters in our data.
+- We can spot patterns, like which beads are most alike, or if there are outliers.
+- Emphasis on preserving local structure.
+
+## Why t‑SNE Works in High Dimensions
+ - Bypasses global distance concentration by focusing on nearest neighbors.
+
+
+---
+
+## What does tSNE look like compared to PCA?
+
 ```{python mnist}
+#| echo: false
+#| warning: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import fetch_openml
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+
+# 1. Load MNIST data
+mnist = fetch_openml('mnist_784', version=1, as_frame=False)
+X, y = mnist['data'], mnist['target'].astype(int)
+
+# Run k-Means with k=10
+k = 10
+km = KMeans(n_clusters=k, random_state=42)
+clusters = km.fit_predict(X)
+inertia = km.inertia_
+
+# 2-D PCA projection of the original MNIST data
+pca = PCA(n_components=2, random_state=42)
+X_pca = pca.fit_transform(X)
+
+plt.figure(figsize=(8,6))
+scatter = plt.scatter(
+    X_pca[:,0], X_pca[:,1],
+    c=y, cmap='tab10', s=5, alpha=0.6
+)
+plt.title('MNIST 2-D PCA, colored by actual digits')
+plt.xlabel('PC 1')
+plt.ylabel('PC 2')
+plt.legend(*scatter.legend_elements(), title='Digit', loc='best')
+plt.tight_layout()
+plt.show()
+
+# Use a smaller subset of the data for t-SNE to speed up computation
+n_samples = 5000  # You can adjust this number
+X_subset = X[:n_samples]
+clusters_subset = clusters[:n_samples]
+
+tsne = TSNE(n_components=2, perplexity=30, early_exaggeration=12,
+            learning_rate=200, max_iter=1000, random_state=42)
+X_tsne = tsne.fit_transform(X_subset)
+
+plt.figure(figsize=(8,6))
+scatter = plt.scatter(
+    X_tsne[:,0], X_tsne[:,1],
+    c=clusters_subset, cmap='tab10', s=5, alpha=0.6
+)
+plt.title(f'MNIST 2-D t-SNE (subset of {n_samples} samples), colored by k-Means cluster')
+plt.xlabel('t-SNE dim 1')
+plt.ylabel('t-SNE dim 2')
+plt.legend(*scatter.legend_elements(), title='Cluster', loc='best')
+plt.tight_layout()
+plt.show()
+
 ```
 
 
-## Simple code to perform tSNE
+::: {.callout-tip collapse="true"}
+
+### The complex explanation
+
+In very high-dimensional spaces, almost all the “volume” of a dataset lives near its corners, and pairwise Euclidean distances between points tend to concentrate around a single value. As dimension $n$ grows, the volume of an inscribed ball in the hypercube $[-1,1]^n$ shrinks toward zero, and the ratio
+
+$$
+\frac{\max d - \min d}{\min d}
+$$
+
+for distances $d$ between random points rapidly approaches zero. Intuitively, “nearest” and “farthest” neighbors become indistinguishable, so any method that relies on global distances (like **k-Means**) loses its ability to meaningfully separate points into clusters.
+
+**k-Means clustering** exemplifies this breakdown: it repeatedly assigns each point to its nearest centroid based on squared-distance comparisons. When all inter-point distances look almost the same, tiny shifts in centroid positions barely affect those assignments, leading to noisy labels and flat optimization landscapes with no clear gradients. In practice, k-Means can “get stuck” or fail to discover any meaningful grouping once dimensions rise into the dozens or hundreds.
+
+**t-SNE** sidesteps these problems by focusing only on **local** similarities rather than global distances. It first converts pairwise distances in the high-dimensional space into a distribution of affinities $p_{ij}$ using Gaussian kernels centered on each point. Then it searches for a low-dimensional embedding whose Student-t affinity distribution $q_{ij}$ best matches $p_{ij}$. By emphasizing the preservation of each point’s nearest neighbors and using a heavy-tailed low-dimensional kernel to push dissimilar points apart, t-SNE highlights local clusters even when global geometry has become uninformative—making it a far more effective visualization and exploratory tool in very high dimensions.
+:::
+<!-- end callout -->
+
+
+
+## Simple code to perform tSNE (hands-on exercise)
 
 ```{python ch3-tsne-prac}
+
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.manifold import TSNE
+
+# Load the Iris dataset
+iris = datasets.load_iris()
+X = iris.data            # The features (measurements)
+y = iris.target          # The species labels (0, 1, 2)
+
+# Run t-SNE to reduce the data to 2 dimensions
+tsne = TSNE(n_components=2, random_state=0, perplexity=30)
+X_2d = tsne.fit_transform(X)
+
+# Plot the results, one species at a time
+plt.figure(figsize=(8, 6))
+
+# Setosa (label 0)
+plt.scatter(X_2d[y == 0, 0], X_2d[y == 0, 1], color='red', label='setosa')
+
+# Versicolor (label 1)
+plt.scatter(X_2d[y == 1, 0], X_2d[y == 1, 1], color='green', label='versicolor')
+
+# Virginica (label 2)
+plt.scatter(X_2d[y == 2, 0], X_2d[y == 2, 1], color='blue', label='virginica')
+
+plt.xlabel("t-SNE feature 1")
+plt.ylabel("t-SNE feature 2")
+plt.title("t-SNE visualization of the Iris dataset")
+plt.legend()
+plt.show()
 ```
 
+
+
 ## Exercise: Building intuition on how to use tSNE
+
 
 * https://distill.pub/2016/misread-tsne/
 
 * How to use t-SNE effectively [@Wattenberg2016].
+
+* Distances are not preserved
+
+* Stochastic play around with `random_state`
+
+* Play around with the `perplexity` parameter (pair up with someone)
+
+* Normal does not always look normal
+
+* XX TODO: FILL IN THE BLANKS EXERCISE
 
 
 ## Summary
@@ -53,8 +224,13 @@ t-SNE ignores the idea of absolute distance and instead asks, “Which cells are
 ::: {.callout-tip}
 #### Key Points
 
-- Last section of the page is a bulleted summary of the key points
+- High dimensions make global distances meaningless.
+- Methods that leverage local structure (t‑SNE) can still find patterns.
+- tSNE is stochastic and can be hard to interpret
+- Vary the perplexity parameter (ideally your patterns or hypotheses should be true even if you change perplexity)
+
 :::
+<!--end callout -->
 
 
 ## References
