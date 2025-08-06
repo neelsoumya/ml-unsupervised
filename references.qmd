@@ -15,3 +15,6 @@ title: "References and Resources"
 [2] [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
 
 [3] [Visual explanations of machine learning algorithms](https://mlu-explain.github.io)
+
+[4] [How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/)
+
