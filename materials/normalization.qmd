@@ -663,10 +663,8 @@ print(df.to_string(float_format="{:.6f}".format))
 
 [3] [ISLP book](https://www.statlearning.com/)
 
-[4] https://www.statlearning.com/
+[4] [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
 
-[5] [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
-
-[6] https://mlu-explain.github.io
+[6] [Visual explanations of machine learning algorithms](https://mlu-explain.github.io)
 
 ---
