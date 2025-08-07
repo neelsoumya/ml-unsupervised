@@ -5,12 +5,18 @@ title: Hands-on exercises (Applications of unsupervised learning)
 ::: {.callout-tip}
 #### Learning Objectives
 
-- Bulleted list of learning objectives
+- Understand real-world scenarios where unsupervised learning is applied
+- Identify situations where PCA and other dimensionality reduction techniques may not be effective
+- Learn how to evaluate the performance of unsupervised learning methods
+- Interpret and communicate the results of these models to each other
 :::
+<!-- end callout -->
 
 
 ## When PCA does *not* work
 
+
+## How to evaluate unsupervised learning methods
 
 
 ## Hands-on exercises
