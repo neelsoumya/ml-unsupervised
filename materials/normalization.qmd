@@ -207,7 +207,7 @@ plt.show()
 
 * Try the same code above but now *without* normalisation.
 
-* What difference do you observe?
+* What differences do you observe in PCA *with* and *without* normalization?
 
 
 ## Scree plot

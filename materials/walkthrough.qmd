@@ -214,6 +214,25 @@ plt.show()
 ```
 
 
+## Another intuition behind PCA
+
+Principal Component Analysis (PCA) reduces the number of dimensions in your data by finding the directions where the data varies the most and keeping only those directions.
+
+Imagine you have a book: it has length, width, and height. But if the book is very thin, almost all of its *size* or *volume* is in the length and width—the height is so small that you can almost ignore it. If you wanted to describe where the book is on a table, you could just use two numbers (length and width), and you wouldn’t lose much information by ignoring the height.
+
+PCA works the same way: it finds the *thin* directions in your data that do not add much information, and lets you focus on the most important dimensions. This makes it easier to visualize and analyze your data without losing the main patterns.
+
+![A thin book on the floor. Image created using the DALL-E AI tool.](images/book_pca.png)
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)** 
+
+Say your data has too many *columns/dimensions/features*. Dimensionality reduction techniques (such as PCA) reduce the number of dimensions or the number of columns in your data.
+:::
+<!-- end callout -->
+
+
+
 ## PCA is lossy 
 
 PCA does lose some information. But it can capture some/most of the salient aspects of your data. 
@@ -224,6 +243,7 @@ PCA does lose some information. But it can capture some/most of the salient aspe
 
 Dimensionality reduction techniques (such as PCA) always lose some information. In other words, it is *lossy*.
 :::
+<!-- end callout -->
 
 
 ### Lesson on lossy compression (PCA applied to image)
@@ -319,6 +339,7 @@ PCA can significantly reduce image data dimensionality while preserving salient 
 
 [PCA in your browser](https://projector.tensorflow.org/)
 :::
+<!-- end callout -->
 
 
 ## Visual explanations of PCA
@@ -631,19 +652,26 @@ where $X$, $Y$ and $Z$ are the normalized *features*.
 
 The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. They are called the `loadings`.
 
+### 2. **Linear combinations**
 
-### 2. **Variance**
+The principal components are *linear combinations* of the original *features*. Hence they can be a bit difficult to interpret. 
+
+
+### 3. **Variance**
 
 * Variance = how spread out the data is.
 * PCA finds directions (principal components) that maximize variance.
 
+
+::: {.callout-note collapse="true"}
+## Click to expand
 Formula for variance of variable $x$:
 
 $$
 \text{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2
 $$
-
-
+:::
+<!-- end callout --> 
 
 
 ---

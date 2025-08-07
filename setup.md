@@ -15,6 +15,8 @@ Note that we use tabsets to provide instructions for all three major operating s
 
 If you are attending one of our workshops, we will provide a training environment with all of the required software and data.  
 If you want to setup your own computer to run the analysis demonstrated on this course, you can follow the instructions below.
+:::
+<!-- end callout -->
 
 
 ## Data
