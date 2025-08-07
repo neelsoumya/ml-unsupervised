@@ -45,6 +45,18 @@ chmod 755 gitshell.sh
 ./gitshell.sh
 ```
 
+* A single command to compile the materials
+
+```bash
+./compile.sh
+```
+* Push changes to the repository
+
+```bash
+git commit -m "Updated materials"
+git push
+```
+
 ## Directory structure
 
 - **README.md**: Project overview and setup instructions  
