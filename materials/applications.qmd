@@ -19,13 +19,54 @@ title: Hands-on exercises (Applications of unsupervised learning)
 ## How to evaluate unsupervised learning methods
 
 
+## Exercises
+
+### exercise_title {#sec-exr_title}
+
+::::: {#ex-title .callout-exercise}
+
+#### exercise_title
+
+{{< level 3 >}}
+
+
+For this exercise we will be using the data from `data/surveys.csv`.
+
+ 
+:::: {.callout-answer collapse="true"}
+
+#### subheading in answer
+
+Description of answer.
+
+
+::: {.panel-tabset group="language"}
+
+## R
+
+
+## Python
+
+:::
+
+::::
+
+:::::
+
+ 
+
+::: {.callout-hint collapse=”true”}
+
+This is a hint
+
+:::
+
+
+
 ## Hands-on exercises
 
 
 Applications and practical exercises (hands-on exercises).
-
-<!--More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html-->
-
 
 
 
