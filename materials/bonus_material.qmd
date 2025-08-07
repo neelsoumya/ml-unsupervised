@@ -17,6 +17,9 @@ title: Bonus Material
 
 * All the math you wanted to know about PCA but were afraid to ask PDF
 
+* - [Github repository with more theoretical material](https://github.com/neelsoumya/public_teaching_unsupervised_learning)
+
+
 
 ## Summary
 

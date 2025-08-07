@@ -739,21 +739,10 @@ We thank Martin van Rongen, Vicki Hodgson, Hugo Tavares, Paul Fannon, Matt Castl
 
 - [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
 
-- https://github.com/neelsoumya/public_teaching_unsupervised_learning
+- [Github repository with more theoretical material](https://github.com/neelsoumya/public_teaching_unsupervised_learning)
 
 - [Interactive explanations of machine learning models](https://mlu-explain.github.io)
 
 - [Mathematics behind unsupervised machine learning](https://mml-book.github.io/book/mml-book.pdf)
 
 
-
-<!--
-## Equation
-
-Use LaTeX to write equations:
-
-$$
-\chi' = \sum_{i=1}^n k_i s_i^2
-$$
-
--->
