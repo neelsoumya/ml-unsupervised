@@ -45,6 +45,16 @@ chmod 755 gitshell.sh
 ./gitshell.sh
 ```
 
+## Directory structure
+
+- **README.md**: Project overview and setup instructions  
+- **requirements.txt**: Python dependencies  
+- **references.bib**: Bibliography for the course  
+- **course_files/scripts/**: Python scripts for data generation and examples  
+- **course_files/data/**: Example datasets  
+- **materials/**: Course content and chapters in Quarto format  
+- **.venv/**: (Optional) Virtual environment for Python dependencies
+
 ## Contact
 
 Soumya Banerjee

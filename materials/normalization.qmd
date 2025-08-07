@@ -30,17 +30,13 @@ open "/Applications/Python 3.10/Install Certificates.command"
 
 ```{python ch2-python-refresher}
 
-# ============================================================================
 # 1. IMPORTING PACKAGES
-# ============================================================================
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# ============================================================================
 # 2. READING DATA WITH PANDAS FROM GITHUB
-# ============================================================================
 
 # GitHub URL for the diabetes data
 # Convert from GitHub web URL to raw data URL
@@ -57,9 +53,7 @@ print(diabetes_data.head())
 print("\nBasic statistics:")
 print(diabetes_data.describe())
 
-# ============================================================================
 # 3. PLOTTING WITH MATPLOTLIB
-# ============================================================================
 
 # Plot 1: Histogram of Age
 plt.figure(figsize=(10, 6))
@@ -208,9 +202,17 @@ plt.show()
 :::
 <!--close tab-->
 
+
+## Exercise
+
+* Try the same code above but now *without* normalisation.
+
+* What difference do you observe?
+
+
 ## Scree plot
 
-A scree plot is a simple graph that shows how much variance (information) each principal component explains in your data after running PCA. The x-axis shows the principal components (PC1, PC2, etc.), and the y-axis shows the proportion of variance explained by each one.
+A *scree* plot is a simple graph that shows how much variance (information) each principal component explains in your data after running PCA. The x-axis shows the principal components (PC1, PC2, etc.), and the y-axis shows the proportion of variance explained by each one.
 
 You can use a scree plot to decide how many principal components to keep: look for the point where the plot levels off (the *elbow*): this tells you that adding more components doesn’t explain much more variance.
 
