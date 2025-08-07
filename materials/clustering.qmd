@@ -5,14 +5,175 @@ title: Clustering
 ::: {.callout-tip}
 #### Learning Objectives
 
-- Bulleted list of learning objectives
+- By the end of this lesson, students will be able to:
+
+1. **Explain the goal and applications of clustering**  
+   - Define unsupervised learning and distinguish clustering from classification.  
+   - Cite real‑world uses (e.g., customer segmentation, anomaly detection).
+
+2. **Describe and execute hierarchical clustering methods**  
+   - Differentiate agglomerative (bottom‑up) vs. divisive (top‑down) approaches.  
+   - Compute and interpret a dendrogram.  
+   - Apply various linkage criteria (single, complete, average, Ward’s, etc.) and distance metrics (Euclidean, Manhattan, cosine).
+
+3. **Implement and analyze K‑Means clustering**  
+   - Articulate the iterative assignment–update steps and convergence conditions.  
+   - Write or follow pseudocode for K‑Means, including centroid initialization strategies (random vs. k‑means++).  
+   - Compute and interpret the within‑cluster variation objective.
+
+4. **Compare clustering techniques and select appropriately**  
+   - Identify strengths and weaknesses of hierarchical vs. K‑Means approaches.  
+   - Choose between methods based on data characteristics (number of clusters, scalability, hierarchy needs).
 :::
+<!-- end callout -->
 
 
-## Section
+## Warm-up Puzzle
+
+* Is the picture below fake or real?
+
+* How can a computer determine if the picture below is fake or real?
+
+![Taj Mahal bathed in the Northern Lights. Generated using the DALL-E tool.](images/taj_mahal.jpg)
 
 
-Picture puzzle of Taj Mahal to get class warmed-up.
+## Clustering Overview
+
+Clustering is an **unsupervised learning** technique used to group similar data points together. Unlike classification, there are no pre-defined labels. Instead, the algorithm tries to discover structure in the data by maximizing intra-cluster similarity and minimizing inter-cluster similarity.
+
+**Key points:**
+
+- **Objective:** Identify natural groupings in the data.  
+
+- **Applications:** Customer segmentation, image compression, anomaly detection, document clustering.
+
+
+## Hierarchical Clustering
+
+Hierarchical clustering builds a tree (dendrogram) of clusters using either a **bottom‑up** (agglomerative) or **top‑down** (divisive) approach.
+
+### Agglomerative (Bottom‑Up)
+
+1. **Initialization:** Start with each data point as its own cluster.  
+
+2. **Merge Steps:**  
+   - Compute distance between every pair of clusters.  
+   - Merge the two closest clusters.  
+   - Update the distance matrix.  
+
+3. **Termination:** Repeat until all points are in a single cluster or a stopping criterion (e.g., desired number of clusters) is met.
+
+
+
+### Dendrogram
+
+```text
+        [ALL POINTS]
+         /      \
+    Cluster A   Cluster B
+     /    \       /    \
+    …      …     …      …
+```
+
+
+- **Cutting the tree** at different levels yields different numbers of clusters.
+- **Linkage methods** determine how distance between clusters is computed:
+  - **Single linkage:** Minimum pairwise distance  
+  - **Complete linkage:** Maximum pairwise distance  
+  - **Average linkage:** Average pairwise distance  
+
+
+
+
+### Important Concepts
+
+::: {.callout-tip}
+- **Metric**  
+  The *metric* (or *distance function* or *dissimilarity function*) defines how you measure the distance between individual data points. Common choices include Euclidean, Manhattan (cityblock), or cosine distance. This metric determines the raw pairwise distances.
+
+*Euclidean distance*
+
+![Euclidean distance](images/euclidean_distance.png)
+
+*Manhattan distance*
+
+![Manhattan distance](images/manhattan_distance.png)
+
+
+- **Linkage**  
+  The *linkage* method defines how to compute the distance between two clusters based on the pairwise distances of their members. Examples:  
+  - **Single**: the distance between the closest pair of points (one from each cluster).  
+  - **Complete**: the distance between the farthest pair of points.  
+  - **Average**: the average of all pairwise distances.  
+  - **Ward**: the merge that minimizes the increase in total within‑cluster variance.  
+
+*Linkage function*
+
+![Linkage function](images/linkage_function.png)
+
+:::
+<!-- end callout -->
+
+
+| Linkage Method        | How It Works                                                                                     | Intuition                                                                                       |
+|-----------------------|--------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| **Single**            | Distance = minimum pairwise distance between points in the two clusters                         | “Friends‑of‑friends” – clusters join if any two points are close, yielding chain‑like clusters  |
+| **Complete**          | Distance = maximum pairwise distance between points in the two clusters                         | “Everyone must be close” – only merge when all points are relatively near, producing compact clusters |
+| **Average (UPGMA)**   | Distance = average of all pairwise distances between points in the two clusters                 | Balances single and complete by averaging close and far pairs                                  |
+| **Weighted (WPGMA)**  | Distance = average of the previous cluster’s distance to the new cluster (equal weight per cluster) | Prevents large clusters from dominating, giving equal say to each cluster                      |
+| **Centroid**          | Distance = distance between the centroids (mean vectors) of the two clusters                    | Merges based on “centers of mass,” but centroids can shift non‑monotonically                   |
+| **Median (WPGMC)**    | Distance = distance between the medians of the two clusters                                      | More robust to outliers than centroid linkage, but can also invert dendrogram order            |
+| **Ward’s**            | Merge that minimizes the increase in total within‑cluster sum of squares (variance)             | Keeps clusters as tight and homogeneous as possible, often resulting in evenly sized groups     |
+
+
+### Single Linkage
+- **How it works**: Measures the distance between two clusters as the smallest distance between any single point in one cluster and any single point in the other.  
+- **Intuition**: “Friends‑of‑friends” clustering—if any two points (one from each cluster) are close, the clusters join. Can produce long, straggly chains of points.
+
+### Complete Linkage
+- **How it works**: Measures the distance between two clusters as the largest distance between any point in one cluster and any point in the other.  
+- **Intuition**: “Everyone must be close”—clusters merge only when all their points are relatively near each other, leading to tight, compact groups.
+
+### Average Linkage (UPGMA)
+- **How it works**: Takes the average of all pairwise distances between points in the two clusters.  
+- **Intuition**: A middle‑ground between single and complete linkage—balances the effect of very close and very far pairs by averaging them.
+
+### Weighted Linkage (WPGMA)
+- **How it works**: Similar to average linkage, but treats each cluster as a single entity by averaging the distance from each original cluster to the target cluster, regardless of cluster size.  
+- **Intuition**: Prevents larger clusters from dominating the average—gives each cluster equal say in how far apart they are.
+
+### Centroid Linkage
+- **How it works**: Computes the distance between the centroids (mean vectors) of the two clusters.  
+- **Intuition**: Clusters merge based on whether their “centers of mass” are close. Can sometimes lead to non‑monotonic merges if centroids shift oddly.
+
+### Median Linkage (WPGMC)
+- **How it works**: Uses the median point of each cluster instead of the mean when computing distance between clusters.  
+- **Intuition**: Like centroid linkage but more robust to outliers, since the median isn’t pulled by extreme values—though can also cause inversion issues.
+
+### Ward’s Method
+- **How it works**: At each step, merges the two clusters whose union leads to the smallest possible increase in total within‑cluster variance (sum of squared deviations).  
+- **Intuition**: Always chooses the merge that keeps clusters as tight and homogeneous as possible, often yielding groups of similar size and shape.
+
+
+::: {.callout-tip}
+## Concept about distances
+
+There is no single "best" distance metric for clustering—what works well for one dataset or problem may not work for another. The choice of distance metric (such as Euclidean, or Manhattan) depends on the nature of your data and what you want to capture about similarity. 
+
+For example, Euclidean distance works well when the scale of features is meaningful and differences are linear, while cosine distance is better for text data or situations where the direction of the data matters more than its magnitude.
+
+It is important to experiment with different distance metrics and see which one produces clusters that make sense for your specific problem. Always check the results and, if possible, use domain knowledge to guide your choice.
+:::
+<!-- end callout -->
+
+
+## Practical
+
+
+
+
+
+---
 
 <!--More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html-->
 
