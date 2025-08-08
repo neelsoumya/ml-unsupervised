@@ -169,13 +169,339 @@ It is important to experiment with different distance metrics and see which one 
 
 ## Practical
 
+* `n_clusters` in `AgglomerativeClustering` specifies the number of clusters you want the algorithm to find. After building the hierarchical tree, the algorithm will cut the tree so that exactly `n_clusters` groups are formed. For example, `n_clusters`=3 will result in 3 clusters in your data.
 
+* The default value for n_clusters in `AgglomerativeClustering` is 2.
+The default value for linkage is `ward`. So if you do not specify these parameters, the algorithm will produce 2 clusters using `Ward` linkage.
+
+```{python ch4-practical-hclust}
+#| warning: false
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from scipy.cluster.hierarchy import linkage, dendrogram
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler
+
+# Load data
+iris = load_iris()
+X = iris.data
+
+# Fit Agglomerative Clustering
+agg = AgglomerativeClustering(n_clusters=3, linkage='ward')
+labels = agg.fit_predict(X)
+
+print(labels)  # Cluster assignments for each sample
+
+from scipy.cluster.hierarchy import dendrogram, linkage
+import matplotlib.pyplot as plt
+
+# Compute linkage matrix
+Z = linkage(X, method='ward')
+
+# Plot dendrogram
+plt.figure(figsize=(10, 5))
+dendrogram(Z)
+plt.title('Hierarchical Clustering Dendrogram (Iris Data)')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+
+```
+
+### Scale the data
+
+```{python ch4-lab-scale-data}
+#| warning: false
+
+# Load data
+iris = load_iris()
+X = iris.data
+
+# scale the data
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+```
+
+### Perform hierarchical clustering
+
+```{python ch4-hclsut_lab_afterscale}
+
+# Fit Agglomerative Clustering
+agg = AgglomerativeClustering(n_clusters=3)#, linkage='ward')
+labels = agg.fit_predict(X_scaled)
+
+print(labels)  # Cluster assignments for each sample
+
+# Compute linkage matrix
+Z = linkage(X_scaled)#, method='ward')
+
+# Plot dendrogram
+plt.figure()
+dendrogram(Z)
+plt.title('Hierarchical Clustering Dendrogram (Iris Data)')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+```
+
+## Exercise (changing the linkage function)
+
+* Let us try another linkage function
+
+* Change the linkage function in `Z = linkage(X_scaled), method='ward')`
+
+* How does the clustering change as you change this to another function?
+
+* How does this change if you do *not* scale the data?
+
+::: {.callout-note collapse="true"}
+## Click to expand
+
+```{python ch4-exercise-callout-linkage-change}
+#| warning: false
+
+# Fit Agglomerative Clustering on unscaled data with 'average' linkage
+agg = AgglomerativeClustering(linkage='average')
+labels = agg.fit_predict(X)
+
+# Compute linkage matrix on unscaled data with 'average' linkage
+Z = linkage(X, method='average')
+
+# Plot dendrogram
+plt.figure()
+dendrogram(Z)
+plt.title('Hierarchical Clustering Dendrogram (Iris Data, Unscaled, Average Linkage)')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+```
+
+:::
+<!-- end callout -->
+
+
+## Exercise (trying a different *dissimilarity* metric)
+
+```{python ch4-lab-change-dissimilarity}
+#| warning: false
+
+# Fit Agglomerative Clustering on unscaled data with 'average' linkage and 'manhattan' distance
+agg = AgglomerativeClustering(
+    linkage='average',
+    metric='manhattan'      # use metric instead of deprecated affinity
+)
+
+
+# Compute linkage matrix on unscaled data with 'average' linkage and 'cityblock' (manhattan) distance
+Z = linkage(X, method='average', metric='cityblock')
+
+# Plot dendrogram
+plt.figure()
+dendrogram(Z)
+plt.title('Hierarchical Clustering Dendrogram (Iris Data, Unscaled, Average Linkage, Manhattan Distance)')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+```
+
+
+## Practical on cancer data
+
+* You have been given some data on cancer cell lines
+
+* Team up with someone and perform hierarchical clustering on this data
+
+* You have been given some starter code to help you load the data
+
+* The data has been downloaded and processed for you (after you run the code below). 
+
+* The data is in the variable named `X`
+
+```{python ch4-exercise-cancer-starter-code}
+#| warning: false
+
+import numpy as np
+import requests
+import io
+from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
+import matplotlib.pyplot as plt
+
+# URLs for the raw data and labels from GitHub repository
+data_url = 'https://raw.githubusercontent.com/neelsoumya/python_machine_learning/main/data/NCI60data.npy'
+labs_url = 'https://raw.githubusercontent.com/neelsoumya/python_machine_learning/main/data/NCI60labs.csv'
+
+# Load Data from GitHub
+response = requests.get(data_url)
+response.raise_for_status()
+X = np.load(io.BytesIO(response.content))
+print("NCI60 data loaded successfully from GitHub.")
+
+# Load Labels from GitHub
+print("Fetching labels from GitHub...")
+response = requests.get(labs_url)
+response.raise_for_status()
+# Read the raw text and split into lines.
+all_lines = response.text.strip().splitlines()
+
+# Skip the first line (the header) to match the data dimensions.
+labs = all_lines[1:]
+
+# The labels in the file are quoted (e.g., "CNS"), so we remove the quotes.
+labs = [label.strip('"') for label in labs]
+
+# The data is in the variable named X
+print(X[:5])
+print(X.shape)
+
+
+# Your code below ......
+
+```
+
+* Write your code and work in pairs
+
+::: {.callout-note collapse="true"}
+## Click to expand
+```{python ch4-exercise-cancer-solution}
+#| warning: false
+
+# Hierarchical Clustering
+agg = AgglomerativeClustering(linkage='average', metric='manhattan')
+cluster_labels = agg.fit_predict(X)
+
+# Compute linkage matrix for the dendrogram
+Z = linkage(X, method='average', metric='cityblock')
+
+# Plot Dendrogram
+plt.figure()
+dendrogram(Z, labels=labs)
+plt.title('Hierarchical Clustering Dendrogram (NCI60, Average Linkage, Manhattan Distance)')
+plt.xlabel('Cell Line')
+plt.ylabel('Distance')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.show()
+```
+:::
+<!-- end callout -->
+
+
+### Exercise: try another linkage method and another distance metric
+
+
+::: {.callout-tip}
+## Important Concept (recall)
+
+* There is not "correct" answer in unsupervised machine learning!
+
+* So how do you know when you are done?
+:::
+<!-- end callout -->
+
+
+## Evaluating the Quality of Clusters
+
+Evaluating the quality of clusters is a crucial step in any unsupervised learning task. Since we do not have a single _correct_ answer, we use several methods that fall into three main categories:
+
+### 1. Internal Evaluation
+Measures how good the clustering is based only on the data itself (e.g., how dense and well-separated the clusters are).
+
+### 2. External Evaluation
+Measures how well the clustering results align with known, ground-truth labels. This is possible here because the NCI60 dataset has known cancer cell line types, which we loaded as `labs`.
+
+### 3. Visual Evaluation
+Inspecting plots (like the dendrogram or PCA) to see if the groupings seem logical.
+
+---
+
+Let us add the two most common metrics: one internal and one external.
+
+---
+
+### Internal Evaluation: Silhouette Score
+
+The **Silhouette Score** measures how similar an object is to its own cluster (cohesion) compared to other clusters (separation).
+
+- **Score Range**: -1 to +1  
+- **Interpretation**:
+  - **+1**: The sample is far away from the neighboring clusters (very good).
+  - **0**: The sample is on or very close to the decision boundary between two neighboring clusters.
+  - **-1**: The sample is assigned to the wrong cluster.
+
+---
+
+### External Evaluation: Adjusted Rand Index (ARI)
+
+The **Adjusted Rand Index (ARI)** measures the similarity between the true labels (`labs`) and the labels assigned by our clustering algorithm (`cluster_labels`). It accounts for chance groupings.
+
+- **Score Range**: -1 to +1  
+- **Interpretation**:
+  - **+1**: Perfect agreement between true and predicted labels.
+  - **0**: Random labeling (no correlation).
+  - **< 0**: Worse than random labeling.
+
+
+* Here is how you would implement this
+
+```{python ch4-evaluation}
+#| warning: false
+
+from sklearn.metrics import silhouette_score, adjusted_rand_score # Import evaluation metrics
+
+# Hierarchical Clustering
+agg = AgglomerativeClustering(linkage='average', metric='manhattan')
+cluster_labels = agg.fit_predict(X)
+
+# 1. Internal Evaluation: Silhouette Score
+# Measures how well-separated clusters are based on the data itself.
+silhouette = silhouette_score(X, cluster_labels, metric='manhattan')
+print("Silhouette score")
+print(silhouette)
+print("Score is from -1 to 1. Higher is better")
+
+# 2. External Evaluation: Adjusted Rand Index
+# Compares our cluster labels to the true cancer type labels.
+ari = adjusted_rand_score(labs, cluster_labels)
+print("Adjusted Rand Index")
+print(ari)
+print("Compares to true labels. Score is from -1 to 1. Higher is better")
+
+```
+
+* Plain old visual evaluation
+
+ - compare to labels of what these cell lines are
+ 
+# TODO: XX what do these labels mean?
+
+```{python ch4-labs-visual-evaluation}
+#| warning: false
+
+dendrogram(Z, labels=labs)
+
+print(labs)
+
+plt.figure()
+plt.title('Hierarchical Clustering Dendrogram (NCI60)')
+plt.xlabel('Cell Line (True Labels)')
+plt.ylabel('Distance')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.show()
+
+```
+
+* Also compare to clusterings of other cancer cell lines
+
+* Does the cell line also show up in other datasets? (`external validation`)
 
 
 
 ---
-
-<!--More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html-->
 
 
 ## Summary
@@ -183,5 +509,48 @@ It is important to experiment with different distance metrics and see which one 
 ::: {.callout-tip}
 #### Key Points
 
-- Last section of the page is a bulleted summary of the key points
+
+- Hierarchical clustering builds a tree-like structure (dendrogram) to group similar data points
+   - **Distance Metrics** How we measure similarity between points:
+   - Euclidean distance (straight-line distance)
+   - Manhattan distance (city-block distance)
+   - Cosine distance (for directional data)
+
+- **Linkage Methods** 
+   - How we measure distance between clusters:
+   - **Single**: Uses closest pair of points (can create chains)
+   - **Complete**: Uses farthest pair of points (creates compact clusters)
+   - **Average**: Uses average of all pairwise distances (balanced approach)
+   - **Ward's**: Minimizes increase in variance (creates similar-sized clusters)
+
+- **Dendrogram** 
+   - Visual representation showing how clusters merge:
+   - Height shows distance when clusters merged
+   - Cutting at different heights gives different numbers of clusters
+
+
+- **Key Code Patterns:**
+
+```python
+# Basic hierarchical clustering
+from sklearn.cluster import AgglomerativeClustering
+agg = AgglomerativeClustering(n_clusters=3, linkage='ward')
+labels = agg.fit_predict(X)
+
+# Create dendrogram
+from scipy.cluster.hierarchy import dendrogram, linkage
+Z = linkage(X, method='ward')
+dendrogram(Z)
+```
+
+- **Important Takeaways**
+
+ - **No "Correct" Answer** 
+      - Unsupervised learning requires interpretation and domain knowledge
+      - **Multiple Methods** - Try different linkage methods and distance metrics
+      - **Evaluation is Key** - Use both internal (silhouette) and external (ARI) metrics
+
+
 :::
+<!-- end callout -->
+
