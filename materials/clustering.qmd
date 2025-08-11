@@ -501,6 +501,107 @@ plt.show()
 
 
 
+## K‑Means Clustering
+
+K‑Means is a **partitional** clustering algorithm that aims to partition the data into **K** disjoint clusters.
+
+### Algorithm Steps
+
+1. **Choose K**, the number of clusters.  
+2. **Initialization:** Randomly select K initial centroids (or use k‑means++ for better seeding).  
+3. **Assignment Step:**  
+   ```pseudo
+   for each data point x_i:
+       assign x_i to cluster j whose centroid μ_j is nearest (minimize ||x_i - μ_j||²)
+   ```
+4. **Update Step:**
+   ```pseudo
+   for each cluster j:
+       μ_j = (1 / |C_j|) * sum_{x_i in C_j} x_i
+   ```
+5. **Convergence Check:**
+   - Stop when assignments no longer change, OR
+   - The change in centroids is below a threshold, OR
+   - A maximum number of iterations is reached.
+
+
+
+### Animation
+
+![Animation of k-means](images/animation_kmeans.gif)
+
+<!-- created using kmeans_movie.py and kmeans_animation.ipynb -->
+
+
+### Within–Cluster Variation
+
+In **$K$**‑means clustering, we partition our $n$ observations into $K$ disjoint clusters
+$\{C_1, C_2, \dots, C_K\}$.  A "good" clustering is one for which the _within‑cluster variation_ is minimized.
+
+
+### Elbow point
+
+When using **k‑means clustering**, one of the key questions is: how many clusters (k) should I choose? The **elbow method** is a simple, visual way to pick a reasonable _k_ by looking at how the “within‑cluster” variation decreases as _k_ increases.
+
+---
+
+#### 1. The Within‑Cluster Sum of Squares (WCSS)
+
+For each choice of _k_, you run k‑means and compute the **within‑cluster sum of squares** (WCSS), also called _inertia_ or _distortion_. This is the sum of squared Euclidean distances between each point and the centroid of its cluster:
+
+![WCSS](images/wcss_equation.png)
+
+<!--
+\[
+\text{WCSS}(k) = \sum_{i=1}^{k} \sum_{x \in C_i} \lVert x - \mu_i \rVert^2
+\]
+-->
+
+- $C_{i}$ is cluster _i_  
+- $mu_{i}$ is the centroid of cluster _i_  
+
+As _k_ increases, WCSS will always decrease (or stay the same), because more centroids can only reduce distances.
+
+
+#### 2. Plotting WCSS versus _k_
+
+1. **Choose a range** for _k_ (e.g. 1 to 10).  
+2. **For each _k_**, fit k‑means and record `WCSS(k)`.  
+3. **Plot** `WCSS(k)` on the _y_-axis against _k_ on the _x_-axis.  
+
+You will get a curve that starts high at _k_ = 1 and steadily goes down as _k_ increases.
+
+---
+
+#### 3. Identifying the "Elbow"
+
+- At first, adding clusters dramatically reduces WCSS, because you are splitting large, heterogeneous clusters into more homogeneous groups.  
+- After some point, adding more clusters yields **diminishing returns**—each new cluster only slightly reduces WCSS.  
+
+The **elbow point** is the value of _k_ at which the decrease in WCSS “bends” most sharply—like an elbow in your arm. It balances model complexity (more clusters) against improved fit (lower WCSS).
+
+![An elbow point](images/elbow_point_clustering.png)
+
+
+### Exercise (k-means)
+
+
+TODO: XX
+
+
+
+## Choosing Between Methods
+
+### Hierarchical Clustering
+
+- No need to pre-specify number of clusters (can decide by cutting dendrogram).
+- Produces a full hierarchy of clusters.
+
+### K‑Means
+
+- Requires pre-specifying $K$.
+
+
 ---
 
 
