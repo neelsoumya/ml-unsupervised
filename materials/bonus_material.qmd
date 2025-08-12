@@ -9,7 +9,7 @@ title: Bonus Material
 :::
 
 
-## Section
+## Advanced material
 
 * Link to 3blue1brown videos
 
@@ -17,7 +17,7 @@ title: Bonus Material
 
 * All the math you wanted to know about PCA but were afraid to ask PDF
 
-* - [Github repository with more theoretical material](https://github.com/neelsoumya/public_teaching_unsupervised_learning)
+* [Github repository with more theoretical material](https://github.com/neelsoumya/public_teaching_unsupervised_learning)
 
 
 ## Mathematical details
@@ -107,6 +107,7 @@ Here are some key aspects of t-SNE:
 *   **Interpretation Caution:** It's important to interpret t-SNE plots with caution. The distances between clusters in a t-SNE plot may not accurately reflect the true distances in the high-dimensional space. t-SNE is excellent at showing *whether* clusters exist and how points are related within those clusters, but the relative spacing and size of the clusters themselves should not be over-interpreted as precise measures of distance or density in the original data.
 
 In summary, t-SNE is a powerful visualization tool for exploring the structure of high-dimensional data, especially when that structure is non-linear and involves distinct clusters.
+
 
 ## Summary
 
