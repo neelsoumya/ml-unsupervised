@@ -108,7 +108,7 @@ The course emphasizes both theoretical understanding and hands-on application, t
 
 ### Target Audience
 
-Students who have some basic familiarity with Python.
+Students who have some basic familiarity with Python. There are no prerequisites for knowledge of biology or statistics. The course is designed for those who want to learn how to apply unsupervised machine learning techniques to real-world datasets.
 
 
 ### Prerequisites
