@@ -11,6 +11,23 @@ until this message has been removed.
 
 ## Overview 
 
+This course on unsupervised learning provides a systematic introduction to dimensionality reduction and clustering techniques. The course covers fundamental concepts of unsupervised learning and data normalization, then progresses through the practical applications of Principal Component Analysis (PCA), t-Distributed Stochastic Neighbor Embedding (t-SNE), and hierarchical clustering algorithms.
+
+The course emphasizes both theoretical understanding and hands-on application, teaching students to recognize when different techniques are appropriate and when they may fail. A key learning objective is understanding the limitations of linear methods like PCA. Students learn to evaluate the performance of unsupervised learning methods across diverse data types, with the ultimate goal of generating meaningful hypotheses for further research.
+
+::: {.callout-tip}
+### Learning Objectives
+
+- The learning objectives and course outline are detailed below.
+<!--
+- These describe concepts the learners should grasp and techniques they should be able to use by the end of the course.
+- You can think of these as completing the phrase "after this course, the participant should be able to..."
+- They are not supposed to be as detailed as the learning objectives of each section, but more high-leve;
+-->
+:::
+
+
+
 ### Session 1 (half‑day) *Introduction to unsupervised learning*
 
 1. **Introduction to unsupervised learning and normalization:**  
@@ -87,14 +104,6 @@ until this message has been removed.
 
 
 
-::: {.callout-tip}
-### Learning Objectives
-
-- List course learning objectives here.
-- These describe concepts the learners should grasp and techniques they should be able to use by the end of the course.
-- You can think of these as completing the phrase "after this course, the participant should be able to..."
-- They are not supposed to be as detailed as the learning objectives of each section, but more high-level.
-:::
 
 
 ### Target Audience
