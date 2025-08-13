@@ -479,7 +479,7 @@ features = df_normalized.drop(columns=['Outcome'])
 ```{python ch4-ehr-pca-hidefromstudents}
 #| warning: false
 #| echo: false
-#| eval: false
+#| output: false
 
 pca = PCA(n_components=2)
 principal_components = pca.fit_transform(features)
@@ -496,8 +496,181 @@ plt.xlabel('Principal Component 1')
 plt.ylabel('Principal Component 2')
 plt.legend(title='Outcome')
 plt.show()
-
 ```
+
+* Evaluation (how to interpret the PCA plots?)
+
+- In `plt.scatter`, the `c` parameter controls the marker colour (or colours).
+
+- the `alpha` parameter controls the transparency (opacity) of the markers.
+
+-  When passing numbers, you must specify `cmap` (colour map) to control the gradient mapping (otherwise the default colourmap is used)
+
+-  Let us colour by `BMI` now
+
+```{python ch4-ehr-interpret-pca}
+#| warning: false
+
+# Visualize PCA results colored by BMI
+plt.figure()
+scatter = plt.scatter(pca_df['PC1'], pca_df['PC2'], c=df_normalized['BMI'],
+                     cmap='viridis', alpha=0.7)
+plt.colorbar(scatter, label='BMI (normalized)')
+plt.title('PCA of Diabetes Dataset - Coloured by BMI')
+plt.show()
+```
+
+* Do you see any patterns?
+
+* Now colour by `Pregnancies`
+
+* Try other features: `Glucose`, `BloodPressure`, `SkinThickness`, `Insulin`, `DiabetesPedigreeFunction`, `Age`
+
+* Try spotting any patterns and discuss this in your group
+
+* _RECALL_: The primary goal is to uncover hidden patterns, structures, and relationships within the data. This can lead to:
+
+- The generation of new hypotheses about the underlying phenomena, which can then be tested in follow-up studies using statistical methods or through the application of supervised machine learning techniques with labeled data.
+
+- Essentially, unsupervised learning helps us explore the data and formulate questions that can be further investigated.
+
+- However it is never the end of the data science pipeline but leads to more targetted investigations. 
+
+* Now try tSNE on this data
+
+```{python ch4-ehr-tsne}
+#| warning: false
+
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Exclude the target column for t-SNE
+features = df_normalized.drop(columns=['Outcome'])
+
+# Apply t-SNE
+# This is where you fill in your code .........
+```
+
+* Perform tSNE on this data
+
+```{python ch4-ehrdata-tsne-hidden}
+#| warning: false
+#| echo: false
+#| output: false
+
+# Apply t-SNE
+tsne = TSNE(n_components=2, random_state=42, perplexity=30)
+tsne_results = tsne.fit_transform(features)
+
+# Create a DataFrame for the t-SNE results
+tsne_df = pd.DataFrame(data=tsne_results, columns=['TSNE1', 'TSNE2'])
+tsne_df['Outcome'] = df_normalized['Outcome'].values
+
+# Visualize
+plt.figure()
+sns.scatterplot(x='TSNE1', y='TSNE2', hue='Outcome', data=tsne_df, palette='Set1', alpha=0.7)
+plt.title('t-SNE of Diabetes Dataset')
+plt.xlabel('t-SNE Component 1')
+plt.ylabel('t-SNE Component 2')
+plt.legend(title='Outcome')
+plt.show()
+```
+
+* Vary the `perplexity` parameter
+
+* Now let us color the tSNE plot by `BMI`
+
+```{python ch4-ehr-data-tsne-color}
+#| warning: false
+
+# Exclude the target column for t-SNE
+# Already done (so commenting out)
+# features_for_tsne = df_normalized.drop(columns=['Outcome', 'Cluster'])
+
+# Apply t-SNE
+tsne = TSNE(n_components=2, random_state=42, perplexity=30)
+tsne_results = tsne.fit_transform(features)
+
+# Create a DataFrame for the t-SNE results
+tsne_df = pd.DataFrame(data=tsne_results, columns=['TSNE1', 'TSNE2'])
+#tsne_df['Outcome'] = df_normalized['Outcome'].values
+#tsne_df['Cluster'] = df_normalized['Cluster'].values
+
+# Visualize t-SNE colored by BMI
+plt.figure(figsize=(10, 8))
+scatter = plt.scatter(tsne_df['TSNE1'], tsne_df['TSNE2'], c=df_normalized['BMI'],
+                     cmap='viridis', alpha=0.7, s=50)
+plt.colorbar(scatter, label='BMI (normalized)')
+plt.title('t-SNE of Diabetes Dataset - Colored by BMI')
+plt.xlabel('t-SNE Component 1')
+plt.ylabel('t-SNE Component 2')
+plt.show()
+```
+
+* Now colour the tSNE plot by some other feature. Try `Glucose`, `BloodPressure`, `SkinThickness`, `Insulin`, `DiabetesPedigreeFunction`, `Age`
+
+* Do you observe any patterns? Discuss in your group.
+
+* Perform hierarchical clustering on this data
+
+```{python ch4-ehr-hclust-1}
+#| warning: false
+
+import pandas as pd
+from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Exclude the target column for clustering
+features = df_normalized.drop(columns=['Outcome'])
+
+# Perform hierarchical clustering
+# This is where you fill in your code .........
+```
+
+```{python ch4-hclust-ehr-notdisplay}
+#| warning: false
+#| echo: false
+#| output: false 
+
+Z = linkage(features, method='ward')
+
+# Plot dendrogram
+plt.figure()
+dendrogram(Z, truncate_mode='level', p=5)
+plt.title('Hierarchical Clustering Dendrogram')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+```
+
+* Plot heatmaps (heatmaps are a great way to visualize your data)
+
+```{python ch4-ehr-heatmaps-show}
+#| warning: false
+
+# Plot a heatmap of the normalized feature values for all samples
+plt.figure()
+sns.heatmap(features, cmap='viridis', cbar=True)
+plt.title('Heatmap of Normalized Feature Values (All Samples)')
+plt.xlabel('Features')
+plt.ylabel('Sample Index')
+plt.show()
+```
+
+* Perform k-means on this data.
+
+
+
+* Discuss in your group the outcome of this project.
+
+ - What are your key findings? 
+ - Do you think we can find partitions of patients/clusters of patients?
+ - What can you do with these partitions?
+
+
 
 ## R
 
@@ -512,10 +685,61 @@ plt.show()
 
 ::: {.callout-hint collapse=”true”}
 
-This is a hint
+Work in a group!
 
 :::
 
+
+
+
+
+
+### Single-cell sequencing data {#sec-exr_singlecell}
+
+::::: {#single-cell .callout-exercise}
+
+#### Single-cell sequencing
+
+{{< level 3 >}}
+
+
+For this exercise we will be using some single-cell sequencing data. No biological expertise is required for this.
+
+ 
+:::: {.callout-answer collapse="true"}
+
+#### Exercise
+
+Here is a brief code snippet to help you load the data and get started.
+
+You have to follow the following steps:
+
+* Data Loading and Preprocessing: Loading a single-cell sequencing dataset and normalizing features.
+
+* XX
+
+::: {.panel-tabset group="language"}
+
+
+## Python
+
+
+## R
+
+
+:::
+
+::::
+
+:::::
+
+ 
+
+::: {.callout-hint collapse=”true”}
+
+Work in a group!
+
+:::
 
 
 
