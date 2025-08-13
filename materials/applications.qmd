@@ -356,6 +356,174 @@ TODO: XX Potentially NC160 data exercise can live here
 
 ## Exercises
 
+* Break up into small groups and work on any one of the following small projects.
+
+### Project using electronic healthcare records data {#sec-exr_title_EHR}
+
+::::: {#ex-title-EHR .callout-exercise}
+
+#### Electronic healthcare records data
+
+{{< level 3 >}}
+
+
+For this exercise we will be using some data from hospital electronic healthcare records (EHR). No knowledge of biology/healthcare is required for this.
+
+ 
+:::: {.callout-answer collapse="true"}
+
+#### Project briefing
+
+Here is a brief code snippet to help you load the data and get started.
+
+You have to follow the following steps:
+
+* Data Loading and Preprocessing: Loading a diabetes dataset and normalizing numerical features.
+
+* Dimensionality Reduction: Applying PCA and t-SNE to reduce the dimensions of the data for visualization and analysis.
+
+* Clustering: Performing K-Means clustering on the reduced data to identify potential patient subgroups.
+
+* Visualization: Visualizing the data in lower dimensions and the identified clusters to gain insights.
+
+::: {.panel-tabset group="language"}
+
+
+## Python
+
+```{python ch4-exercise-EHR-install}
+#| warning: false
+#| output: false
+
+!pip install pandas scikit-learn seaborn matplotlib openml
+
+```
+
+```{python ch4-exercise-EHR-loaddata}
+#| warning: false
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+from sklearn.cluster import KMeans
+import openml
+
+#######################
+# Load diabetes data 
+#######################
+
+url = "https://raw.githubusercontent.com/neelsoumya/python_machine_learning/main/data/diabetes_kaggle.csv"
+df = pd.read_csv(url)
+
+######################################
+# Perform data munging and filtering
+######################################
+
+# Normalize numeric columns
+numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+scaler = MinMaxScaler()
+df_normalized = df.copy()
+df_normalized[numeric_cols] = scaler.fit_transform(df[numeric_cols])
+
+# Filter: Glucose > 0.5 and BMI < 0.3 (normalized values)
+filtered_df = df_normalized[
+    (df_normalized['Glucose'] > 0.5) &
+    (df_normalized['BMI'] < 0.3)
+]
+
+print(filtered_df.head())
+```
+
+* Visualize the data
+
+```{python ch4-ehr-viz}
+#| warning: false
+
+# Histogram
+plt.figure()
+sns.histplot(df_normalized['Glucose'], bins=30)
+plt.title('Distribution of Normalized Glucose')
+plt.xlabel('Normalized Glucose')
+plt.ylabel('Frequency')
+plt.show()
+```
+
+* Now visualize the other variables? Do you notice anything interesting/weird about them?
+
+* Perform PCA
+
+```{python ch4-ehr-pca}
+#| warning: false
+
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Exclude the target column for PCA
+features = df_normalized.drop(columns=['Outcome'])
+
+# Apply PCA
+# This is where you fill in your code .........
+
+```
+
+* Fill in the rest of the code with your group members\
+
+* Perform PCA and visualize it
+
+```{python ch4-ehr-pca-hidefromstudents}
+#| warning: false
+#| echo: false
+#| eval: false
+
+pca = PCA(n_components=2)
+principal_components = pca.fit_transform(features)
+
+# Create a DataFrame for the principal components
+pca_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2'])
+pca_df['Outcome'] = df_normalized['Outcome'].values
+
+# Visualize
+plt.figure()
+sns.scatterplot(x='PC1', y='PC2', hue='Outcome', data=pca_df, palette='Set1', alpha=0.7)
+plt.title('PCA of Diabetes Dataset')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.legend(title='Outcome')
+plt.show()
+
+```
+
+## R
+
+
+:::
+
+::::
+
+:::::
+
+ 
+
+::: {.callout-hint collapse=”true”}
+
+This is a hint
+
+:::
+
+
+
+
+
+
+
+
+
 ### exercise_title {#sec-exr_title}
 
 ::::: {#ex-title .callout-exercise}
@@ -398,11 +566,6 @@ This is a hint
 
 
 
-## Hands-on exercises
-
-
-Applications and practical exercises (hands-on exercises).
-
 
 
 ## Summary
@@ -410,14 +573,16 @@ Applications and practical exercises (hands-on exercises).
 ::: {.callout-tip}
 #### Key Points
 
-- Last section of the page is a bulleted summary of the key points
+- Understand real-world scenarios where unsupervised learning is applied
+- Identify situations where PCA and other dimensionality reduction techniques may not be effective
+- Practical examples of data that you try unsupervised learning techniques on
 :::
 
 
 
 ## Resources
 
-- [ISLP book](https://www.statlearning.com/)
+- [Introduction to Statistical Learning in Python (ISLP) book](https://www.statlearning.com/)
 
 - [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
 
