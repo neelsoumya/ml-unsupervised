@@ -528,9 +528,9 @@ plt.show()
 
 * Try spotting any patterns and discuss this in your group
 
-* _RECALL_: The primary goal is to uncover hidden patterns, structures, and relationships within the data. This can lead to:
+* _Recall_: The primary goal is to uncover hidden patterns, structures, and relationships within the data. 
 
-- The generation of new hypotheses about the underlying phenomena, which can then be tested in follow-up studies using statistical methods or through the application of supervised machine learning techniques with labeled data.
+- This can lead to the generation of new hypotheses about the underlying phenomena, which can then be tested in follow-up studies using statistical methods or through the application of supervised machine learning techniques with labeled data.
 
 - Essentially, unsupervised learning helps us explore the data and formulate questions that can be further investigated.
 
@@ -694,7 +694,7 @@ Work in a group!
 
 
 
-### Single-cell sequencing data {#sec-exr_singlecell}
+### Project using single-cell sequencing data {#sec-exr_singlecell}
 
 ::::: {#single-cell .callout-exercise}
 
