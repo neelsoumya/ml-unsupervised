@@ -173,7 +173,9 @@ rm singularity.deb
 
 ### 2. Run locally
 
-* Install VSCode (see below).
+* Install Python (we recommend using [Anaconda](https://www.anaconda.com/products/distribution) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) to manage your Python environment).
+
+* Install VSCode (see below) or Spyder.
 
 * Clone the repository (optional, for full access)
 
