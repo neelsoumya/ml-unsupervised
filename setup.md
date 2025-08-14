@@ -177,7 +177,7 @@ rm singularity.deb
 
 * Install VSCode (see below) or Spyder.
 
-* Clone the repository (optional, for full access)
+* Download the [material](https://github.com/cambiotraining/ml-unsupervised/archive/refs/heads/main.zip) or clone the repository (optional, for full access)
 
 ```bash
 git clone https://github.com/cambiotraining/ml-unsupervised
