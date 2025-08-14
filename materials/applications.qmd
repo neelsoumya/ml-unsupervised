@@ -14,17 +14,16 @@ title: Hands-on exercises (Applications of unsupervised machine learning)
 <!-- end callout -->
 
 
-## When PCA does *not* work
+## When PCA does *not* work or when *not* to apply PCA
 
-* When *not* to apply PCA or when PCA does *not* work
 
-### Key Takeaways: When PCA Fails
+### **Non-linear data**
 
-### 1. **Non-linear Data Structures**
+
 - **Non-linearity**: Data that lies on curved surfaces or when data has non-linear relationships.
 - **Single-cell data**: Biological data where cell types form non-linear clusters in high-dimensional space
 
-### 2. **Categorical Features**
+### **Categorical Features**
 - PCA works poorly with categorical data unless properly encoded
 - One-hot encoding categorical features can create sparse, high-dimensional data where PCA may not capture meaningful structure
 
@@ -394,8 +393,9 @@ You have to follow the following steps:
 ```{python ch4-exercise-EHR-install}
 #| warning: false
 #| output: false
+#| echo: false   
 
-!pip install pandas scikit-learn seaborn matplotlib openml
+!pip install pandas scikit-learn seaborn matplotlib
 
 ```
 
@@ -410,7 +410,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
-import openml
 
 #######################
 # Load diabetes data 
@@ -716,12 +715,162 @@ You have to follow the following steps:
 
 * Data Loading and Preprocessing: Loading a single-cell sequencing dataset and normalizing features.
 
-* XX
-
 ::: {.panel-tabset group="language"}
 
 
 ## Python
+
+* Install packages
+
+```{python ch4-single-cell-install}
+#| warning: false
+#| output: false
+ 
+!pip install scanpy scipy matplotlib pandas seaborn
+```
+
+* Load libraries
+
+```{python ch4-single-cell-loadlib}
+#| warning: false
+
+import scanpy as sc
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+```
+
+* Load and Preprocess Data: It loads the pbmc3k dataset using scanpy, normalizes the total counts per cell to 10,000, and then applies a log transformation. It then picks out a few "marker" genes (genes that may be important for the disease based on our prior knowledge).
+
+* The single cell data is just a table of numbers: the rows are different cells, the columns are genes measured in those cells.
+
+```{python ch4-single-cell-loaddata}
+#| warning: false
+
+# 1. Load data and preprocess
+adata = sc.datasets.pbmc3k()
+sc.pp.normalize_total(adata, target_sum=1e4)
+sc.pp.log1p(adata)
+
+# 2. Subset to marker genes
+marker_genes = [
+    'CD3D','CD3E','CD4','CD8A',
+    'CD14','LYZ',
+    'MS4A1',
+    'GNLY','NKG7'
+]
+
+genes = [g for g in marker_genes if g in adata.var_names]
+
+expr = pd.DataFrame(
+    adata[:, genes].X.toarray(),
+    index=adata.obs_names,
+    columns=genes
+)
+
+print(expr.head())
+```
+
+* We now have a table of numbers: the rows are cells, and columns are genes measured in those cells.
+
+* Now perform PCA on this data (_Hint_: `expr.values` has all the values. Perform PCA on this.)
+
+
+```{python ch4-single-cell-pca}
+#| warning: false
+#| echo: false
+#| output: false
+
+# 1) PCA via sklearn
+pca = PCA(n_components=2)
+pcs = pca.fit_transform(expr.values)  # shape (n_cells, 2)
+
+plt.figure()
+plt.scatter(pcs[:,0], pcs[:,1])
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("PCA on single-cell data")
+plt.show()
+```
+
+* Now colour this PCA plot by one marker gene `CD3D`. The `CD3D` gene is crucial for immune response. Mutations in this gene can lead to disease. _Hint_: `expr["CD3D"]` will get you all the values of the gene. Use that in the `c = ` option in `plt.scatter()`.
+
+
+
+```{python ch4-singlecell-pca-color}
+#| warning: false
+#| echo: false
+#| output: false
+
+print( expr["CD3D"] )
+
+plt.figure()
+plt.scatter(pcs[:,0], pcs[:,1], c = expr["CD3D"])
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("PCA on single-cell data")
+plt.show()
+```
+
+* Discuss in your group: what do you think the plot means?
+
+* Now try the other marker genes: `CD3E`,`CD4`,`CD8A`, `CD14`, `LYZ`, `MS4A1`, `GNLY`, `NKG7`
+
+* Discuss in your group: what do you think the plot means?
+
+* Now perform tSNE on this. _Hint_: `expr.values` has all the values. Perform tSNE on this.
+
+```{python ch4-single-cell-tsne-start}
+#| warning: false
+#| echo: false
+#| output: false
+
+# Perform tSNE
+tsne = TSNE(n_components=2, perplexity=30)
+tsne_coords = tsne.fit_transform(expr.values)
+
+# plot
+plt.figure()
+plt.scatter(tsne_coords[:,0], tsne_coords[:,1])
+plt.xlabel("tSNE 1")
+plt.ylabel("tSNE 2")
+plt.show()
+```
+
+* Now colour this PCA plot by one marker gene `CD3D`. _Hint_: `expr["CD3D"]` will get you all the values of the gene. Use that in the `c = ` option in `plt.scatter()`.
+
+```{python ch4-singlecell-tsne-color}
+#| warning: false
+#| echo: false
+#| output: false
+
+# plot
+plt.figure()
+plt.scatter(tsne_coords[:,0], tsne_coords[:,1], c=expr["CD3D"])
+plt.xlabel("tSNE 1")
+plt.ylabel("tSNE 2")
+plt.show()
+```
+
+* Discuss in your group: what do you think the plot means?
+
+* Now try the other marker genes: `CD3E`,`CD4`,`CD8A`, `CD14`, `LYZ`, `MS4A1`, `GNLY`, `NKG7`
+
+* Discuss in your group: what do you think the plot means?
+
+* _Reminder_: tSNE is stochastic. 
+
+
+* Run tSNE again. Do the clusters remain the same? Can you see the same patterns?
+
+* Run tSNE with a different perplexity value. Do the clusters remain the same?
+
+* Discuss in your group your key findings. What can you say about these clusters?
+
+* Now perform hierarhical clustering on this data.
+
 
 
 ## R
@@ -803,10 +952,4 @@ This is a hint
 :::
 
 
-
-## Resources
-
-- [Introduction to Statistical Learning in Python (ISLP) book](https://www.statlearning.com/)
-
-- [Video lectures by the authors of the book Introduction to Statistical Learning in Python](https://www.youtube.com/playlist?list=PLoROMvodv4rNHU1-iPeDRH-J0cL-CrIda)
 

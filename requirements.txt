@@ -12,3 +12,4 @@ scanpy
 PyYAML
 pca
 pillow
+scanpy
