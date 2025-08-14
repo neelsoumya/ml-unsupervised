@@ -16,6 +16,55 @@ Headings for material sections start at level 2.
 More guidelines for content available here: https://cambiotraining.github.io/quarto-course-template/materials/02-content_guidelines.html
 
 
+
+
+
+
+### Project using GapMinder data {#sec-gapminder}
+
+::::: {#ex-title .callout-exercise}
+
+#### exercise_title
+
+{{< level 3 >}}
+
+
+For this exercise we will be using the data from `data/surveys.csv`.
+
+ 
+:::: {.callout-answer collapse="true"}
+
+#### subheading in answer
+
+Description of answer.
+
+
+::: {.panel-tabset group="language"}
+
+## R
+
+
+## Python
+
+:::
+
+::::
+
+:::::
+
+ 
+
+::: {.callout-hint collapse=”true”}
+
+This is a hint
+
+:::
+
+
+
+
+
+
 ## Summary
 
 ::: {.callout-tip}

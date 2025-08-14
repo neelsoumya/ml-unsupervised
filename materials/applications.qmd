@@ -871,7 +871,8 @@ plt.show()
 
 * Now perform hierarhical clustering on this data.
 
-
+TODO: XX
+<!-- https://github.com/neelsoumya/python_machine_learning/blob/main/exercise_singlecell_clustering.ipynb -->
 
 ## R
 
@@ -897,31 +898,36 @@ Work in a group!
 
 
 
-### exercise_title {#sec-exr_title}
+### Project using GapMinder data {#sec-gapminder}
 
-::::: {#ex-title .callout-exercise}
+::::: {#ex-gapminder .callout-exercise}
 
-#### exercise_title
+#### GapMinder data
 
 {{< level 3 >}}
 
 
-For this exercise we will be using the data from `data/surveys.csv`.
+For this exercise we will be using sociological data.
 
  
 :::: {.callout-answer collapse="true"}
 
-#### subheading in answer
+#### Exercise
 
-Description of answer.
+Here is a brief code snippet to help you load the data and get started.
+
+You have to follow the following steps:
+
+* Data loading
 
 
 ::: {.panel-tabset group="language"}
 
-## R
-
 
 ## Python
+
+## R
+
 
 :::
 
