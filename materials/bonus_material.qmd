@@ -21,6 +21,8 @@ title: Bonus Material
 
 * [Github repository with more theoretical material](https://github.com/neelsoumya/public_teaching_unsupervised_learning)
 
+* [Basics of vector algebra](https://github.com/neelsoumya/public_teaching_unsupervised_learning/blob/main/PCA_notes_advanced.pdf)
+
 * [Mathematics for Machine Learning book by Marc Deisenroth](https://mml-book.github.io/book/mml-book.pdf)
 
 
