@@ -23,6 +23,6 @@ quarto render
 git status
 
 # git add 
-./git_add.sh
+./gitshell.sh
 
 echo "Materials compiled successfully! \n"
