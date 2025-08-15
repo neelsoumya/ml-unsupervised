@@ -869,10 +869,71 @@ plt.show()
 
 * Discuss in your group your key findings. What can you say about these clusters?
 
-* Now perform hierarhical clustering on this data.
+* Now perform hierarchical clustering on this data.
 
-TODO: XX
 <!-- https://github.com/neelsoumya/python_machine_learning/blob/main/exercise_singlecell_clustering.ipynb -->
+
+
+```{python ch4-single-cell-hclust-simple}
+#| warning: false
+#| echo: false
+#| output: false
+
+from scipy.cluster.hierarchy import dendrogram, linkage
+from matplotlib import pyplot as plt
+
+# compute linkage
+linked = linkage(expr.values, method="ward")
+
+# plot dendrogram
+plt.figure()
+dendrogram(linked)
+plt.title('Hierarchical Clustering on Single-cell data (Simple)')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.show()
+```
+
+
+
+* Try a few distance functions and linkage functions. 
+
+* Plot heatmaps or clustermaps (_Hint_: seaborn `clustermap` does both dendrograms + heatmap in one shot). A representative plot is shown below. Can you try to get a plot similar to this?
+
+
+
+TODO: XX refine and introduce elsewhere also
+
+```{python ch4-singlecell-clustermap}
+#| warning: false
+#| echo: false
+
+from scipy.cluster.hierarchy import linkage
+from scipy.spatial.distance import pdist
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# compute linkage
+cell_link = linkage( pdist(expr.T, metric="euclidean"), method="ward" )
+gene_link = linkage( pdist(expr,   metric="euclidean"), method="ward" )
+
+# seaborn clustermap does both dendrograms + heatmap in one shot
+sns.clustermap(data = expr,
+    row_linkage = gene_link,
+    col_linkage = cell_link,
+    cmap = "vlag",
+    standard_scale=0
+    )
+```
+
+
+* Perform k-means on this data.
+
+* Discuss in your group the outcome of this project.
+
+ - What are your key findings? 
+ - Do you think we can find partitions of cells/clusters of cells?
+ - What can you do with these partitions?
 
 
 <!-- 
@@ -947,7 +1008,7 @@ You have to follow the following steps:
 
 ::: {.callout-hint collapse=”true”}
 
-This is a hint
+Work in a group!
 
 :::
 
