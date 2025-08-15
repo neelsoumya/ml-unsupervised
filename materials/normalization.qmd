@@ -67,6 +67,8 @@ plt.show()
 
 ```
 
+* You can also go through this [Introduction to Visualization in Python course](https://kavihshah.github.io/Intro-to-Python/materials/13-data-visualisation-with-matplotlib-and-seaborn.html)
+
 
 ## Normalization (Z-score Standardization)
 

@@ -900,9 +900,26 @@ plt.show()
 
 * Plot heatmaps or clustermaps (_Hint_: seaborn `clustermap` does both dendrograms + heatmap in one shot). A representative plot is shown below. Can you try to get a plot similar to this?
 
+* _Hint_: Here is some code to get you started
+
+```python
+from scipy.cluster.hierarchy import linkage
+from scipy.spatial.distance import pdist
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# compute linkage
+cell_link = linkage( pdist(expr.T, metric="euclidean"), method="ward" )
+gene_link = linkage( pdist(expr,   metric="euclidean"), method="ward" )
+
+# seaborn clustermap does both dendrograms + heatmap in one shot
+# Fill in the code below .......
+sns.clustermap(.......)
+```
 
 
-TODO: XX refine and introduce elsewhere also
+TODO: XX refine and introduce `sns.clustermap` elsewhere also
+
 
 ```{python ch4-singlecell-clustermap}
 #| warning: false

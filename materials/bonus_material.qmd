@@ -97,6 +97,22 @@ where:
 These equations outline the mathematical process of transforming data into a new coordinate system defined by the principal components, ordered by the amount of variance they capture.
 
 
+### Normalization (Z-score Standardization)
+
+Normalization, specifically Z-score standardization, is a data scaling technique that transforms your data to have a mean of 0 and a standard deviation of 1. This is useful for many machine learning algorithms that are sensitive to the scale of input features.
+
+The formula for Z-score is:
+
+$$ z = \frac{x - \mu}{\sigma} $$
+
+Where:
+- $x$ is the original data point.
+- $\mu$ is the mean of the data.
+- $\sigma$ is the standard deviation of the data.
+
+
+
+
 ### Details of tSNE
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE) is a dimensionality reduction technique primarily used for visualizing high-dimensional datasets. Unlike linear methods like PCA, t-SNE is particularly good at preserving the local structure of the data, making it effective for revealing clusters and relationships between data points in a lower-dimensional space (typically 2D or 3D).
