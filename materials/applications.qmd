@@ -902,6 +902,8 @@ plt.show()
 
 * _Hint_: Here is some code to get you started
 
+::: {.callout-hint collapse=”true”}
+
 ```python
 from scipy.cluster.hierarchy import linkage
 from scipy.spatial.distance import pdist
@@ -916,6 +918,9 @@ gene_link = linkage( pdist(expr,   metric="euclidean"), method="ward" )
 # Fill in the code below .......
 sns.clustermap(.......)
 ```
+
+:::
+<!-- end callout -->
 
 
 TODO: XX refine and introduce `sns.clustermap` elsewhere also
