@@ -415,18 +415,35 @@ from sklearn.cluster import KMeans
 # Load diabetes data 
 #######################
 
-url = "https://raw.githubusercontent.com/neelsoumya/python_machine_learning/main/data/diabetes_kaggle.csv"
+url = "https://raw.githubusercontent.com/cambiotraining/ml-unsupervised/refs/heads/main/course_files/data/diabetes_kaggle.csv"
 df = pd.read_csv(url)
 
 ######################################
 # Perform data munging and filtering
 ######################################
+print(df.head())
 
 # Normalize numeric columns
 numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
 scaler = MinMaxScaler()
-df_normalized = df.copy()
+df_normalized = df.copy() # make a copy
 df_normalized[numeric_cols] = scaler.fit_transform(df[numeric_cols])
+
+# ALTERNATIVE CODE (repeat for each numeric column)
+# Make a copy so the original DataFrame stays unchanged
+# df_normalized = df.copy()
+
+# Create the scaler
+# scaler = MinMaxScaler()
+
+# Select the 'Glucose' column as a DataFrame (double brackets keep 2D shape)
+# glucose_values = df_normalized[['Glucose']]
+
+# Fit the scaler and transform the values
+# glucose_scaled = scaler.fit_transform(glucose_values)
+
+# Put the scaled values back into the copy
+# df_normalized[['Glucose']] = glucose_scaled
 
 # Filter: Glucose > 0.5 and BMI < 0.3 (normalized values)
 filtered_df = df_normalized[
@@ -445,13 +462,16 @@ print(filtered_df.head())
 # Histogram
 plt.figure()
 sns.histplot(df_normalized['Glucose'], bins=30)
-plt.title('Distribution of Normalized Glucose')
-plt.xlabel('Normalized Glucose')
+plt.title('Distribution of Normalised Glucose')
+plt.xlabel('Normalised Glucose')
 plt.ylabel('Frequency')
 plt.show()
+
 ```
 
-* Now visualize the other variables? Do you notice anything interesting/weird about them?
+* Now visualize the other variables. Do you notice anything interesting/odd about them? _Hint_: use `sns.histplot()` as shown above or `plt.hist()`.
+
+* Data visualization is a key step in machine learning. Make sure to spend some time visualizing all the variables/features. Discuss the plots in your group.
 
 * Perform PCA
 
@@ -464,6 +484,8 @@ import seaborn as sns
 import pandas as pd
 
 # Exclude the target column for PCA
+# We not want to include this because this is something you want to predict.
+# You can use this column in supervised machine learning.
 features = df_normalized.drop(columns=['Outcome'])
 
 # Apply PCA
@@ -471,9 +493,9 @@ features = df_normalized.drop(columns=['Outcome'])
 
 ```
 
-* Fill in the rest of the code with your group members\
+* Fill in the rest of the code with your group members.
 
-* Perform PCA and visualize it
+* Perform PCA and visualize it. _Hint_: use `plt.scatter()` or `sns.scatterplot()`.
 
 ```{python ch4-ehr-pca-hidefromstudents}
 #| warning: false
@@ -499,13 +521,13 @@ plt.show()
 
 * Evaluation (how to interpret the PCA plots?)
 
-- In `plt.scatter`, the `c` parameter controls the marker colour (or colours).
+- _Reminder_: In `plt.scatter`, the `c` parameter controls the marker colour (or colours).
 
-- the `alpha` parameter controls the transparency (opacity) of the markers.
+- The `alpha` parameter controls the transparency (opacity) of the markers.
 
--  When passing numbers, you must specify `cmap` (colour map) to control the gradient mapping (otherwise the default colourmap is used)
+- When passing numbers, you must specify `cmap` (colour map) to control the gradient mapping (otherwise the default colourmap is used)
 
--  Let us colour by `BMI` now
+-  Let us colour by the feature `BMI` now
 
 ```{python ch4-ehr-interpret-pca}
 #| warning: false
@@ -527,13 +549,13 @@ plt.show()
 
 * Try spotting any patterns and discuss this in your group
 
-* _Recall_: The primary goal is to uncover hidden patterns, structures, and relationships within the data. 
+* _Recall_: The primary goal of unsupervised machine learning is to uncover hidden patterns, structures, and relationships within the data. 
 
 - This can lead to the generation of new hypotheses about the underlying phenomena, which can then be tested in follow-up studies using statistical methods or through the application of supervised machine learning techniques with labeled data.
 
 - Essentially, unsupervised learning helps us explore the data and formulate questions that can be further investigated.
 
-- However it is never the end of the data science pipeline but leads to more targetted investigations. 
+- However it is never the end of the data science pipeline. It can lead to further investigations.
 
 * Now try tSNE on this data
 
@@ -579,7 +601,7 @@ plt.show()
 
 * Vary the `perplexity` parameter
 
-* Now let us color the tSNE plot by `BMI`
+* Now let us colour the tSNE plot by `BMI`
 
 ```{python ch4-ehr-data-tsne-color}
 #| warning: false
@@ -588,17 +610,11 @@ plt.show()
 # Already done (so commenting out)
 # features_for_tsne = df_normalized.drop(columns=['Outcome', 'Cluster'])
 
-# Apply t-SNE
-tsne = TSNE(n_components=2, random_state=42, perplexity=30)
-tsne_results = tsne.fit_transform(features)
-
 # Create a DataFrame for the t-SNE results
 tsne_df = pd.DataFrame(data=tsne_results, columns=['TSNE1', 'TSNE2'])
-#tsne_df['Outcome'] = df_normalized['Outcome'].values
-#tsne_df['Cluster'] = df_normalized['Cluster'].values
 
 # Visualize t-SNE colored by BMI
-plt.figure(figsize=(10, 8))
+plt.figure()
 scatter = plt.scatter(tsne_df['TSNE1'], tsne_df['TSNE2'], c=df_normalized['BMI'],
                      cmap='viridis', alpha=0.7, s=50)
 plt.colorbar(scatter, label='BMI (normalized)')
