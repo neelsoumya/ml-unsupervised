@@ -661,7 +661,40 @@ plt.ylabel('Distance')
 plt.show()
 ```
 
-* Plot heatmaps (heatmaps are a great way to visualize your data)
+* Alternatively you can use `sns.clustermap()`.
+
+_Hint_: Here is some code to get you started.
+
+<!-- 
+# Python code that can be used later
+
+ehr_col_linkage = linkage(features.T)#, metric="ward")
+
+sns.clustermap(data = features,
+row_linkage = ehr_row_linkage,
+col_linkage = ehr_col_linkage,
+cmap = "vlag",
+standard_scale = 0
+)
+-->
+
+::: {.callout-hint collapse=”true”}
+```{python ch4-snsclustermap-ehr}
+#| warning: false
+
+ehr_row_linkage = linkage(features,   method="ward")
+
+# plot heatmap using sns.clustermap()
+sns.clustermap(data = features,
+row_linkage = ehr_row_linkage,
+cmap = "vlag",
+standard_scale = 0
+)
+```
+:::
+<!-- end callout -->
+
+* Plot heatmaps (heatmaps are a great way to visualize your data!)
 
 ```{python ch4-ehr-heatmaps-show}
 #| warning: false
@@ -916,7 +949,7 @@ plt.show()
 
 * Plot heatmaps or clustermaps (_Hint_: seaborn `clustermap` does both dendrograms + heatmap in one shot). A representative plot is shown below. Can you try to get a plot similar to this?
 
-* _Hint_: Here is some code to get you started
+* _Hint_: Here is some code to get you started.
 
 ::: {.callout-hint collapse=”true”}
 
