@@ -703,7 +703,7 @@ standard_scale = 0
 ```{python ch4-snsclustermap-ehr}
 #| warning: false
 
-ehr_row_linkage = linkage(features,   method="ward")
+ehr_row_linkage = linkage(features, method="ward")
 
 # plot heatmap using sns.clustermap()
 sns.clustermap(data = features,
@@ -1075,17 +1075,113 @@ For this exercise we will be using sociological data.
 
 #### Exercise
 
+
+In this exercise you will explore the _Gapminder_ dataset, focusing on life expectancy, GDP per capita, and population data. You will perform the following steps initially:
+
+1. *Data Loading and Setup*: The gapminder dataset is loaded, and necessary libraries for data manipulation, visualization, and dimensionality reduction are imported.  
+2. *Feature Selection*: The features `lifeExp`, `gdpPercap`, and `pop` are selected for analysis.
+
+
 Here is a brief code snippet to help you load the data and get started.
-
-You have to follow the following steps:
-
-* Data loading
 
 
 ::: {.panel-tabset group="language"}
 
 
 ## Python
+
+```{python ch4-gapminder-loadpackages}
+#| warning: false
+
+import pandas as pd
+
+# Download Gapminder data
+url = "https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv"
+gap = pd.read_csv(url)
+
+print(gap.head())
+```
+
+* Subset to countries in Asia and aggregate
+
+```{python ch4-gapminder-subsetdata}
+#| warning: false
+
+# Aggregate by country: mean of features for each Asian country
+features = ['lifeExp', 'gdpPercap']
+asia_gap_unique = gap[gap['continent'] == 'Asia'].groupby('country')[features].mean().reset_index()
+
+print(asia_gap_unique.head())
+```
+
+
+* Then perform PCA on it. _Hint_: you need to normalize your data also. 
+
+<!-- 
+The function `pca` in the package `pca` will do it for you if you set `normalize = True`.
+-->
+
+```{python ch4-gapminder-pca-normalize}
+#| warning: false
+#| echo: false
+
+from sklearn.preprocessing import StandardScaler
+
+# normalize
+asia_gap_unique_norm = scaler.fit_transform(asia_gap_unique[features])
+
+# Perform PCA
+pca = PCA(n_components=2)
+pcs = pca.fit_transform(asia_gap_unique_norm)
+
+# plot
+plt.figure()
+plt.scatter(pcs[:,0], pcs[:,1])#, c=asia_gap_unique["country"])
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("Plot of PCA on Gapminder data for Asian countries")
+plt.show()
+```
+
+* Is there anything "odd" about this plot? Discuss this in your group.
+
+```{python ch4-gapminder-scale-pcafit-pcapackageNOTrun}
+#| warning: false
+#| echo: false
+#| output: false
+#| eval: false
+
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from pca import pca
+
+# Standardize selected features
+#scaler = StandardScaler()
+#asia_gap_std = asia_gap_unique.copy()
+#asia_gap_std[features] = scaler.fit_transform(asia_gap_std[features])
+
+# PCA on standardized features (normalize=False because we have already standardized)
+model = pca(n_components=2, normalize=True)
+results = model.fit_transform(asia_gap_unique[features])
+
+# Join PC scores with country names
+# asia_pcs = asia_gap_std[['country']].join(results['PC'])
+
+# Optional: plots
+model.plot()          # explained variance
+model.biplot(legend=True)#, labels=asia_gap_std['country'])
+```
+
+* Now label each point on the PCA biplot this by country names
+
+```{python ch4-gapminder-pca-color-bycountry}
+#| warning: false
+#| echo: false
+#| output: false
+
+```
+
+
 
 ## R
 
