@@ -25,6 +25,7 @@ title: Bonus Material
 
 * [Mathematics for Machine Learning book by Marc Deisenroth](https://mml-book.github.io/book/mml-book.pdf)
 
+* [Introduction to single-cell sequencing analysis](https://www.singlecellcourse.org/)
 
 
 ## Mathematical details
