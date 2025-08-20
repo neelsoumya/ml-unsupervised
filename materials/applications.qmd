@@ -610,6 +610,8 @@ tsne_results = tsne.fit_transform(features)
 tsne_df = pd.DataFrame(data=tsne_results, columns=['TSNE1', 'TSNE2'])
 tsne_df['Outcome'] = df_normalized['Outcome'].values
 
+# TODO: use plt.scatter() here
+
 # Visualize
 plt.figure()
 sns.scatterplot(x='TSNE1', y='TSNE2', hue='Outcome', data=tsne_df, palette='Set1', alpha=0.7)
