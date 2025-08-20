@@ -27,6 +27,8 @@ title: Bonus Material
 
 * [Introduction to single-cell sequencing analysis](https://www.singlecellcourse.org/)
 
+* [Shallow copy vs. deep copy in Python](https://kavihshah.github.io/Intro-to-Python/materials/06--working-with-composite-data-types.html#shallow-copy-verses-deep-copy)
+
 
 ## Mathematical details
 

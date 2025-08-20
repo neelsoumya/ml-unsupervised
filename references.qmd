@@ -20,3 +20,7 @@ title: "References and Resources"
 
 [5] [Slides for the course on unsupervised machine learning](https://drive.google.com/drive/folders/1c8fYDr7ab1jUx0FwOR4NZa9RfgzZN9OQ?usp=sharing)
 
+[6] [Course on introduction to Python](https://cambiotraining.github.io/data-analysis-in-r-and-python/)
+
+[7] [Data visualization in Python using matplotlib and seaborn](https://kavihshah.github.io/Intro-to-Python/materials/13-data-visualisation-with-matplotlib-and-seaborn.html)
+

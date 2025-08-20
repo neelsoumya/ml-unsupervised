@@ -105,7 +105,7 @@ import matplotlib.pyplot as plt
 
 # Apply PCA
 pca = PCA()
-pcs = pca.fit_transform(df)
+pcs = pca.fit_transform(df) # where df is a dataframe with your data
 
 
 # Scatter plot of the first two principal components
@@ -176,8 +176,11 @@ plt.show()
 
 * PCA may not work if you have categorical features
 
+For example, if you have data that looks like this ....
+
 ```{python ch4-pca-categorical-generate}
 #| warning: false
+#| echo: false
 
 import pandas as pd
 import numpy as np
@@ -202,6 +205,11 @@ df_cat = pd.DataFrame({
 })
 
 print(df_cat.head())
+```
+
+```{python, ch4-pca-notwork-showcategroical}
+#| warning: false
+#| echo: false
 
 # One-hot encode the categorical features
 encoder = OneHotEncoder(sparse_output=False)
@@ -308,9 +316,14 @@ plt.show()
 
 from scipy.cluster.hierarchy import dendrogram, linkage
 from matplotlib import pyplot as plt
+import seaborn as sns
 
 # Assume 'encoded_data' exists from the previous one-hot encoding step
-linked = linkage(encoded_data, 'ward')
+linked = linkage(y = encoded_data,
+    method = 'ward',
+    metric = 'euclidean',
+    optimal_ordering=True
+    )
 
 # plot dendrogram
 plt.figure()
@@ -322,6 +335,15 @@ plt.title('Hierarchical Clustering Dendrogram on One-Hot Encoded Categorical Dat
 plt.xlabel('Sample Index')
 plt.ylabel('Distance')
 plt.show()
+
+# or use sns.clustermap()
+sns.clustermap(data=encoded_data,
+method = "ward",
+metric = "euclidean",
+row_cluster = True,
+col_cluster = True,
+cmap = "vlag"
+)
 ```
 
 * Heatmaps
@@ -336,10 +358,9 @@ import matplotlib.pyplot as plt
 
 # Assume 'encoded_df' exists from the previous one-hot encoding step
 
-plt.figure(figsize=(12, 8)) # Adjust figure size as needed
-sns.heatmap(encoded_df.T, cmap='viridis', cbar_kws={'label': 'Encoded Value (0 or 1)'}) 
+plt.figure()
+sns.heatmap(encoded_df.T, cmap='viridis', cbar_kws={'label': 'Encoded Value (0 or 1)'}) # Transpose for features on y-axis
 
-# Transpose for features on y-axis
 plt.title('Heatmap of One-Hot Encoded Categorical Data')
 plt.xlabel('Sample Index')
 plt.ylabel('Encoded Feature')
