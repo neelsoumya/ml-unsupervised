@@ -14,8 +14,7 @@ title: Hands-on exercises (Applications of unsupervised machine learning)
 <!-- end callout -->
 
 
-## When PCA does *not* work or when *not* to apply PCA
-
+## When PCA may *not* work
 
 ### **Non-linear data**
 
@@ -24,7 +23,7 @@ title: Hands-on exercises (Applications of unsupervised machine learning)
 - **Single-cell data**: Biological data where cell types form non-linear clusters in high-dimensional space
 
 ### **Categorical Features**
-- PCA works poorly with categorical data unless properly encoded
+- PCA may work poorly with categorical data unless properly encoded
 - One-hot encoding categorical features can create sparse, high-dimensional data where PCA may not capture meaningful structure
 
 <!--
@@ -33,7 +32,7 @@ title: Hands-on exercises (Applications of unsupervised machine learning)
 - The lesson shows how PCA on XOR data captures only ~15% variance per component, failing to reveal the true four-cluster structure
 -->
 
-## Better Alternatives
+## Alternatives
 
 ### **t-SNE** (t-Distributed Stochastic Neighbor Embedding)
 - **Best for**: Non-linear dimensionality reduction and visualization
@@ -52,9 +51,9 @@ title: Hands-on exercises (Applications of unsupervised machine learning)
 
 
 
-### Code to demonstrate how PCA can fail
+### Demonstrating how PCA may fail
 
-* Generate synthetic biological expression data: matrix of 200 samples × 10 genes, where Gene_1 and Gene_2 follow a clustering (four corner clusters) and the remaining genes are just Gaussian noise. You can see from the scatter of Gene_1 vs Gene_2 that the true structure is non-linear and not aligned with any single variance direction: PCA would fail to unfold these clusters into separate principal components.
+* Generate synthetic biological expression data: matrix of 200 samples × 10 genes, where Gene_1 and Gene_2 follow a clustering (four corner clusters) and the remaining genes are just Gaussian noise. You can see from the scatter of Gene_1 vs Gene_2 that the true structure is non-linear and not aligned with any single variance direction: PCA may fail to unfold these clusters into separate principal components.
 
 ```{python ch4-pca-not-work}
 #| warning: false
@@ -235,7 +234,7 @@ encoded_df = pd.DataFrame(encoded_data, columns=encoded_feature_names)
 
 ```
 
-* We can split by disease/healthy, etc.
+* We can split by disease/healthy, or other features.
 
 ```{python ch4-pca-color-by-type}
 #| warning: false
@@ -296,6 +295,8 @@ plt.show()
 
 
 * Hierarchical clustering
+
+_Recall_:
 
 **Leaves**: Each leaf at the bottom of the dendrogram represents one sample from your dataset.
 
@@ -370,7 +371,7 @@ plt.show()
 
 ## How to evaluate unsupervised learning methods
 
-TODO: XX Potentially NC160 data exercise can live here
+<!--TODO: XX Potentially NC160 data exercise can live here -->
 
 
 
@@ -1118,6 +1119,8 @@ print(asia_gap_unique.head())
 
 
 * Then perform PCA on it. _Hint_: you need to normalize your data also. 
+
+Does your plot look like this?
 
 <!-- 
 The function `pca` in the package `pca` will do it for you if you set `normalize = True`.
