@@ -97,7 +97,11 @@ The bottleneck acts as an inductive bias that promotes dimensionality reduction,
 magine you have a huge library of biological images—say, pictures of different cell types under a microscope—and you want to teach a computer to recognize patterns in those images without telling it what any of the cells are. A “bottleneck” in this context is like asking the computer to summarize each image using only a few key words instead of the entire picture. By forcing it to compress all the rich detail down to a small summary, the computer has to figure out which features—like cell shape, size, or texture—are truly important. This is similar to how a biologist might sketch a simplified diagram of a cell, highlighting its nucleus and membrane but leaving out every ribosome and microtubule.
 -->
 
-Because the computer must recreate the original image from that stripped‑down summary, it learns to ignore random noise or unimportant quirks (like slight variations in lighting) and focus on the core characteristics shared by similar cell types. In other words, the bottleneck helps the machine discover the hidden “essence” of the data. 
+Because the computer must recreate the original image from that stripped‑down summary, it learns to ignore random noise.
+
+<!--
+ or unimportant quirks (like slight variations in lighting) and focus on the core characteristics shared by similar cell types. In other words, the bottleneck helps the machine discover the hidden “essence” of the data. 
+-->
 
 <!--
 Once you have those concise summaries, you can use them to cluster cells into groups, visualize how different cell types relate, or even feed them into a second analysis—just as you might reduce a complex DNA dataset to a handful of genetic markers before drawing a phylogenetic tree. This approach lets you explore and interpret large biological datasets more effectively, all without ever providing explicit labels.
@@ -658,8 +662,7 @@ rotating_anim = create_rotating_animation()
 # Create pendulum animation
 print("3. Creating pendulum animation...")
 pendulum_anim = create_pendulum_animation()
-    
-  
+
 ```
 
 :::
@@ -750,7 +753,7 @@ plt.show()
 - **Why it matters:**  
   - Reveals structure in customer segmentation, anomaly detection, image compression, etc.  
   - Serves as exploratory analysis and preprocessing for downstream tasks  
-- **Information bottleneck:** Forcing models (like autoencoders) to squeeze data through a narrow “latent code” uncovers the most essential features and removes noise  
+- **Information bottleneck:** Forcing models to squeeze data through a narrow bottleneck uncovers the most essential features and removes noise  
 - **Hands‑on example:** Apply PCA to crime‑and‑population data by state to project three features into two dimensions for visualization  
 - **Unsupervised vs. supervised:**  
   - **Unsupervised:** No labels, focus on pattern discovery  
