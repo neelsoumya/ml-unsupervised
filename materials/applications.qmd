@@ -1179,13 +1179,59 @@ model.biplot(legend=True)#, labels=asia_gap_std['country'])
 
 * Now label each point on the PCA biplot this by country names
 
-```{python ch4-gapminder-pca-color-bycountry}
-#| warning: false
-#| echo: false
-#| output: false
+_Hint_: The following code will not work (since "country" is categorical). You will have to a bit creative!
 
+```python
+plt.figure()
+plt.scatter(pcs[:,0], pcs[:,1]), c=asia_gap_unique["country"])
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("Plot of PCA on Gapminder data for Asian countries")
+plt.show()
 ```
 
+::: {.callout-hint collapse=”true”}
+
+Here are some code hints to help you.
+
+```{python ch4-gapminder-pca-color-bycountry}
+#| warning: false
+#| eval: false
+
+plt.figure()
+plt.scatter(pcs[:,0], pcs[:,1])
+
+# add country labels
+for i, country in enumerate( asia_gap_unique["country"] ):
+    # fill in your code here 
+    plt.annotate(.....)
+
+plt.show()
+```
+
+Your plot may look like this:
+
+```{python ch4-gapminder-pca-color-bycountry-codenotshown}
+#| warning: false
+#| echo: false
+
+plt.figure()
+plt.scatter(pcs[:,0], pcs[:,1])
+
+# add country labels
+for i, country in enumerate( asia_gap_unique["country"] ):
+    # plt.annotate(country, (pcs[i,0], pcs[i,1]) )
+    
+    plt.annotate(country, (pcs[i,0], pcs[i,1]), 
+        xytext=(5, 5), textcoords='offset points',
+        fontsize=8, alpha=0.7)
+
+plt.show()
+```
+
+
+:::
+<!-- end callout -->
 
 
 ## R
