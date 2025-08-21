@@ -527,6 +527,16 @@ features = df_normalized.drop(columns=['Outcome'])
 pca = PCA(n_components=2)
 principal_components = pca.fit_transform(features)
 
+# simpler way to plot using plt.scatter()
+plt.figure()
+plt.scatter(principal_components[:,0], principal_components[:,1], c = features["BMI"])
+plt.show()
+
+plt.figure()
+plt.scatter(principal_components[:,0], principal_components[:,1], c = df_normalized["Outcome"])
+plt.show()
+
+
 # Create a DataFrame for the principal components
 pca_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2'])
 pca_df['Outcome'] = df_normalized['Outcome'].values
@@ -1117,6 +1127,7 @@ asia_gap_unique = gap[gap['continent'] == 'Asia'].groupby('country')[features].m
 print(asia_gap_unique.head())
 ```
 
+* Visualize the features by using `plt.hist()` or `sns.histplot()`
 
 * Then perform PCA on it. _Hint_: you need to normalize your data also. 
 
@@ -1221,7 +1232,7 @@ plt.scatter(pcs[:,0], pcs[:,1])
 # add country labels
 for i, country in enumerate( asia_gap_unique["country"] ):
     # plt.annotate(country, (pcs[i,0], pcs[i,1]) )
-    
+
     plt.annotate(country, (pcs[i,0], pcs[i,1]), 
         xytext=(5, 5), textcoords='offset points',
         fontsize=8, alpha=0.7)
@@ -1232,6 +1243,75 @@ plt.show()
 
 :::
 <!-- end callout -->
+
+* Perform tSNE on this data
+
+```{python ch4-gapminer-tsne}
+#| warning: false
+#| echo: false
+
+from sklearn.manifold import TSNE
+
+# run tSNE
+tsne = TSNE(n_components=2, perplexity=30)
+asia_tsne = tsne.fit_transform(asia_gap_unique_norm)
+
+# plot tSNE
+plt.figure()
+plt.scatter(asia_tsne[:,0], asia_tsne[:,1])
+plt.xlabel('t-SNE 1')
+plt.ylabel('t-SNE 2')
+plt.title('t-SNE Visualization (Asian Countries)')
+#plt.grid(True)
+plt.show()
+```
+
+* Do you know notice anything "odd"/"interesting" about this plot?
+
+* Now add the labels of the countries to this tSNE plot. Here is some _code_ to give you a hint.
+
+
+::: {.callout-hint collapse=”true”}
+
+Here are some code hints to help you.
+
+```{python ch4-gapminder-pca-color-bycountry}
+#| warning: false
+#| eval: false
+
+plt.figure()
+plt.scatter(asia_tsne[:,0], asia_tsne[:,1])
+
+# add country labels
+for i, country in enumerate( asia_gap_unique["country"] ):
+    # fill in your code here 
+    plt.annotate(.....)
+
+plt.show()
+```
+
+Your plot may look like this:
+
+```{python ch4-gapminder-pca-color-bycountry-codenotshown}
+#| warning: false
+#| echo: false
+
+plt.figure()
+plt.scatter(asia_tsne[:,0], asia_tsne[:,1])
+
+# add country labels
+for i, country in enumerate( asia_gap_unique["country"] ):
+    # plt.annotate(country, (asia_tsne[i,0], asia_tsne[i,1]) )
+
+    plt.annotate(country, (asia_tsne[i,0], asia_tsne[i,1]), 
+        xytext=(5, 5), textcoords='offset points',
+        fontsize=8, alpha=0.7)
+
+plt.show()
+```
+:::
+<!-- end callout -->
+
 
 
 ## R
