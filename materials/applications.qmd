@@ -1312,7 +1312,9 @@ plt.show()
 :::
 <!-- end callout -->
 
+* Now perform herarchical clustering on this data.
 
+TODO: XX
 
 ## R
 

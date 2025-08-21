@@ -45,28 +45,34 @@ Unsupervised learning is all about discovering structure in data without any exp
 
 * Anomaly (or Outlier) Detection
 - **What happened in your brain:**  
-  When you look at a uniform grey pavement, your visual system builds an internal “model” of what’s normal—flat, texture‑repeating, monochrome. The bright red rose doesn’t fit that model, so it “pops,” drawing your attention.
+  When you look at a uniform grey pavement, your visual system builds an internal "model" of what is normal: flat, texture‑repeating, monochrome. The bright red rose doesn’t fit that model, so it “pops,” drawing your attention.
 
 - **In machine learning:**  
-  Algorithms like Isolation Forests, One‑Class SVMs, or autoencoder‑based detectors learn a representation of “normal” data (e.g. patches of pavement) and then flag anything that deviates significantly (e.g. the rose) as an anomaly.
+  Algorithms can learn a representation of “normal” data (e.g. patches of pavement) and then flag anything that deviates significantly (e.g. the rose) as an anomaly.
 
 * Feature Extraction & Saliency
 - **Human vision analogy:**  
   Early in the visual cortex, neurons respond to edges, color contrasts, textures. A red circle on grey evokes strong responses in “color” and “shape‑edge” channels.
 
+<!--
 - **ML counterpart:**  
   Techniques like PCA or deep autoencoders learn low‑dimensional “features” (color histograms, texture filters). Dimensions where the rose is extreme (high red‑channel value) are exactly the ones that give us the “anomaly” score.
+-->
 
 * Clustering & Pattern Discovery
 You might not only notice the rose, but if there were lots of petals scattered around, your brain could start grouping (clustering) regions of similar color/shape.
 
-Unsupervised clustering algorithms (k‑means, DBSCAN) would partition image patches into clusters—“pavement patches,” “rose petals,” maybe even “shadows.” Anything that doesn’t belong to a big cluster may again be flagged as rare.
+<!--
+Unsupervised algorithms would partition image patches into clusters—“pavement patches,” “rose petals,” maybe even “shadows.” Anything that doesn’t belong to a big cluster may again be flagged as rare.
+-->
 
+<!--
 * Dimensionality Reduction & Visualization
 In a high‑dimensional feature space (e.g. each 10×10 pixel patch → a 300‑dim vector), you can’t “see” clusters easily. Algorithms like t‑SNE or UMAP compress that down to 2D so you can actually plot and see the rose‑patches separate from pavement.
 
 This is why, for instance, visual analytics tools will show outliers as distant points on a scatterplot—just as you instantly spot the rose on the pavement.
 
+-->
 
 
 ### Resources
@@ -108,7 +114,11 @@ Given the data below, how should we reduce the number of features and/or visuali
 | Pennsylvania| 4.8               | 22.9               | 12,801,989     |
 
 
-Importantly, we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This is a **supervised** machine learning problem [@Gareth2017].
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: Importantly, in unsupervised machine learning we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This is a **supervised** machine learning problem [@Gareth2017].
+:::
+<!-- end callout -->
+
 
 | State        | Murder (per 100k) | Robbery (per 100k) | Population   | People Who Moved (per 100k) |
 |--------------|-------------------|--------------------|--------------|-----------------------------|
@@ -119,6 +129,17 @@ Importantly, we are not trying to predict anything. For example, say in the data
 | Illinois     | 6.4               | 35.1               | 12,671,821   | 2,900                       |
 | Pennsylvania | 4.8               | 22.9               | 12,801,989   | 2,500                       |
 
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPTS)**: 
+
+* If there is a column in the table that we are trying to predict, this would be called a *label*. **Supervised** machine learning (such as linear regression) tries to predict the *label* given the *features* [@Gareth2017].
+
+* However in unsupervised machine learning, we only deal with features and do not try to predict anything. 
+
+* Hence there are no *labels* in unsupervised machine learning.
+:::
+<!-- end callout -->
 
 ## What PCA does to the data
 
