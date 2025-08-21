@@ -676,7 +676,7 @@ Does the figure above look similar to linear regression? Is PCA the same as line
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: PCA is _not_ linear regression. It looks similar though, does it not?
 
-Linear regression is a predictive model. PCA is not. You cannot use PCA to predict anything. You can use PCA to pick out patterns in your data.
+Linear regression is a predictive model. PCA is _not_. You cannot use PCA to predict anything. You can use PCA to only pick out patterns in your data.
 :::
 <!-- end callout -->
 
