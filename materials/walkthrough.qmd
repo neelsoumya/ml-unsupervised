@@ -89,7 +89,7 @@ This is why, for instance, visual analytics tools will show outliers as distant 
 , often called a latent code or embedding
 -->
 
-In unsupervised learning, the __bottleneck concept__ refers to a deliberate  constraint where information is compressed through a narrow intermediate representation. The model is trained to reconstruct the input data after passing it through this low-dimensional bottleneck, forcing it to learn a compact and informative representation of the underlying structure of the data. Since there are no labels guiding the learning process, the model relies solely on reconstructing its input as accurately as possible, using only the limited information passed through this narrow channel. This compression encourages the model to capture essential features while discarding noise or redundancy.
+In unsupervised learning, the __bottleneck concept__ refers to a deliberate  constraint where information is compressed through a narrow intermediate step. The model is trained to reconstruct the input data after passing it through this low-dimensional bottleneck, forcing it to learn a compact and informative representation of the underlying structure of the data. Since there are no labels guiding the learning process, the model relies solely on reconstructing its input as accurately as possible, using only the limited information passed through this narrow channel. This compression encourages the model to capture essential features while discarding noise or redundancy.
 
 <!--
 The bottleneck acts as an inductive bias that promotes dimensionality reduction, feature learning, and denoising. By minimizing reconstruction error while constrained by a reduced latent space, the model implicitly discovers patterns, clusters, and hierarchies within the input data. In practical terms, this is a foundational principle behind many unsupervised representation learning methods, including classical autoencoders, variational autoencoders (VAEs), and self-supervised learning systems that rely on contrastive or generative objectives. The learned low-dimensional codes can then be used for downstream tasks such as clustering, visualization (e.g., with t-SNE or PCA), or as inputs to supervised models in a semi-supervised setting.
@@ -665,6 +665,18 @@ pendulum_anim = create_pendulum_animation()
 
 ```
 
+:::
+<!-- end callout -->
+
+
+## Differences between PCA and linear regression
+
+Does the figure above look similar to linear regression? Is PCA the same as linear regression?
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: PCA is _not_ linear regression. It looks similar though, does it not?
+
+Linear regression is a predictive model. PCA is not. You cannot use PCA to predict anything. You can use PCA to pick out patterns in your data.
 :::
 <!-- end callout -->
 
