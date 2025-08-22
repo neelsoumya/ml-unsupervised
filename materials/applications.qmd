@@ -820,6 +820,7 @@ You have to follow the following steps:
 import scanpy as sc
 import pandas as pd
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
@@ -1103,10 +1104,31 @@ Here is a brief code snippet to help you load the data and get started.
 
 ## Python
 
-```{python ch4-gapminder-loadpackages}
+* Install packages
+
+```{python ch4-gapminder-install}
+#| warning: false
+#| output: false
+ 
+!pip install scipy matplotlib pandas seaborn
+```
+
+* Load libraries
+
+```{python ch4-single-cell-loadlib}
 #| warning: false
 
 import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+from scipy.cluster.hierarchy import dendrogram, linkage
+```
+
+```{python ch4-gapminder-loadpackages}
+#| warning: false
 
 # Download Gapminder data
 url = "https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv"
@@ -1144,6 +1166,7 @@ The function `pca` in the package `pca` will do it for you if you set `normalize
 from sklearn.preprocessing import StandardScaler
 
 # normalize
+scaler = StandardScaler()
 asia_gap_unique_norm = scaler.fit_transform(asia_gap_unique[features])
 
 # Perform PCA
@@ -1307,14 +1330,30 @@ for i, country in enumerate( asia_gap_unique["country"] ):
         xytext=(5, 5), textcoords='offset points',
         fontsize=8, alpha=0.7)
 
+plt.xlabel('t-SNE 1')
+plt.ylabel('t-SNE 2')
+plt.title('t-SNE Visualization (Asian Countries)')
 plt.show()
 ```
 :::
 <!-- end callout -->
 
-* Now perform herarchical clustering on this data.
+* Now perform hierarchical clustering on this data.
 
-TODO: XX
+```{python ch4-gapminder-hclust}
+#| warning: false
+#| echo: false
+
+from scipy.cluster.hierarchy import dendrogram, linkage
+
+Z = linkage(asia_gap_unique_norm, method="ward")
+
+plt.figure()
+dendrogram(Z, labels=asia_gap_unique["country"].values)
+plt.show()
+
+sns.clustermap(data=asia_gap_unique_norm)
+```
 
 ## R
 
