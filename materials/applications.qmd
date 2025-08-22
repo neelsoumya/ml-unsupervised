@@ -291,7 +291,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-* TODO: XX tSNE and color by tissue type
+<!--* TODO: XX tSNE and color by tissue type-->
 
 
 * Hierarchical clustering
@@ -512,7 +512,6 @@ features = df_normalized.drop(columns=['Outcome'])
 
 # Apply PCA
 # This is where you fill in your code .........
-
 ```
 
 * Fill in the rest of the code with your group members.
@@ -566,10 +565,12 @@ plt.show()
 
 # Visualize PCA results colored by BMI
 plt.figure()
-scatter = plt.scatter(pca_df['PC1'], pca_df['PC2'], c=df_normalized['BMI'],
+scatter = plt.scatter(pca_df['PC1'], pca_df['PC2'], c = df_normalized['BMI'],
                      cmap='viridis', alpha=0.7)
 plt.colorbar(scatter, label='BMI (normalized)')
 plt.title('PCA of Diabetes Dataset - Coloured by BMI')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
 plt.show()
 ```
 
@@ -728,10 +729,14 @@ standard_scale = 0
 :::
 <!-- end callout -->
 
+<!--
 * Plot heatmaps (heatmaps are a great way to visualize your data!)
+-->
 
 ```{python ch4-ehr-heatmaps-show}
 #| warning: false
+#| echo: false
+#| output: false
 
 # Plot a heatmap of the normalized feature values for all samples
 plt.figure()
@@ -858,6 +863,8 @@ print(expr.head())
 ```
 
 * We now have a table of numbers: the rows are cells, and columns are genes measured in those cells.
+
+* Visualize the data. Use `plt.hist()` or `sns.histplot()`
 
 * Now perform PCA on this data (_Hint_: `expr.values` has all the values. Perform PCA on this.)
 
@@ -1127,6 +1134,8 @@ from sklearn.manifold import TSNE
 from scipy.cluster.hierarchy import dendrogram, linkage
 ```
 
+* Load data
+
 ```{python ch4-gapminder-loadpackages}
 #| warning: false
 
@@ -1260,6 +1269,9 @@ for i, country in enumerate( asia_gap_unique["country"] ):
         xytext=(5, 5), textcoords='offset points',
         fontsize=8, alpha=0.7)
 
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("Plot of PCA on Gapminder data for Asian countries")
 plt.show()
 ```
 
@@ -1308,6 +1320,8 @@ plt.show()
 
 * Do you know notice anything "odd"/"interesting" about this plot?
 
+* Change the `perplexity` parameter and observe what it does to the plot.
+
 * Now add the labels of the countries to this tSNE plot. Here is some _code_ to give you a hint.
 
 
@@ -1330,11 +1344,12 @@ for i, country in enumerate( asia_gap_unique["country"] ):
 plt.show()
 ```
 
-Your plot may look like this:
+<!--Your plot may look like this: -->
 
 ```{python ch4-gapminder-pca-color-bycountry-codenotshown}
 #| warning: false
 #| echo: false
+#| output: false
 
 plt.figure()
 plt.scatter(asia_tsne[:,0], asia_tsne[:,1])
@@ -1355,11 +1370,12 @@ plt.show()
 :::
 <!-- end callout -->
 
-* Now perform hierarchical clustering on this data.
+* Now perform hierarchical clustering on this data. 
 
 ```{python ch4-gapminder-hclust}
 #| warning: false
 #| echo: false
+#| output: false
 
 from scipy.cluster.hierarchy import dendrogram, linkage
 
@@ -1390,6 +1406,9 @@ sns.clustermap(data=df_asia_heatmap,
     col_cluster=True,
     cmap="vlag")
 ```
+
+* Discuss the outcomes of your project in your group. Explain your key outcomes (in a few minutes) to everyone in the class. 
+
 
 ## R
 
