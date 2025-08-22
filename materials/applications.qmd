@@ -1267,6 +1267,23 @@ plt.show()
 :::
 <!-- end callout -->
 
+* What does `PC1` mean? Are there any features that are correlated with `PC1`?
+
+_Hint_: Perform a scatterplot (`plt.scatter()`) for each feature vs. `PC1`
+
+```{python ch4-gapminder-pc1-correlation}
+#| warning: false
+#| echo: false
+#| output: false
+
+plt.figure()
+plt.scatter(asia_gap_unique["lifeExp"], pcs[:,0])
+plt.xlabel('PC1')
+plt.ylabel('Mean Life Expectancy')
+plt.title('Life Expectancy vs PC1 (Asian Countries)')
+plt.show()
+```
+
 * Perform tSNE on this data
 
 ```{python ch4-gapminer-tsne}
@@ -1352,7 +1369,26 @@ plt.figure()
 dendrogram(Z, labels=asia_gap_unique["country"].values)
 plt.show()
 
-sns.clustermap(data=asia_gap_unique_norm)
+sns.clustermap(data=asia_gap_unique_norm,
+    metric="euclidean",
+    method="ward",
+    row_cluster=True,
+    col_cluster=True,
+    cmap="vlag")
+
+# to get the labels make a dataframe
+df_asia_heatmap = pd.DataFrame(data = asia_gap_unique_norm, 
+                                 index = asia_gap_unique["country"],
+                                 columns = features
+)
+
+# now plot this using sns.clustermap()
+sns.clustermap(data=df_asia_heatmap,
+    metric="euclidean",
+    method="ward",
+    row_cluster=True,
+    col_cluster=True,
+    cmap="vlag")
 ```
 
 ## R
