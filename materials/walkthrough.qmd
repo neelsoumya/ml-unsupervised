@@ -700,7 +700,12 @@ The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. T
 
 ### 2. **Linear combinations**
 
-The principal components are *linear combinations* of the original *features*. Hence they can be a bit difficult to interpret. 
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: The principal components are *linear combinations* of the original *features*. Hence they can be a bit difficult to interpret. 
+:::
+<!-- end callout -->
+
 
 
 ### 3. **Variance**
@@ -708,16 +713,6 @@ The principal components are *linear combinations* of the original *features*. H
 * Variance = how spread out the data is.
 * PCA finds directions (principal components) that maximize variance.
 
-
-::: {.callout-note collapse="true"}
-## Click to expand
-Formula for variance of variable $x$:
-
-$$
-\text{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2
-$$
-:::
-<!-- end callout --> 
 
 
 ---
@@ -760,7 +755,7 @@ plt.show()
 
 - **What it is:** Discover hidden patterns or groupings in unlabeled data, without predicting a specific target.  
 - **Key techniques:**  
-  - **Clustering** (e.g. k‑means, hierarchical) for grouping similar observations  
+  - **Clustering** for grouping similar observations  
   - **Dimensionality reduction** (e.g. PCA) for compressing and visualizing high‑dimensional data  
 - **Why it matters:**  
   - Reveals structure in customer segmentation, anomaly detection, image compression, etc.  
@@ -769,14 +764,10 @@ plt.show()
 - **Hands‑on example:** Apply PCA to crime‑and‑population data by state to project three features into two dimensions for visualization  
 - **Unsupervised vs. supervised:**  
   - **Unsupervised:** No labels, focus on pattern discovery  
-  - **Supervised:** With labels, focus on predicting a known outcome 
+  - **Supervised:** With _labels_, focus on _predicting_ a known outcome 
 
 
 
-
-## Acknowledgements
-
-We thank Martin van Rongen, Vicki Hodgson, Hugo Tavares, Paul Fannon, Matt Castle and the Bioinformatics Facility Training Team for their support and guidance.
 
 
 ## Resources

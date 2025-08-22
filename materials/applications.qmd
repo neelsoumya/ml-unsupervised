@@ -369,7 +369,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-## How to evaluate unsupervised learning methods
+<!--## How to evaluate unsupervised learning methods ->
 
 <!--TODO: XX Potentially NC160 data exercise can live here -->
 
