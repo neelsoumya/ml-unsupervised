@@ -39,6 +39,15 @@ title: Hands-on exercises (Applications of unsupervised machine learning)
 - **Key parameter**: Perplexity (try values 5-50)
 - **Use case**: Single-cell data, biological expression data, any non-linear clustering
 
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: Sometimes tSNE may not work as well! It is hard to predict which unsupervised machine learning technique will work best.
+
+You just need to try a bunch of different techniques.
+:::
+<!-- end callout -->
+
+
 <!--
 ### **Autoencoders**
 - **Best for**: Complex non-linear relationships in deep learning contexts
@@ -556,7 +565,7 @@ plt.show()
 
 - The `alpha` parameter controls the transparency (opacity) of the markers.
 
-- When passing numbers, you must specify `cmap` (colour map) to control the gradient mapping (otherwise the default colourmap is used)
+- When passing numbers, you can specify `cmap` (colour map) to control the gradient mapping (otherwise the default colourmap is used)
 
 -  Let us colour by the feature `BMI` now
 
@@ -580,7 +589,7 @@ plt.show()
 
 * Try other features: `Glucose`, `BloodPressure`, `SkinThickness`, `Insulin`, `DiabetesPedigreeFunction`, `Age`
 
-* Try spotting any patterns and discuss this in your group
+* Try spotting any patterns and discuss this in your group.
 
 * _Recall_: The primary goal of unsupervised machine learning is to uncover hidden patterns, structures, and relationships within the data. 
 
@@ -831,9 +840,20 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 ```
 
-* Load and Preprocess Data: It loads the pbmc3k dataset using scanpy, normalizes the total counts per cell to 10,000, and then applies a log transformation. It then picks out a few "marker" genes (genes that may be important for the disease based on our prior knowledge).
+* Load and Preprocess Data: Load the pbmc3k dataset using `scanpy`, normalizes the total counts per cell to 10,000, and then applies a log transformation. 
 
-* The single cell data is just a table of numbers: the rows are different cells, the columns are genes measured in those cells.
+* Then picks out a few "marker" genes (genes that may be important for the disease based on our prior knowledge).
+
+* The single cell data is just a table of numbers: the rows are different cells, the columns are genes measured in those cells. Here is what this would look like:
+
+| Cell | CD3D | CD4 | CD8A | FOXP3 | IL2RA |
+|------|------|-----|------|-------|-------|
+| Cell_001 | 0.5 | 1.2 | 0.0 | 2.1 | 0.8 |
+| Cell_002 | 1.1 | 0.3 | 1.5 | 0.0 | 1.9 |
+| Cell_003 | 0.0 | 2.4 | 0.7 | 1.3 | 0.4 |
+| Cell_004 | 1.8 | 0.0 | 2.2 | 0.9 | 1.1 |
+| Cell_005 | 0.3 | 1.7 | 0.0 | 1.6 | 0.2 |
+
 
 ```{python ch4-single-cell-loaddata}
 #| warning: false
@@ -864,7 +884,7 @@ print(expr.head())
 
 * We now have a table of numbers: the rows are cells, and columns are genes measured in those cells.
 
-* Visualize the data. Use `plt.hist()` or `sns.histplot()`
+* Visualize the data. Use `plt.hist()` or `sns.histplot()`.
 
 * Now perform PCA on this data (_Hint_: `expr.values` has all the values. Perform PCA on this.)
 
@@ -939,7 +959,7 @@ plt.show()
 
 # plot
 plt.figure()
-plt.scatter(tsne_coords[:,0], tsne_coords[:,1], c=expr["CD3D"])
+plt.scatter(tsne_coords[:,0], tsne_coords[:,1], c = expr["CD3D"])
 plt.xlabel("tSNE 1")
 plt.ylabel("tSNE 2")
 plt.show()
