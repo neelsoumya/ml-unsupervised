@@ -60,7 +60,7 @@ You just need to try a bunch of different techniques.
 
 
 
-### Demonstrating how PCA may fail
+### Demonstrating how PCA or tSNE may not work well
 
 * Generate synthetic biological expression data: matrix of 200 samples × 10 genes, where Gene_1 and Gene_2 follow a clustering (four corner clusters) and the remaining genes are just Gaussian noise. You can see from the scatter of Gene_1 vs Gene_2 that the true structure is non-linear and not aligned with any single variance direction: PCA may fail to unfold these clusters into separate principal components.
 
