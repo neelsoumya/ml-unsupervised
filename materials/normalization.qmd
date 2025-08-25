@@ -496,14 +496,18 @@ ax = model.biplot(n_feat=len(df.columns), legend=False)
 
 * Variance explained plots
 
-```{python ch2-exercise-pca-var}}
+```{python ch2-exercise-pca-var}
+#| warning: false
+
 model.plot()
 
 ```
 
 * 3D PCA biplots
 
-```{python ch2-exercise-pca-3d}}
+```{python ch2-exercise-pca-3d}
+#| warning: false
+
 model.biplot3d()
 
 ```
