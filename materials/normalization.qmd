@@ -547,7 +547,7 @@ Look into the documentation available here for the [PCA package](https://erdogan
 
 ::::: {#ex-title .callout-exercise}
 
-#### exercise_title
+#### exercise_theoretical
 
 {{< level 2 >}}
 
