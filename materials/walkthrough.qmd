@@ -77,36 +77,12 @@ This is why, for instance, visual analytics tools will show outliers as distant 
 
 ### Resources
 
+<!--
 [PCA intuition](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues)
-
-
-::: {.callout-tip}
-### Key Concept 
-
-![Information bottleneck](images/information_bottleneck.png)
-
-<!--
-, often called a latent code or embedding
 -->
 
-In unsupervised learning, the __bottleneck concept__ refers to a deliberate  constraint where information is compressed through a narrow intermediate step. The model is trained to reconstruct the input data after passing it through this low-dimensional bottleneck, forcing it to learn a compact and informative representation of the underlying structure of the data. Since there are no labels guiding the learning process, the model relies solely on reconstructing its input as accurately as possible, using only the limited information passed through this narrow channel. This compression encourages the model to capture essential features while discarding noise or redundancy.
 
-<!--
-The bottleneck acts as an inductive bias that promotes dimensionality reduction, feature learning, and denoising. By minimizing reconstruction error while constrained by a reduced latent space, the model implicitly discovers patterns, clusters, and hierarchies within the input data. In practical terms, this is a foundational principle behind many unsupervised representation learning methods, including classical autoencoders, variational autoencoders (VAEs), and self-supervised learning systems that rely on contrastive or generative objectives. The learned low-dimensional codes can then be used for downstream tasks such as clustering, visualization (e.g., with t-SNE or PCA), or as inputs to supervised models in a semi-supervised setting.
 
-magine you have a huge library of biological images—say, pictures of different cell types under a microscope—and you want to teach a computer to recognize patterns in those images without telling it what any of the cells are. A “bottleneck” in this context is like asking the computer to summarize each image using only a few key words instead of the entire picture. By forcing it to compress all the rich detail down to a small summary, the computer has to figure out which features—like cell shape, size, or texture—are truly important. This is similar to how a biologist might sketch a simplified diagram of a cell, highlighting its nucleus and membrane but leaving out every ribosome and microtubule.
--->
-
-Because the computer must recreate the original image from that stripped‑down summary, it learns to ignore random noise.
-
-<!--
- or unimportant quirks (like slight variations in lighting) and focus on the core characteristics shared by similar cell types. In other words, the bottleneck helps the machine discover the hidden “essence” of the data. 
--->
-
-<!--
-Once you have those concise summaries, you can use them to cluster cells into groups, visualize how different cell types relate, or even feed them into a second analysis—just as you might reduce a complex DNA dataset to a handful of genetic markers before drawing a phylogenetic tree. This approach lets you explore and interpret large biological datasets more effectively, all without ever providing explicit labels.
--->
-:::
 
 
 ### Example
@@ -116,6 +92,7 @@ Given the data below, how should we reduce the number of features and/or visuali
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: The columns of this data are the *features*.
 :::
+<!-- end callout -->
 
 
 | State       | Murder (per 100k) | Robbery (per 100k) | Population     |
@@ -129,7 +106,7 @@ Given the data below, how should we reduce the number of features and/or visuali
 
 
 ::: {.callout-tip}
-**NOTE (IMPORTANT CONCEPT)**: Importantly, in unsupervised machine learning we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This is a **supervised** machine learning problem [@Gareth2017].
+**NOTE (IMPORTANT CONCEPT)**: Importantly, in unsupervised machine learning we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This would be a **supervised** machine learning problem [@Gareth2017].
 :::
 <!-- end callout -->
 
@@ -155,13 +132,30 @@ Given the data below, how should we reduce the number of features and/or visuali
 :::
 <!-- end callout -->
 
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPTS)**: 
+
+* The number of columns in the data, is called the _dimensions_ of the data.
+
+* For example, if there are 3 columns, this is 3-dimensional data.
+
+* We can visualize it in 3 dimensions in a 3D plot.
+
+* Hence the columns of the data or dimensions form a _co-ordinate system_. We can visualize it in a plot. The X axis would represent the value in the first column, the Y axis would represent the values in the second column, and so on.
+
+* How would you visualize a table that has 14 columns/dimensions?
+
+:::
+<!-- end callout -->
+
+
+
 ## What PCA does to the data
 
 <!--
 [PCA in 3D](https://github.com/neelsoumya/python_machine_learning/blob/main/pca_intro_3D_view.ipynb)
 -->
-
-
 
 ### Projection of 3D Data
 
@@ -281,6 +275,8 @@ Dimensionality reduction techniques (such as PCA) always lose some information. 
 <!-- end callout -->
 
 
+
+
 ### Lesson on lossy compression (PCA applied to image)
 
 ### Learning Objectives
@@ -367,6 +363,38 @@ plt.show()
 ### Takeaway Message
 
 PCA can significantly reduce image data dimensionality while preserving salient features, making it a powerful tool for image compression and understanding. However, perfect reconstruction is only possible with all components, revealing the balance between efficiency and fidelity.
+
+
+
+::: {.callout-tip}
+### Key Concept 
+
+![Information bottleneck](images/information_bottleneck.png)
+
+<!--
+, often called a latent code or embedding
+-->
+
+In unsupervised learning, the __bottleneck concept__ refers to a deliberate  constraint where information is compressed through a narrow intermediate step. The model is trained to reconstruct the input data after passing it through this low-dimensional bottleneck, forcing it to learn a compact and informative representation of the underlying structure of the data. Since there are no labels guiding the learning process, the model relies solely on reconstructing its input as accurately as possible, using only the limited information passed through this narrow channel. This compression encourages the model to capture essential features while discarding noise or redundancy.
+
+<!--
+The bottleneck acts as an inductive bias that promotes dimensionality reduction, feature learning, and denoising. By minimizing reconstruction error while constrained by a reduced latent space, the model implicitly discovers patterns, clusters, and hierarchies within the input data. In practical terms, this is a foundational principle behind many unsupervised representation learning methods, including classical autoencoders, variational autoencoders (VAEs), and self-supervised learning systems that rely on contrastive or generative objectives. The learned low-dimensional codes can then be used for downstream tasks such as clustering, visualization (e.g., with t-SNE or PCA), or as inputs to supervised models in a semi-supervised setting.
+
+magine you have a huge library of biological images—say, pictures of different cell types under a microscope—and you want to teach a computer to recognize patterns in those images without telling it what any of the cells are. A “bottleneck” in this context is like asking the computer to summarize each image using only a few key words instead of the entire picture. By forcing it to compress all the rich detail down to a small summary, the computer has to figure out which features—like cell shape, size, or texture—are truly important. This is similar to how a biologist might sketch a simplified diagram of a cell, highlighting its nucleus and membrane but leaving out every ribosome and microtubule.
+-->
+
+Because the computer must recreate the original image from that stripped‑down summary, it learns to ignore random noise.
+
+<!--
+ or unimportant quirks (like slight variations in lighting) and focus on the core characteristics shared by similar cell types. In other words, the bottleneck helps the machine discover the hidden “essence” of the data. 
+-->
+
+<!--
+Once you have those concise summaries, you can use them to cluster cells into groups, visualize how different cell types relate, or even feed them into a second analysis—just as you might reduce a complex DNA dataset to a handful of genetic markers before drawing a phylogenetic tree. This approach lets you explore and interpret large biological datasets more effectively, all without ever providing explicit labels.
+-->
+:::
+<!-- end callout -->
+
 
 
 ::: {.callout-tip}

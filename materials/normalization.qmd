@@ -15,7 +15,7 @@ This chapter demonstrates basic unsupervised machine learning concepts using Pyt
 - Apply PCA and clustering to example data.
 - Visualize results.
 :::
-
+<!-- end callout -->
 
 ## Refresher on Python
 
@@ -453,7 +453,7 @@ All of these can be used to generate hypotheses. These hypotheses can be tested 
 
 * Perform PCA on a dataset of US Arrests
 
-Load data
+Load data and install package
 
 ```python
 !pip install pca
