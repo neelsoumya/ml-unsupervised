@@ -468,6 +468,7 @@ Load data and install package
 ```
 
 ```{python ch2-exercise-pca-loaddata}
+#| warning: false
 
 from pca import pca
 import pandas as pd
@@ -486,12 +487,11 @@ print("\nData shape:", df.shape)
 Perform PCA
 
 ```{python ch2-pca-usarrests}
+#| warning: false
 
 model = pca(n_components=4)
 out = model.fit_transform(df)
 ax = model.biplot(n_feat=len(df.columns), legend=False)
-
-
 ```
 
 * Variance explained plots
@@ -500,7 +500,6 @@ ax = model.biplot(n_feat=len(df.columns), legend=False)
 #| warning: false
 
 model.plot()
-
 ```
 
 * 3D PCA biplots
@@ -509,7 +508,6 @@ model.plot()
 #| warning: false
 
 model.biplot3d()
-
 ```
 
 * Loadings
@@ -530,6 +528,8 @@ The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. T
 
 
 ```{python ch2-loadings-package}
+#| warning: false
+
 print(model.results)
 ```
 

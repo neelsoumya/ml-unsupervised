@@ -50,7 +50,6 @@ Unsupervised learning is all about discovering structure in data without any exp
 - **In machine learning:**  
   Algorithms can learn a representation of “normal” data (e.g. patches of pavement) and then flag anything that deviates significantly (e.g. the rose) as an anomaly.
 
-* Feature Extraction & Saliency
 - **Human vision analogy:**  
   Early in the visual cortex, neurons respond to edges, color contrasts, textures. A red circle on grey evokes strong responses in “color” and “shape‑edge” channels.
 
@@ -59,8 +58,10 @@ Unsupervised learning is all about discovering structure in data without any exp
   Techniques like PCA or deep autoencoders learn low‑dimensional “features” (color histograms, texture filters). Dimensions where the rose is extreme (high red‑channel value) are exactly the ones that give us the “anomaly” score.
 -->
 
+<!--
 * Clustering & Pattern Discovery
 You might not only notice the rose, but if there were lots of petals scattered around, your brain could start grouping (clustering) regions of similar color/shape.
+-->
 
 <!--
 Unsupervised algorithms would partition image patches into clusters—“pavement patches,” “rose petals,” maybe even “shadows.” Anything that doesn’t belong to a big cluster may again be flagged as rare.
@@ -75,7 +76,7 @@ This is why, for instance, visual analytics tools will show outliers as distant 
 -->
 
 
-### Resources
+<!--### Resources -->
 
 <!--
 [PCA intuition](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues)
