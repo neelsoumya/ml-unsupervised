@@ -1,6 +1,20 @@
 ---
 title: "Introduction to Unsupervised Learning"
-format: html
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    incremental: true
+    center: false
+    transition: slide
+    controls: true
+    progress: true
+execute:
+  echo: false
+  warning: false
+jupyter: python3
+---
+
 ---
 
 ::: {.callout-tip}
@@ -25,9 +39,9 @@ By the end of this module, learners will be able to:
 * Articulate the value of unsupervised learning in uncovering hidden structure in unlabelled data and its importance as data complexity grow.
 :::
 
+---
 
-
-## Introduction
+# Introduction
 
 Unsupervised learning is a branch of machine learning that deals with finding hidden patterns or intrinsic structures in data without the use of labeled responses. Unlike supervised learning, where the model learns from labeled data to predict outcomes, unsupervised learning works with input data that does not have any corresponding output variables. The primary goal is to explore the underlying structure, groupings, or features in the data.
 
@@ -35,7 +49,9 @@ One of the most common applications of unsupervised learning is clustering, wher
 
 Unsupervised learning is valuable because it can reveal insights that may not be immediately apparent, uncovering relationships and patterns that might otherwise go unnoticed. It is commonly used in exploratory data analysis and as a preprocessing step for other algorithms. As data continues to grow in complexity and volume, unsupervised learning plays a critical role in making sense of unstructured information.
 
-### Motivation
+---
+
+## Motivation
 
 Here is a picture I took of a pavement in Cambridge the day after Valentine's Day. Why did this picture capture my attention? The starkness of the grey pavement contrasted with the bright red rose. It may have triggered some unsupervised learning mechanism in my brain that allows me to pick anomalies!
 
@@ -53,48 +69,15 @@ Unsupervised learning is all about discovering structure in data without any exp
 - **Human vision analogy:**  
   Early in the visual cortex, neurons respond to edges, color contrasts, textures. A red circle on grey evokes strong responses in “color” and “shape‑edge” channels.
 
-<!--
-- **ML counterpart:**  
-  Techniques like PCA or deep autoencoders learn low‑dimensional “features” (color histograms, texture filters). Dimensions where the rose is extreme (high red‑channel value) are exactly the ones that give us the “anomaly” score.
--->
+---
 
-<!--
-* Clustering & Pattern Discovery
-You might not only notice the rose, but if there were lots of petals scattered around, your brain could start grouping (clustering) regions of similar color/shape.
--->
-
-<!--
-Unsupervised algorithms would partition image patches into clusters—“pavement patches,” “rose petals,” maybe even “shadows.” Anything that doesn’t belong to a big cluster may again be flagged as rare.
--->
-
-<!--
-* Dimensionality Reduction & Visualization
-In a high‑dimensional feature space (e.g. each 10×10 pixel patch → a 300‑dim vector), you can’t “see” clusters easily. Algorithms like t‑SNE or UMAP compress that down to 2D so you can actually plot and see the rose‑patches separate from pavement.
-
-This is why, for instance, visual analytics tools will show outliers as distant points on a scatterplot—just as you instantly spot the rose on the pavement.
-
--->
-
-
-<!--### Resources -->
-
-<!--
-[PCA intuition](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues)
--->
-
-
-
-
-
-### Example
+## Example: Unsupervised problem
 
 Given the data below, how should we reduce the number of features and/or visualize it? This is an **unsupervised** machine learning problem.
 
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: The columns of this data are the *features*.
 :::
-<!-- end callout -->
-
 
 | State       | Murder (per 100k) | Robbery (per 100k) | Population     |
 |-------------|-------------------|--------------------|----------------|
@@ -105,12 +88,11 @@ Given the data below, how should we reduce the number of features and/or visuali
 | Illinois    | 6.4               | 35.1               | 12,671,821     |
 | Pennsylvania| 4.8               | 22.9               | 12,801,989     |
 
+---
 
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: Importantly, in unsupervised machine learning we are not trying to predict anything. For example, say in the data below we can try to predict the number of people who moved to that state last year. This would be a **supervised** machine learning problem [@Gareth2017].
 :::
-<!-- end callout -->
-
 
 | State        | Murder (per 100k) | Robbery (per 100k) | Population   | People Who Moved (per 100k) |
 |--------------|-------------------|--------------------|--------------|-----------------------------|
@@ -121,6 +103,7 @@ Given the data below, how should we reduce the number of features and/or visuali
 | Illinois     | 6.4               | 35.1               | 12,671,821   | 2,900                       |
 | Pennsylvania | 4.8               | 22.9               | 12,801,989   | 2,500                       |
 
+---
 
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPTS)**: 
@@ -131,35 +114,18 @@ Given the data below, how should we reduce the number of features and/or visuali
 
 * Hence there are no *labels* in unsupervised machine learning.
 :::
-<!-- end callout -->
 
-
-::: {.callout-tip}
-**NOTE (IMPORTANT CONCEPTS)**: 
-
-* The number of columns in the data, is called the _dimensions_ of the data.
-
-* For example, if there are 3 columns, this is 3-dimensional data.
-
-* We can visualize it in 3 dimensions in a 3D plot.
-
-* Hence the columns of the data or dimensions form a _co-ordinate system_. We can visualize it in a plot. The X axis would represent the value in the first column, the Y axis would represent the values in the second column, and so on.
-
-* How would you visualize a table that has 14 columns/dimensions?
-
-:::
-<!-- end callout -->
-
+---
 
 ## Curse of dimensionality
 
-How would you visualize data that has 14 dimensions? How about 1 million dimensions (can happen in the age of big data)? 
+How would you visualize data that has 14 dimensions? How about 1 million dimensions (can happen in the age of big data)?
 
 * Would you remove one column at a time?
 
 * Would you plot each feature/column vs the other exhaustively? How many pairwise plots would you need to plot for exhaustive visualization?
 
-::: {.callout-hint collapse=”true”}
+::: {.callout-hint collapse="true"}
 ```{python ch1-math-nchoose2}
 #| warning: false
 #| echo: false
@@ -208,11 +174,6 @@ plt.ylabel('Number of pairwise plots (n choose 2)')
 plt.title('Pairwise plots required as a function of number of features (1 ≤ n ≤ 1000)')
 plt.grid(True, linestyle='--', linewidth=0.5)
 
-# Annotate example points
-#for n, val in zip(example_ns, example_vals):
-#    plt.annotate(f'n={n}\n{int(val):,}', xy=(n, val), xytext=(8, -30),
-#                 textcoords='offset points', fontsize=9, ha='left')
-
 plt.xlim(0, 1005)
 plt.tight_layout()
 plt.show()
@@ -223,9 +184,8 @@ plt.show()
 * We need something more principled.
 
 :::
-<!-- end callout -->
 
-
+---
 
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)** 
@@ -233,18 +193,11 @@ plt.show()
 * It is not possible to exhaustively plot one feature vs. another _or_ remove any feature willy-nilly. For example, in a dataset from patient healthcare records, we cannot just randomly throw away data on blood pressure.
 
 * This is why we use dimensionality reduction to _reduce_ the dimensions of the data. This yields fewer _new_ features.
-
 :::
-<!-- end callout -->
 
+---
 
-
-
-## What PCA does to the data
-
-<!--
-[PCA in 3D](https://github.com/neelsoumya/python_machine_learning/blob/main/pca_intro_3D_view.ipynb)
--->
+# What PCA does to the data
 
 ### Projection of 3D Data
 
@@ -331,8 +284,9 @@ plt.show()
 
 ```
 
+---
 
-## Another intuition behind PCA
+# Another intuition behind PCA
 
 Principal Component Analysis (PCA) reduces the number of dimensions in your data by finding the directions where the data varies the most and keeping only those directions.
 
@@ -342,31 +296,23 @@ PCA works the same way: it finds the *thin* directions in your data that do not 
 
 ![A thin book on the floor. Image created using the DALL-E AI tool.](images/book_pca.png)
 
+---
+
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)** 
 
 Say your data has too many *columns/dimensions/features*. Dimensionality reduction techniques (such as PCA) reduce the number of dimensions or the number of columns in your data.
 :::
-<!-- end callout -->
 
+---
 
-
-## PCA is lossy 
+# PCA is lossy
 
 PCA does lose some information. But it can capture some/most of the salient aspects of your data. 
 
+---
 
-::: {.callout-tip}
-**NOTE (IMPORTANT CONCEPT)** 
-
-Dimensionality reduction techniques (such as PCA) always lose some information. In other words, it is *lossy*.
-:::
-<!-- end callout -->
-
-
-
-
-### Lesson on lossy compression (PCA applied to image)
+# Lesson on lossy compression (PCA applied to image)
 
 ### Learning Objectives
 
@@ -441,7 +387,7 @@ for i, n_components in enumerate(components_list):
     reconstructed_img = np.stack(reconstructed_channels, axis=2).astype(np.uint8)
     axs[i].imshow(reconstructed_img)
     axs[i].set_title(f"{n_components} PC")
-    axs[i].axis("off")
+    axs[i].axis('off')
 
 plt.suptitle("Image Reconstruction with Varying Principal Components", fontsize=14)
 plt.tight_layout()
@@ -449,52 +395,25 @@ plt.show()
 
 ```
 
-### Takeaway Message
-
-PCA can significantly reduce image data dimensionality while preserving salient features, making it a powerful tool for image compression and understanding. However, perfect reconstruction is only possible with all components, revealing the balance between efficiency and fidelity.
-
-
+---
 
 ::: {.callout-tip}
 ### Key Concept 
 
 ![Information bottleneck](images/information_bottleneck.png)
 
-<!--
-, often called a latent code or embedding
--->
-
 In unsupervised learning, the __bottleneck concept__ refers to a deliberate  constraint where information is compressed through a narrow intermediate step. The model is trained to reconstruct the input data after passing it through this low-dimensional bottleneck, forcing it to learn a compact and informative representation of the underlying structure of the data. Since there are no labels guiding the learning process, the model relies solely on reconstructing its input as accurately as possible, using only the limited information passed through this narrow channel. This compression encourages the model to capture essential features while discarding noise or redundancy.
-
-<!--
-The bottleneck acts as an inductive bias that promotes dimensionality reduction, feature learning, and denoising. By minimizing reconstruction error while constrained by a reduced latent space, the model implicitly discovers patterns, clusters, and hierarchies within the input data. In practical terms, this is a foundational principle behind many unsupervised representation learning methods, including classical autoencoders, variational autoencoders (VAEs), and self-supervised learning systems that rely on contrastive or generative objectives. The learned low-dimensional codes can then be used for downstream tasks such as clustering, visualization (e.g., with t-SNE or PCA), or as inputs to supervised models in a semi-supervised setting.
-
-magine you have a huge library of biological images—say, pictures of different cell types under a microscope—and you want to teach a computer to recognize patterns in those images without telling it what any of the cells are. A “bottleneck” in this context is like asking the computer to summarize each image using only a few key words instead of the entire picture. By forcing it to compress all the rich detail down to a small summary, the computer has to figure out which features—like cell shape, size, or texture—are truly important. This is similar to how a biologist might sketch a simplified diagram of a cell, highlighting its nucleus and membrane but leaving out every ribosome and microtubule.
--->
-
-Because the computer must recreate the original image from that stripped‑down summary, it learns to ignore random noise.
-
-<!--
- or unimportant quirks (like slight variations in lighting) and focus on the core characteristics shared by similar cell types. In other words, the bottleneck helps the machine discover the hidden “essence” of the data. 
--->
-
-<!--
-Once you have those concise summaries, you can use them to cluster cells into groups, visualize how different cell types relate, or even feed them into a second analysis—just as you might reduce a complex DNA dataset to a handful of genetic markers before drawing a phylogenetic tree. This approach lets you explore and interpret large biological datasets more effectively, all without ever providing explicit labels.
--->
 :::
-<!-- end callout -->
 
+---
 
-
-::: {.callout-tip}
 ## Activity: Playable version of PCA in browser
 
 [PCA in your browser](https://projector.tensorflow.org/)
-:::
-<!-- end callout -->
 
+---
 
-## Visual explanations of PCA
+# Visual explanations of PCA
 
 ```{python ch1-visual-explanation}
 #| echo: false
@@ -520,8 +439,8 @@ pc2 = pca.components_[1] * np.sqrt(pca.explained_variance_[1]) * 3
 
 plt.figure(figsize=(8, 6))
 plt.scatter(X[:, 0], X[:, 1], alpha=0.5, label='Original Data')
-plt.quiver(*origin, *pc1, color='r', scale=1, scale_units='xy', angles='xy', width=0.01, label='PC1')
-plt.quiver(*origin, *pc2, color='b', scale=1, scale_units='xy', angles='xy', width=0.01, label='PC2')
+plt.quiver(*origin, *pc1, scale=1, scale_units='xy', angles='xy', width=0.01, label='PC1')
+plt.quiver(*origin, *pc2, scale=1, scale_units='xy', angles='xy', width=0.01, label='PC2')
 
 # Project points onto PC1
 for point in X:
@@ -537,9 +456,9 @@ plt.show()
 
 ```
 
+---
 
-::: {.callout-tip}
-## Intuition
+# Intuition
 
 * PCA maximimizes the variance captured
 
@@ -595,6 +514,7 @@ plt.show()
 
 ```
 
+---
 
 * App to explain the intuition behind PCA
 
@@ -602,6 +522,7 @@ plt.show()
 
 ![Animation](images/pca_pendulum_animation.gif)
 
+---
 
 ```{python ch1-intuition-app}
 #| eval: false
@@ -626,182 +547,25 @@ X = X - np.mean(X, axis=0)
 cov_matrix = np.cov(X.T)
 eigenvals, eigenvecs = np.linalg.eigh(cov_matrix)
 
-def create_static_plot():
-    """Create static PCA plot"""
-    plt.figure(figsize=(8, 6))
-    plt.scatter(X[:, 0], X[:, 1], c='blue', alpha=0.7, s=50)
-    plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
-    plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
-    plt.grid(True, alpha=0.3)
-    plt.title('PCA Data Visualization')
-    plt.xlabel('X1')
-    plt.ylabel('X2')
-    plt.axis('equal')
-    plt.xlim(-3.5, 3.5)
-    plt.ylim(-3.5, 3.5)
-    plt.tight_layout()
-    plt.savefig('pca_static.png', dpi=300, bbox_inches='tight')
-    plt.show()
-
-def create_rotating_animation():
-    """Create rotating PCA animation"""
-    fig, ax = plt.subplots(figsize=(8, 6))
-    
-    def animate(alpha):
-        ax.clear()
-        ax.set_xlim(-3.5, 3.5)
-        ax.set_ylim(-3.5, 3.5)
-        ax.set_aspect('equal')
-        ax.grid(True, alpha=0.3)
-        
-        # Calculate projection direction
-        w = np.array([np.cos(np.radians(alpha)), np.sin(np.radians(alpha))])
-        z = X @ w.reshape(-1, 1) @ w.reshape(1, -1)
-        
-        # Draw projection lines
-        for i in range(100):
-            ax.plot([X[i, 0], z[i, 0]], [X[i, 1], z[i, 1]], 'r', alpha=0.3, linewidth=0.5)
-        
-        # Draw projection line
-        ax.plot(w[0] * 3.5 * np.array([-1, 1]), w[1] * 3.5 * np.array([-1, 1]), 'k', linewidth=2)
-        
-        # Plot points
-        ax.scatter(z[:, 0], z[:, 1], c='red', s=50, alpha=0.7)
-        ax.scatter(X[:, 0], X[:, 1], c='blue', s=50, alpha=0.7)
-        
-        # Plot origin
-        origin = Circle((0, 0), 0.1, color='white', ec='black', linewidth=2)
-        ax.add_patch(origin)
-        
-        # Plot principal component direction
-        pc_direction = eigenvecs[:, 1]
-        ax.plot(pc_direction[0] * np.array([-4.5, -3.5]), 
-                pc_direction[1] * np.array([-4.5, -3.5]), 'm', linewidth=2)
-        ax.plot(pc_direction[0] * np.array([3.5, 4.5]), 
-                pc_direction[1] * np.array([3.5, 4.5]), 'm', linewidth=2)
-        
-        ax.set_title(f'PCA Rotation Animation (Angle: {alpha}°)')
-        return ax,
-    
-    anim = animation.FuncAnimation(fig, animate, frames=range(0, 180, 3), 
-                                  interval=100, blit=False, repeat=True)
-    
-    # Save animation
-    try:
-        anim.save('pca_rotating_animation.gif', writer='pillow', fps=10)
-        print("Animation saved as 'pca_rotating_animation.gif'")
-    except Exception as e:
-        print(f"Could not save animation: {e}")
-    
-    plt.show()
-    return anim
-
-def create_pendulum_animation():
-    """Create pendulum-style PCA animation"""
-    fig, ax = plt.subplots(figsize=(8, 6))
-    
-    # Initial conditions
-    alpha = -45
-    omega = 0
-    target_angle = np.degrees(np.arctan2(eigenvecs[1, 1], eigenvecs[0, 1]))
-    
-    def animate_pendulum(frame):
-        nonlocal alpha, omega
-        
-        ax.clear()
-        ax.set_xlim(-3.5, 3.5)
-        ax.set_ylim(-3.5, 3.5)
-        ax.set_aspect('equal')
-        ax.grid(True, alpha=0.3)
-        
-        # Calculate projection direction
-        w = np.array([np.cos(np.radians(alpha)), np.sin(np.radians(alpha))])
-        z = X @ w.reshape(-1, 1) @ w.reshape(1, -1)
-        
-        # Pendulum physics
-        M = np.sum(np.sum((z @ np.array([[0, 1], [-1, 0]])) * (X - z), axis=1))
-        omega = omega + M
-        omega = omega * 0.93
-        alpha = alpha + omega / 40
-        
-        # Draw projection lines
-        for i in range(100):
-            ax.plot([X[i, 0], z[i, 0]], [X[i, 1], z[i, 1]], 'r', alpha=0.3, linewidth=0.5)
-        
-        # Draw projection line
-        ax.plot(w[0] * 3.5 * np.array([-1, 1]), w[1] * 3.5 * np.array([-1, 1]), 'k', linewidth=2)
-        
-        # Plot points
-        ax.scatter(z[:, 0], z[:, 1], c='red', s=50, alpha=0.7)
-        ax.scatter(X[:, 0], X[:, 1], c='blue', s=50, alpha=0.7)
-        
-        # Plot origin
-        origin = Circle((0, 0), 0.1, color='white', ec='black', linewidth=2)
-        ax.add_patch(origin)
-        
-        # Plot principal component direction
-        pc_direction = eigenvecs[:, 1]
-        ax.plot(pc_direction[0] * np.array([-4.5, -3.5]), 
-                pc_direction[1] * np.array([-4.5, -3.5]), 'm', linewidth=2)
-        ax.plot(pc_direction[0] * np.array([3.5, 4.5]), 
-                pc_direction[1] * np.array([3.5, 4.5]), 'm', linewidth=2)
-        
-        ax.set_title(f'PCA Pendulum Animation (Angle: {alpha:.1f}°, Target: {target_angle:.1f}°)')
-        
-        # Stop animation if pendulum has settled
-        if abs(omega) < 1 and abs(alpha - abs(target_angle)) < 1:
-            plt.close()
-            return ax,
-        
-        return ax,
-    
-    anim = animation.FuncAnimation(fig, animate_pendulum, frames=500, 
-                                  interval=50, blit=False, repeat=False)
-    
-    # Save animation
-    try:
-        anim.save('pca_pendulum_animation.gif', writer='pillow', fps=20)
-        print("Animation saved as 'pca_pendulum_animation.gif'")
-    except Exception as e:
-        print(f"Could not save animation: {e}")
-    
-    plt.show()
-    return anim
-
-# Create static image
-print("1. Creating static image...")
-create_static_plot()
-    
-# Create rotating animation
-print("2. Creating rotating animation...")
-rotating_anim = create_rotating_animation()
-    
-# Create pendulum animation
-print("3. Creating pendulum animation...")
-pendulum_anim = create_pendulum_animation()
+# (animation code omitted in slides by default; eval=false)
 
 ```
 
-:::
-<!-- end callout -->
+---
 
-
-## Differences between PCA and linear regression
-
-Does the figure above look similar to linear regression? Is PCA the same as linear regression?
+# Differences between PCA and linear regression
 
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: PCA is _not_ linear regression. It looks similar though, does it not?
 
 Linear regression is a predictive model. PCA is _not_. You cannot use PCA to predict anything. You can use PCA to only pick out patterns in your data.
 :::
-<!-- end callout -->
 
+---
 
-## 📊 Key Concepts
+# 📊 Key Concepts
 
-
-### 1. **Scores and Loadings**
+## 1. **Scores and Loadings**
 
 What is being plotted on the axes (PC1 and PC2) are the `scores`.
 
@@ -815,26 +579,24 @@ where $X$, $Y$ and $Z$ are the normalized *features*.
 
 The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. They are called the `loadings`.
 
-### 2. **Linear combinations**
+---
 
+## 2. **Linear combinations**
 
 ::: {.callout-tip}
 **NOTE (IMPORTANT CONCEPT)**: The principal components are *linear combinations* of the original *features*. Hence they can be a bit difficult to interpret. 
 :::
-<!-- end callout -->
 
+---
 
-
-### 3. **Variance**
+## 3. **Variance**
 
 * Variance = how spread out the data is.
 * PCA finds directions (principal components) that maximize variance.
 
-
-
 ---
 
-## 🔬 Example: Gene Expression Data
+# 🔬 Example: Gene Expression Data
 
 * Rows = samples (patients)
 * Columns = gene expression levels
@@ -844,27 +606,10 @@ The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. T
 * Reduce dimensionality from 20,000 genes to 2-3 PCs
 * Visualize patterns between patient groups (e.g., healthy vs. cancer)
 
-```python
-# Sample Python code (requires numpy, sklearn, matplotlib)
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-import matplotlib.pyplot as plt
 
-X = ...  # gene expression matrix
-X_scaled = StandardScaler().fit_transform(X)
+---
 
-pca = PCA(n_components=2)
-X_pca = pca.fit_transform(X_scaled)
-
-plt.scatter(X_pca[:, 0], X_pca[:, 1])
-plt.xlabel('PC1')
-plt.ylabel('PC2')
-plt.title('PCA of Gene Expression')
-plt.show()
-```
-
-
-## Lesson Summary
+# Lesson Summary
 
 * Basics of unsupervised learning
 
@@ -883,11 +628,9 @@ plt.show()
   - **Unsupervised:** No labels, focus on pattern discovery  
   - **Supervised:** With _labels_, focus on _predicting_ a known outcome 
 
+---
 
-
-
-
-## Resources
+# Resources
 
 - [Introduction to Statistical Learning in Python book](https://www.statlearning.com/)
 
@@ -898,5 +641,3 @@ plt.show()
 - [Interactive explanations of machine learning models](https://mlu-explain.github.io)
 
 - [Mathematics behind unsupervised machine learning](https://mml-book.github.io/book/mml-book.pdf)
-
-

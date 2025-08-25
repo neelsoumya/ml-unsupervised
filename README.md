@@ -57,6 +57,12 @@ git commit -m "Updated materials"
 git push
 ```
 
+* To generate presentations
+
+```bash
+quarto render materials/quarto_presentation_day1.qmd --to revealjs 
+```
+
 ## Directory structure
 
 - **README.md**: Project overview and setup instructions  
