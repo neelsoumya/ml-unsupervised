@@ -534,11 +534,18 @@ print(model.results)
 ::: {.callout-tip}
 Look into the documentation available here for the [PCA package](https://erdogant.github.io/pca/pages/html/Examples.html) and plot prettier *publication ready* plots.
 :::
+<!-- end callout -->
 
 
-## Exercise (theoretical)
 
-::: {.callout-tip}
+
+### Exercise (theoretical) {#sec-ex-theoretical}
+
+::::: {#ex-title .callout-exercise}
+
+#### exercise_title
+
+{{< level 2 >}}
 
 Break up into groups and discuss the following problem:
 
@@ -645,7 +652,8 @@ df = pd.DataFrame(loadings, index=genes, columns=pcs)
 print(df.to_string(float_format="{:.6f}".format))
 ```
 
-:::
+
+:::::
 <!-- end callout -->
 
 
@@ -655,7 +663,7 @@ print(df.to_string(float_format="{:.6f}".format))
 
 - Need to normalize data before doing dimensionality reduction
 - PCA reduces dimensionality for visualization.
-- KMeans finds clusters in unlabeled data.
+- Clustering algorithms finds clusters in unlabeled data.
 :::
 
 
