@@ -150,6 +150,94 @@ Given the data below, how should we reduce the number of features and/or visuali
 <!-- end callout -->
 
 
+## Curse of dimensionality
+
+How would you visualize data that has 14 dimensions? How about 1 million dimensions (can happen in the age of big data)? 
+
+* Would you remove one column at a time?
+
+* Would you plot each feature/column vs the other exhaustively? How many pairwise plots would you need to plot for exhaustive visualization?
+
+::: {.callout-hint collapse=”true”}
+```{python ch1-math-nchoose2}
+#| warning: false
+#| echo: false
+
+import math
+
+def num_pairwise_plots(num_features):
+    # Number of unique pairs: n choose 2
+    return math.comb(num_features, 2)
+
+num_features = 5
+print(f"Number of pairwise plots for {num_features} features: {num_pairwise_plots(num_features)}")
+
+num_features = 14
+print(f"Number of pairwise plots for {num_features} features: {num_pairwise_plots(num_features)}")
+
+num_features = 1000000
+print(f"Number of pairwise plots for {num_features} features: {num_pairwise_plots(num_features)}")
+```
+
+```{python ch1-code-exponentialramp}
+#| warning: false
+#| echo: false
+
+# Linear-scale plot of number of pairwise plots (n choose 2) for n = 1..1000
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def num_pairwise(n):
+    return n * (n - 1) / 2
+
+# Range up to 1000
+n_values = np.arange(1, 1001, dtype=np.int64)
+y_values = num_pairwise(n_values)
+
+# Example points to mark
+example_ns = np.array([5, 14, 1000], dtype=np.int64)
+example_vals = num_pairwise(example_ns).astype(np.int64)
+
+plt.figure(figsize=(10,6))
+plt.plot(n_values, y_values, linewidth=1)
+plt.scatter(example_ns, example_vals, s=60)  # mark example points
+plt.xlabel('Number of features (n)')
+plt.ylabel('Number of pairwise plots (n choose 2)')
+plt.title('Pairwise plots required as a function of number of features (1 ≤ n ≤ 1000)')
+plt.grid(True, linestyle='--', linewidth=0.5)
+
+# Annotate example points
+#for n, val in zip(example_ns, example_vals):
+#    plt.annotate(f'n={n}\n{int(val):,}', xy=(n, val), xytext=(8, -30),
+#                 textcoords='offset points', fontsize=9, ha='left')
+
+plt.xlim(0, 1005)
+plt.tight_layout()
+plt.show()
+```
+
+* You will have an exponential blowup! So this approach will not work.
+
+* We need something more principled.
+
+:::
+<!-- end callout -->
+
+
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)** 
+
+* It is not possible to exhaustively plot one feature vs. another _or_ remove any feature willy-nilly. For example, in a dataset from patient healthcare records, we cannot just randomly throw away data on blood pressure.
+
+* This is why we use dimensionality reduction to _reduce_ the dimensions of the data. This yields fewer _new_ features.
+
+:::
+<!-- end callout -->
+
+
+
 
 ## What PCA does to the data
 
