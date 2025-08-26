@@ -3,6 +3,7 @@ book:
     - part: "Session 1: Introduction to Unsupervised Learning"
       chapters:
         - materials/walkthrough.qmd
+        - materials/python_refresher.qmd
         - materials/normalization.qmd
     - part: "Session 2: Dimensionality Reduction"
       chapters:
