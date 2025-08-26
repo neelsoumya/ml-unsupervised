@@ -12,13 +12,12 @@ title: Clustering
    - Cite real‑world uses (e.g., customer segmentation, anomaly detection).
 
 2. **Describe and execute hierarchical clustering methods**  
-   - Differentiate agglomerative (bottom‑up) vs. divisive (top‑down) approaches.  
    - Compute and interpret a dendrogram.  
    - Apply various linkage criteria (single, complete, average, Ward’s, etc.) and distance metrics (Euclidean, Manhattan, cosine).
 
 3. **Implement and analyze K‑Means clustering**  
    - Articulate the iterative assignment–update steps and convergence conditions.  
-   - Write or follow pseudocode for K‑Means, including centroid initialization strategies (random vs. k‑means++).  
+   - Write or follow pseudocode for K‑Means, including centroid initialization strategies.  
    - Compute and interpret the within‑cluster variation objective.
 
 4. **Compare clustering techniques and select appropriately**  
@@ -91,13 +90,26 @@ Hierarchical clustering builds a tree (dendrogram) of clusters using either a **
 - **Metric**  
   The *metric* (or *distance function* or *dissimilarity function*) defines how you measure the distance between individual data points. Common choices include Euclidean, Manhattan (cityblock), or cosine distance. This metric determines the raw pairwise distances.
 
-*Euclidean distance*
-
-![Euclidean distance](images/euclidean_distance.png)
 
 *Manhattan distance*
 
-![Manhattan distance](images/manhattan_distance.png)
+![Manhattan distance. Image created using DALL-E.](images/manhattan_distance.png)
+
+
+*Manhattan distance*
+
+![Manhattan distance](images/manhattan_distance_complex.png)
+
+
+*Euclidean distance*
+
+How would a crow navigate in Manhattan? (I have never been to Manhattan, but the `internet` says there are crows in Manhattan, so it must be true).
+
+![A crow in Manhattan. Image created using DreamUp.](images/crow_manhattan.jpg)
+
+
+![Euclidean distance](images/euclidean_distance.png)
+
 
 
 - **Linkage**  
@@ -469,7 +481,6 @@ ari = adjusted_rand_score(labs, cluster_labels)
 print("Adjusted Rand Index")
 print(ari)
 print("Compares to true labels. Score is from -1 to 1. Higher is better")
-
 ```
 
 * Plain old visual evaluation
@@ -492,7 +503,6 @@ plt.ylabel('Distance')
 plt.xticks(rotation=90)
 plt.tight_layout()
 plt.show()
-
 ```
 
 * Also compare to clusterings of other cancer cell lines
