@@ -54,6 +54,7 @@ Hence we normalize each of the features *separately*, i.e. age is normalized rel
 
 ```{python ch2-gen_data}
 #| warning: false
+#| echo: false
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -342,11 +343,6 @@ plt.show()
 <!--close tab-->
 
 
-## Exercise
-
-* Try the same code above but now *without* normalisation.
-
-* What differences do you observe in PCA *with* and *without* normalization?
 
 
 ## Scree plot
@@ -357,6 +353,7 @@ You can use a scree plot to decide how many principal components to keep: look f
 
 
 ```{python ch2-screeplot}
+#| warning: false
 
 # Scree plot: variance explained by each component
 plt.plot(range(1, len(pca.explained_variance_ratio_) + 1), pca.explained_variance_ratio_, marker='o')
@@ -369,6 +366,7 @@ plt.show()
 A scree plot may have an *elbow* like the plot below.
 
 ```{python ch2-screeplot-ideal}
+#| warning: false
 #| echo: false
 #| fig.cap: "An idealized scree plot"
 
@@ -426,6 +424,262 @@ plt.show()
 
 ```
 -->
+
+
+
+
+### Hands-on coding
+
+* Perform PCA on a dataset of US Arrests
+
+Load data and install the `pca` Python package
+
+```python
+!pip install pca
+```
+
+```{python ch2-exercise-pca}
+#| echo: false
+#| output: false
+#| warning: false
+
+!pip install pca
+```
+
+```{python ch2-exercise-pca-loaddata}
+#| warning: false
+
+from pca import pca
+import pandas as pd
+
+# Load the US Arrests data
+# Read the USArrests data directly from the GitHub raw URL
+url = "https://raw.githubusercontent.com/cambiotraining/ml-unsupervised/main/course_files/data/USArrests.csv"
+df = pd.read_csv(url, index_col=0)
+
+print("US Arrests Data (first 5 rows):")
+print(df.head())
+print("\nData shape:", df.shape)
+```
+
+Normalize the data
+
+```{python ch2-exercise-pca-normalize-git}
+#| warning: false
+
+from sklearn.preprocessing import StandardScaler
+
+scaler_standard = StandardScaler()
+df_scaled = scaler_standard.fit_transform(df)
+
+print("\nData shape after normalization:", df_scaled.shape)
+```
+
+Perform PCA
+
+# TODO: add labels
+
+```{python ch2-pca-usarrests}
+#| warning: false
+
+model = pca(n_components=4)
+out = model.fit_transform(df_scaled)
+ax = model.biplot(n_feat=len(df.columns), legend=False)
+```
+
+* Variance explained plots
+
+```{python ch2-exercise-pca-var}
+#| warning: false
+
+model.plot()
+```
+
+* 3D PCA biplots
+
+```{python ch2-exercise-pca-3d}
+#| warning: false
+
+model.biplot3d()
+```
+
+* Loadings
+
+*Recall*
+
+What is being plotted on the axes (PC1 and PC2) are the `scores`.
+
+The `scores` for each principal component are calculated as follows:
+
+$$
+PC_{1} = \alpha X + \beta Y + \gamma Z + .... 
+$$
+
+where $X$, $Y$ and $Z$ are the normalized *features*.
+
+The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. They are called the `loadings`.
+
+
+```{python ch2-loadings-package}
+#| warning: false
+
+print(model.results)
+```
+
+
+
+## Exercise for normalization in PCA {#sec-pcanorm}
+
+::::: {#ex-title_pca .callout-exercise}
+
+#### exercise_pca_normalization
+
+{{< level 2 >}}
+
+Work in a group.
+
+* Try the same code above but now *without* normalisation.
+
+* What differences do you observe in PCA *with* and *without* normalization?
+
+
+:::::
+
+
+
+
+
+## Exercise (advanced)
+
+Plot prettier *publication ready* plots for PCA.
+
+::: {.callout-tip}
+Look into the documentation available here for the [PCA package](https://erdogant.github.io/pca/pages/html/Examples.html).
+:::
+<!-- end callout -->
+
+
+
+
+## Exercise (theoretical) {#sec-ex-theoretical}
+
+::::: {#ex-titletheor .callout-exercise}
+
+#### exercise_theoretical
+
+{{< level 2 >}}
+
+Break up into groups and discuss the following problem:
+
+1. Shown are biological samples with scores
+
+2. The features are genes
+
+* Why are `Sample 33` and `Sample 24` separated from the rest? What can we say about `Gene1`, `Gene 2`, `Gene 3` and `Gene 4`?
+
+* Why is `Sample 2` separated from the rest? What can we say about `Gene1`, `Gene 2`, `Gene 3` and `Gene 4`?
+
+* Can we treat `Sample 2` as an outlier? Why or why not? Argue your case.
+
+The PCA biplot is shown below:
+
+```{python ch2-trick-question}
+#| echo: false
+#| warning: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# -----------------------------------------------------------------------------
+# 1) Loadings matrix (genes × PCs) exactly as given:
+loadings = np.array([
+    [-0.5358995,   0.4181809,  -0.3412327,  0.6492278],   # Gene1
+    [-0.5831836,   0.1879856,  -0.2681484, -0.7430748],   # Gene2
+    [-0.2781909,  -0.8728062,  -0.3780158,  0.1338773],   # Gene3
+    [-0.5434321,  -0.1673186,   0.8177779,  0.08902432],  # Gene4
+])
+genes = ['Gene1', 'Gene2', 'Gene3', 'Gene4']
+
+
+# -----------------------------------------------------------------------------
+# 2) Approximate PC2/PC3 scores from your biplot.
+#    Fill in all 50 samples by eyeballing their (x, y) positions on the plot.
+scores_dict = {
+    # highlighted points:
+    'Sample2':  (0.8,  2.1),
+    'Sample24': (2.2, -0.5),
+    'Sample33': (2.0, -0.4),
+    # a few others for context:
+    'Sample45': (1.2,  0.6),
+    'Sample40': (1.8, -0.1),
+    'Sample11': (-0.9, 0.0),
+    'Sample39': (0.0, -1.2),
+    'Sample28': (-0.7, 1.1),
+    'Sample21': (-1.1, -0.8),
+}
+
+sample_labels = list(scores_dict.keys())
+sample_scores = np.array([scores_dict[s] for s in sample_labels])
+
+
+# -----------------------------------------------------------------------------
+# 3) Plot PC2 vs PC3 biplot:
+fig, ax = plt.subplots(figsize=(8,8))
+
+# 3a) scatter the samples
+ax.scatter(sample_scores[:,0], sample_scores[:,1],
+           c='black', s=30, alpha=0.8)
+for i, lbl in enumerate(sample_labels):
+    ax.text(sample_scores[i,0], sample_scores[i,1], lbl,
+            fontsize=8, ha='center', va='center')
+
+# 3b) draw the gene loadings as red arrows
+scale = 3.0
+#for i, gene in enumerate(genes):
+#    x_load = loadings[i,1] * scale  # PC2 loading
+#    y_load = loadings[i,2] * scale  # PC3 loading
+#    ax.arrow(0, 0, x_load, y_load,
+#             color='red', width=0.004, head_width=0.08,
+#             length_includes_head=True)
+#    ax.text(x_load*1.1, y_load*1.1, gene,
+#            color='red', fontsize=12, fontweight='bold')
+
+# -----------------------------------------------------------------------------
+# 4) Styling
+ax.axhline(0, color='gray', linewidth=1)
+ax.axvline(0, color='gray', linewidth=1)
+ax.set_xlabel('PC2', fontsize=14)
+ax.set_ylabel('PC3', fontsize=14)
+#ax.set_title('PCA Biplot', fontsize=10)
+ax.set_aspect('equal', 'box')
+ax.grid(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+The table of loadings is shown below:
+
+```{python ch2-advanced-pca_loadings}
+#| echo: false
+#| warning: false
+
+pcs   = ['PC1', 'PC2', 'PC3', 'PC4']
+
+# 2) build a DataFrame
+df = pd.DataFrame(loadings, index=genes, columns=pcs)
+
+# 3) print it
+print(df.to_string(float_format="{:.6f}".format))
+```
+
+
+:::::
+<!-- end callout -->
+
+
+
+
 
 ## Clustering Example
 
@@ -584,216 +838,7 @@ plt.show()
 
 All of these can be used to generate hypotheses. These hypotheses can be tested by collecting more data.
 
-### Exercise
 
-* Perform PCA on a dataset of US Arrests
-
-Load data and install package
-
-```python
-!pip install pca
-```
-
-```{python ch2-exercise-pca}
-#| echo: false
-#| output: false
-#| warning: false
-
-!pip install pca
-```
-
-```{python ch2-exercise-pca-loaddata}
-#| warning: false
-
-from pca import pca
-import pandas as pd
-
-# Load the US Arrests data
-# Read the USArrests data directly from the GitHub raw URL
-url = "https://raw.githubusercontent.com/cambiotraining/ml-unsupervised/main/course_files/data/USArrests.csv"
-df = pd.read_csv(url, index_col=0)
-
-print("US Arrests Data (first 5 rows):")
-print(df.head())
-print("\nData shape:", df.shape)
-```
-
-
-Perform PCA
-
-```{python ch2-pca-usarrests}
-#| warning: false
-
-model = pca(n_components=4)
-out = model.fit_transform(df)
-ax = model.biplot(n_feat=len(df.columns), legend=False)
-```
-
-* Variance explained plots
-
-```{python ch2-exercise-pca-var}
-#| warning: false
-
-model.plot()
-```
-
-* 3D PCA biplots
-
-```{python ch2-exercise-pca-3d}
-#| warning: false
-
-model.biplot3d()
-```
-
-* Loadings
-
-*Recall*
-
-What is being plotted on the axes (PC1 and PC2) are the `scores`.
-
-The `scores` for each principal component are calculated as follows:
-
-$$
-PC_{1} = \alpha X + \beta Y + \gamma Z + .... 
-$$
-
-where $X$, $Y$ and $Z$ are the normalized *features*.
-
-The constants $\alpha$, $\beta$, $\gamma$ are determined by the PCA algorithm. They are called the `loadings`.
-
-
-```{python ch2-loadings-package}
-#| warning: false
-
-print(model.results)
-```
-
-## Exercise (advanced)
-
-::: {.callout-tip}
-Look into the documentation available here for the [PCA package](https://erdogant.github.io/pca/pages/html/Examples.html) and plot prettier *publication ready* plots.
-:::
-<!-- end callout -->
-
-
-
-
-### Exercise (theoretical) {#sec-ex-theoretical}
-
-::::: {#ex-titletheor .callout-exercise}
-
-#### exercise_theoretical
-
-{{< level 2 >}}
-
-Break up into groups and discuss the following problem:
-
-1. Shown are biological samples with scores
-
-2. The features are genes
-
-* Why are `Sample 33` and `Sample 24` separated from the rest? What can we say about `Gene1`, `Gene 2`, `Gene 3` and `Gene 4`?
-
-* Why is `Sample 2` separated from the rest? What can we say about `Gene1`, `Gene 2`, `Gene 3` and `Gene 4`?
-
-* Can we treat `Sample 2` as an outlier? Why or why not? Argue your case.
-
-The PCA biplot is shown below:
-
-```{python ch2-trick-question}
-#| echo: false
-#| warning: false
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-# -----------------------------------------------------------------------------
-# 1) Loadings matrix (genes × PCs) exactly as given:
-loadings = np.array([
-    [-0.5358995,   0.4181809,  -0.3412327,  0.6492278],   # Gene1
-    [-0.5831836,   0.1879856,  -0.2681484, -0.7430748],   # Gene2
-    [-0.2781909,  -0.8728062,  -0.3780158,  0.1338773],   # Gene3
-    [-0.5434321,  -0.1673186,   0.8177779,  0.08902432],  # Gene4
-])
-genes = ['Gene1', 'Gene2', 'Gene3', 'Gene4']
-
-
-# -----------------------------------------------------------------------------
-# 2) Approximate PC2/PC3 scores from your biplot.
-#    Fill in all 50 samples by eyeballing their (x, y) positions on the plot.
-scores_dict = {
-    # highlighted points:
-    'Sample2':  (0.8,  2.1),
-    'Sample24': (2.2, -0.5),
-    'Sample33': (2.0, -0.4),
-    # a few others for context:
-    'Sample45': (1.2,  0.6),
-    'Sample40': (1.8, -0.1),
-    'Sample11': (-0.9, 0.0),
-    'Sample39': (0.0, -1.2),
-    'Sample28': (-0.7, 1.1),
-    'Sample21': (-1.1, -0.8),
-}
-
-sample_labels = list(scores_dict.keys())
-sample_scores = np.array([scores_dict[s] for s in sample_labels])
-
-
-# -----------------------------------------------------------------------------
-# 3) Plot PC2 vs PC3 biplot:
-fig, ax = plt.subplots(figsize=(8,8))
-
-# 3a) scatter the samples
-ax.scatter(sample_scores[:,0], sample_scores[:,1],
-           c='black', s=30, alpha=0.8)
-for i, lbl in enumerate(sample_labels):
-    ax.text(sample_scores[i,0], sample_scores[i,1], lbl,
-            fontsize=8, ha='center', va='center')
-
-# 3b) draw the gene loadings as red arrows
-scale = 3.0
-for i, gene in enumerate(genes):
-    x_load = loadings[i,1] * scale  # PC2 loading
-    y_load = loadings[i,2] * scale  # PC3 loading
-    ax.arrow(0, 0, x_load, y_load,
-             color='red', width=0.004, head_width=0.08,
-             length_includes_head=True)
-    ax.text(x_load*1.1, y_load*1.1, gene,
-            color='red', fontsize=12, fontweight='bold')
-
-# -----------------------------------------------------------------------------
-# 4) Styling
-ax.axhline(0, color='gray', linewidth=1)
-ax.axvline(0, color='gray', linewidth=1)
-ax.set_xlabel('PC2', fontsize=14)
-ax.set_ylabel('PC3', fontsize=14)
-#ax.set_title('PCA Biplot', fontsize=10)
-ax.set_aspect('equal', 'box')
-ax.grid(False)
-
-plt.tight_layout()
-plt.show()
-
-```
-
-The table of loadings is shown below:
-
-```{python ch2-advanced-pca_loadings}
-#| echo: false
-#| warning: false
-
-pcs   = ['PC1', 'PC2', 'PC3', 'PC4']
-
-# 2) build a DataFrame
-df = pd.DataFrame(loadings, index=genes, columns=pcs)
-
-# 3) print it
-print(df.to_string(float_format="{:.6f}".format))
-```
-
-
-:::::
-<!-- end callout -->
 
 
 
@@ -803,6 +848,7 @@ print(df.to_string(float_format="{:.6f}".format))
 - Need to normalize data before doing dimensionality reduction
 - PCA reduces dimensionality for visualization.
 - Clustering algorithms finds clusters in unlabeled data.
+- The goal of unsupervised learning is to find patterns and form hypotheses.
 :::
 
 
