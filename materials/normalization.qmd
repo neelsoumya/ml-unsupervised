@@ -10,64 +10,11 @@ This chapter demonstrates basic unsupervised machine learning concepts using Pyt
 ::: {.callout-tip}
 ## Learning Objectives
 
-- Refresher on Python
 - Understand the difference between supervised and unsupervised learning.
 - Apply PCA and clustering to example data.
 - Visualize results.
 :::
 <!-- end callout -->
-
-## Refresher on Python
-
-<!--
-If SSL error on Mac OS X,
-then 
-
-try in the Terminal
-
-open "/Applications/Python 3.10/Install Certificates.command"
--->
-
-```{python ch2-python-refresher}
-
-# 1. IMPORTING PACKAGES
-
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-
-# 2. READING DATA WITH PANDAS FROM GITHUB
-
-# GitHub URL for the diabetes data
-# Convert from GitHub web URL to raw data URL
-github_url = "https://raw.githubusercontent.com/cambiotraining/ml-unsupervised/main/course_files/data/diabetes_sample_data.csv"
-
-# Read CSV file directly from GitHub
-diabetes_data = pd.read_csv(github_url)
-    
-# Display basic information about the data
-print("\nData shape:", diabetes_data.shape)
-print("\nFirst 5 rows:")
-print(diabetes_data.head())
-        
-print("\nBasic statistics:")
-print(diabetes_data.describe())
-
-# 3. PLOTTING WITH MATPLOTLIB
-
-# Plot 1: Histogram of Age
-plt.figure()
-plt.hist(diabetes_data['age'], bins=20, alpha=0.7)
-plt.title('Distribution of Age', fontsize=14, fontweight='bold')
-plt.xlabel('Age')
-plt.ylabel('Frequency')
-plt.grid(True, alpha=0.3)
-plt.savefig('age_distribution.png', dpi=300)
-plt.show()
-
-```
-
-* You can also go through this [Introduction to Visualization in Python course](https://kavihshah.github.io/Intro-to-Python/materials/13-data-visualisation-with-matplotlib-and-seaborn.html)
 
 
 ## Normalization (Z-score Standardization)
@@ -106,6 +53,8 @@ If these are not brought on similar scales, weight will have a dispproportionate
 Hence we normalize each of the features *separately*, i.e. age is normalized relative to age and weight is normalized relative to weight.
 
 ```{python ch2-gen_data}
+#| warning: false
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
@@ -149,8 +98,196 @@ plt.grid(True, alpha=0.7)
 
 plt.tight_layout()
 plt.show()
-
 ```
+
+* In an ideal scenario a feature/variable such as `weight` might be transformed in the following way after normalization:
+
+```{python ch2-norm-beforeafter-pretty}
+#| warning: false
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Seed for reproducibility
+rng = np.random.default_rng(42)
+
+# Example variable: "weight" (simulate in kg, roughly normal)
+weights = rng.normal(loc=70000, scale=12, size=1000)  # mean=70000 g,, std=12 kg
+
+# Z-score normalization (no external dependencies)
+weights_mean = weights.mean()
+weights_std = weights.std(ddof=0)  # population std for simplicity
+weights_z = (weights - weights_mean) / weights_std
+
+#print(f"Original mean: {weights_mean:.2f}, std: {weights_std:.2f}")
+#print(f"Z-scored mean: {weights_z.mean():.2f}, std: {weights_z.std(ddof=0):.2f}")
+
+# Plot histograms
+fig, axes = plt.subplots(1, 2, figsize=(10, 4), constrained_layout=True)
+
+# Before normalization
+axes[0].hist(weights, bins=30, density=True, color="#4C78A8", alpha=0.8, edgecolor="white")
+axes[0].set_title("Weight (Before z-score)")
+axes[0].set_xlabel("grams")
+axes[0].set_ylabel("Density")
+
+# After normalization
+axes[1].hist(weights_z, bins=30, density=True, color="#F58518", alpha=0.8, edgecolor="white")
+axes[1].set_title("Weight (After z-score)")
+axes[1].set_xlabel("z-score")
+axes[1].set_ylabel("Density")
+axes[1].axvline(0, color="black", linestyle="--", linewidth=1)  # mean at 0
+axes[1].set_xlim(-4, 4)
+
+plt.show()
+```
+
+* And here is what it might look like for a feature such as `age`.
+
+```{python ch2-norm-zscore-age}
+#| warning: false
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Seed for reproducibility
+rng = np.random.default_rng(42)
+
+# Example variable: "age" in years, constrained to [0, 120]
+# Use a scaled Beta distribution to keep values within 0–120 with a realistic skew
+ages = 120 * rng.beta(a=2.5, b=3.5, size=2000)
+
+# Z-score normalization
+age_mean = ages.mean()
+age_std = ages.std(ddof=0)
+ages_z = (ages - age_mean) / age_std
+
+#print(f"Original mean: {age_mean:.2f}, std: {age_std:.2f}")
+print(f"Z-scored mean: {ages_z.mean():.2f}, std: {ages_z.std(ddof=0):.2f}")
+
+# Plot histograms
+fig, axes = plt.subplots(1, 2, figsize=(10, 4), constrained_layout=True)
+
+# Before normalization
+axes[0].hist(ages, bins=30, range=(0, 120), density=True, color="#4C78A8", alpha=0.85, edgecolor="white")
+axes[0].set_title("Age (Before z-score)")
+axes[0].set_xlabel("years")
+axes[0].set_ylabel("Density")
+axes[0].set_xlim(0, 120)
+
+# After normalization
+axes[1].hist(ages_z, bins=30, density=True, color="#F58518", alpha=0.85, edgecolor="white")
+axes[1].set_title("Age (After z-score)")
+axes[1].set_xlabel("z-score")
+axes[1].set_ylabel("Density")
+axes[1].axvline(0, color="black", linestyle="--", linewidth=1)
+axes[1].set_xlim(-3.5, 3.5)
+
+plt.show()
+```
+
+
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: 
+
+* After normalization, the *normalized features* are on comparable scales. The features (such as `weight` and `age`) no longer have so much variation. They can be used as input to machine learning algorithms.
+
+* The rule of thumb is to (almost) always *normalize* your data before you use it in a machine learning algorithm. (There are a few exceptions and we will point this out in due course).
+
+:::
+<!-- end callout -->
+
+
+
+
+
+
+
+### Data visualization before doing PCA {#sec-datavizbeforePCA}
+
+::::: {#ex-titledaatviz .callout-exercise}
+
+#### exercise_data_visualization
+
+{{< level 1 >}}
+
+Discuss in a group. What is wrong with the following plot?
+
+
+```{python ch2-exercise-dataviz-150yearold}
+#| warning: false
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Seed for reproducibility
+rng = np.random.default_rng(42)
+
+# Example variable: "age" in years, constrained to [0, 120]
+# Use a scaled Beta distribution to keep values within 0–120 with a realistic skew
+ages = 160 * rng.beta(a=2.5, b=3.5, size=2000)
+
+# Z-score normalization
+age_mean = ages.mean()
+age_std = ages.std(ddof=0)
+ages_z = (ages - age_mean) / age_std
+
+#print(f"Original mean: {age_mean:.2f}, std: {age_std:.2f}")
+#print(f"Z-scored mean: {ages_z.mean():.2f}, std: {ages_z.std(ddof=0):.2f}")
+
+# Plot histograms
+fig, axes = plt.subplots(1, 2, figsize=(10, 4), constrained_layout=True)
+
+# Before normalization
+axes[0].hist(ages, bins=50, density=True, color="#4C78A8", alpha=0.85, edgecolor="white")
+axes[0].set_title("Age (Before z-score)")
+axes[0].set_xlabel("years")
+axes[0].set_ylabel("Density")
+axes[0].set_xlim(0, 150)
+
+# After normalization
+axes[1].hist(ages_z, bins=50, density=True, color="#F58518", alpha=0.85, edgecolor="white")
+axes[1].set_title("Age (After z-score)")
+axes[1].set_xlabel("z-score")
+axes[1].set_ylabel("Density")
+axes[1].axvline(0, color="black", linestyle="--", linewidth=1)
+axes[1].set_xlim(-3.5, 3.5)
+
+plt.show()
+``` 
+
+:::: {.callout-answer collapse="true"}
+
+#### Looking at your data
+
+Always look at your data before you try and machine learning technique on it. There is a 150 year old person in your data!
+
+
+
+::::
+
+:::::
+
+
+
+
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: 
+
+* Visualize your data before you do any normalization. If there is anything odd about your data, discuss this with the person who gave you the data or did the experiment. This could be an error in the machine that generated the data or a data entry error. If there is justification, you can remove the data point.
+
+* Then perform normalization and apply a machine learning technique.
+
+:::
+<!-- end callout -->
+
+
+
 
 ## Setup
 
@@ -227,7 +364,6 @@ plt.title("Scree Plot")
 plt.xlabel("Principal Component")
 plt.ylabel("Variance Explained Ratio")
 plt.show()
-
 ```
 
 A scree plot may have an *elbow* like the plot below.
@@ -275,7 +411,6 @@ plt.grid(True)
 
 # Display the plot
 plt.show()
-
 ```
 
 <!--
@@ -545,7 +680,7 @@ Look into the documentation available here for the [PCA package](https://erdogan
 
 ### Exercise (theoretical) {#sec-ex-theoretical}
 
-::::: {#ex-title .callout-exercise}
+::::: {#ex-titletheor .callout-exercise}
 
 #### exercise_theoretical
 

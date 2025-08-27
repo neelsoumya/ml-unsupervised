@@ -73,6 +73,13 @@ plt.ylabel('Frequency')
 plt.grid(True, alpha=0.3)
 plt.savefig('age_distribution.png', dpi=300)
 plt.show()
+
+# 4. NUMPY
+a = np.array([17, 13, 78, 901])
+print("This is a numpy array:")
+print(a)
+print("Here is the mean/average:")
+print( np.mean(a) )
 ```
 
 * You can also go through this [Introduction to Visualization in Python course](https://kavihshah.github.io/Intro-to-Python/materials/13-data-visualisation-with-matplotlib-and-seaborn.html)
@@ -322,6 +329,103 @@ print(crime_data.loc [crime_data["Murder"].idxmax(), ["State","Murder"] ])
 ::::
 
 :::::
+
+
+
+
+
+
+
+### Optional exercise on Python {#sec-pythonrefresher5}
+
+::::: {#ex-title5 .callout-exercise}
+
+#### exercise_python_numpy
+
+{{< level 2 >}}
+
+Fill in the blanks in the code below.
+
+```python
+import numpy as np
+
+# 1) Reproducibility
+np.random.seed(7)
+
+# 2) Make a 5x4 array of random numbers in [0, 1)
+X = np.random.rand(5, 4)
+
+# 3) Compute:
+# - mean of each column
+# - mean of each row
+# - overall mean
+col_means = ...
+row_means = ...
+overall_mean = ...
+
+print("X:\n", X)
+print("Column means:", col_means)
+print("Row means:", row_means)
+print("Overall mean:", overall_mean)
+
+# 4) Bonus: random integers from 0..99 (size=12). Compare mean to 49.5
+ints = np.random.randint(0, 100, size=12)
+ints_mean = ...
+print("Random integers:", ints)
+print("Integers mean:", ints_mean)
+```
+ 
+:::: {.callout-answer collapse="true"}
+
+#### Numpy (advanced)
+
+
+::: {.panel-tabset group="language"}
+
+
+## Python
+
+```{python ch2-refresher-python-ex1}
+#| warning: false
+
+import numpy as np
+
+# 1) Reproducibility
+np.random.seed(7)
+
+# 2) Make a 5x4 array of random numbers in [0, 1)
+X = np.random.rand(5, 4)
+
+# 3) Compute:
+# - mean of each column
+# - mean of each row
+# - overall mean
+col_means = X.mean(axis=0)
+row_means = X.mean(axis=1)
+overall_mean = X.mean()
+
+print("X:\n", X)
+print("Column means:", col_means)
+print("Row means:", row_means)
+print("Overall mean:", overall_mean)
+
+# 4) Bonus: random integers from 0..99 (size=12). Compare mean to 49.5
+ints = np.random.randint(0, 100, size=12)
+ints_mean = ints.mean()
+print("Random integers:", ints)
+print("Integers mean:", ints_mean)
+```
+
+## R
+
+
+:::
+
+::::
+
+:::::
+
+
 
 
 
