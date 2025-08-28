@@ -28,10 +28,8 @@ open "/Applications/Python 3.10/Install Certificates.command"
 ```{python ch1-python-install}
 #| warning: false
 #| output: false
-#| echo: false   
 
 !pip install pandas numpy scikit-learn seaborn matplotlib
-
 ```
 
 * Loading data and data visualization

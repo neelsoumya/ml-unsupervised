@@ -52,6 +52,23 @@ where:
 
 $PC_{1} = \phi_{1} * X + \phi_{2} * Y + \phi_{3} * Z + ....$
 
+
+* Variance = how spread out the data is.
+* PCA finds directions (principal components) that maximize variance.
+
+**Variance**
+
+::: {.callout-note collapse="true"}
+## Click to expand
+Formula for variance of variable $x$:
+
+$$
+\text{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+:::
+<!-- end callout --> 
+
+
 **Covariance Matrix**
 
 The covariance matrix captures the relationships between different features.
