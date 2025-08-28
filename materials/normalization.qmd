@@ -1007,6 +1007,18 @@ plt.show()
 All of these can be used to generate hypotheses. These hypotheses can be tested by collecting more data.
 
 
+## Though exercise
+
+* Can you think of a technique where unsupervised learning gets used a lot? _Hint_: we use it almost every day now! (or atleast I do)
+
+::: {.callout-hint collapse=”true”}
+
+ChatGPT or Generative AI. The first step in processing the huge amount of text is to *reduce* the dimensions of the data using something similar to PCA.
+
+:::
+
+
+
 
 
 
