@@ -697,6 +697,7 @@ plt.show()
 #| warning: false
 #| echo: false
 #| output: false
+#| eval: false
 
 import numpy as np
 

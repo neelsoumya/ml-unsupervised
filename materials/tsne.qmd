@@ -13,6 +13,8 @@ title: tSNE
 :::
 
 
+<!-- TODO: explain curse better -->
+
 ## The curse of dimensionality
 
 In very high-dimensional spaces, almost all the “volume” of a dataset lives near its corners, and pairwise Euclidean distances between points tend to concentrate around a single value. 
