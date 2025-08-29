@@ -325,7 +325,7 @@ plt.show()
 
 ## Python
 
-```{python}
+```{python ch1-simple-pca-code-show}
 #| echo: true
 #| fig-cap: "A simple PCA plot"
 
@@ -519,7 +519,131 @@ plt.show()
 ```
 
 
-<!-- method to have labels -->
+* A method to have text labels in the PCA plot 
+
+We need slightly more complex code to do this.
+
+
+::: {.callout-note collapse="true"}
+::: {.panel-tabset group="language"}
+
+## Python
+
+```{python ch1-pca-plot-withtext-uscrimedata-complex}
+#| warning: false
+#| echo: true
+#| fig-cap: "A simple PCA plot with text labels"
+
+
+#loadings = pca.components_.T * np.sqrt(pca.explained_variance_)  # variable vectors
+
+# Plot
+fig, ax = plt.subplots()
+
+# Scatter of states
+ax.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.7)
+
+# Label each state
+# X.index has the state names
+# go through each point (which is each row in the table)
+for i, state in enumerate(X.index):
+    ax.text(X_pca[i, 0], X_pca[i, 1], state, fontsize=8, va="center", ha="left")
+
+ax.set_xlabel("PC1")
+ax.set_ylabel("PC2")
+ax.set_title("PCA Biplot: US Arrests")
+
+plt.tight_layout()
+plt.show()
+```
+
+## R
+
+:::
+:::
+<!--close tab-->
+
+
+
+
+
+* Get the loadings
+
+::: {.callout-note collapse="true"}
+::: {.panel-tabset group="language"}
+
+## Python
+
+```{python ch1-pca-plot-withtext-uscrimedata-complex-loadings}
+#| warning: false
+
+# get the loadings
+# pca.components_ contains the principal component vectors
+# transpose them using T
+loadings = pca_fn.components_.T
+
+# create a data frame
+df_loadings = pd.DataFrame(loadings,
+                            index=X.columns
+)
+
+# the first column is PC1, then PC2, and so on ...
+print(df_loadings)
+```
+
+## R
+
+:::
+:::
+<!--close tab-->
+
+
+
+
+### Interpreting the US Crime PCA biplot
+
+Here is an intutive explanation of the PCA biplot.
+
+
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: 
+
+- **Distances matter**: Points that are far apart represent states with more dissimilar overall crime/urbanization profiles. For example, **Vermont** being far from **California** indicates very different feature patterns in the variables used (e.g., assault, murder, urban population).
+- **PC1 (horizontal) ≈ Urbanization**: States to the right tend to have higher urban population and associated traits; those to the left are more rural.
+- **PC2 (vertical) ≈ Crime level/severity**: Higher values indicate greater overall crime intensity (e.g., higher assault/murder rates), lower values indicate lower crime intensity.
+<!-- 
+- **Variable arrows**: Directions show how variables load on the components. Points near an arrow’s direction tend to have higher values for that variable.
+-->
+- **Reading clusters**: States that cluster together have similar profiles. States on opposite sides of the plot (e.g., Vermont vs. California) differ substantially along the dominant patterns captured by PC1 and PC2.
+
+
+* Interpretation of loadings:
+
+- PC1 (Urbanization axis): All crime variables (Murder, Assault, Rape) load positively, while UrbanPop has a smaller positive loading. This suggests PC1 captures overall crime levels.
+
+- PC2 (Crime vs Urbanization axis): UrbanPop loads strongly negative, while crime variables load positively, creating a contrast between urban vs rural crime patterns.
+
+
+:::
+<!-- end callout -->
+
+
+
+
+
+::: {.callout-tip}
+**NOTE (IMPORTANT CONCEPT)**: 
+
+* Notice, that we have not _told_ PCA anything about the US states
+
+* Yet it is still able to _find_ some interesting patterns in the data
+
+* This is the strength of unsupervised machine learning
+
+:::
+<!-- end callout -->
+
 
 
 ```{python ch1-pca-simple-label-pcaplot-legend}
@@ -715,7 +839,7 @@ Work in a group.
 
 
 
-
+<!--
 ## Exercise (advanced)
 
 Plot prettier *publication ready* plots for PCA.
@@ -723,7 +847,7 @@ Plot prettier *publication ready* plots for PCA.
 ::: {.callout-tip}
 Look into the documentation available here for the [PCA package](https://erdogant.github.io/pca/pages/html/Examples.html).
 :::
-<!-- end callout -->
+-->
 
 
 

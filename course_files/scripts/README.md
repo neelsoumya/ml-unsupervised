@@ -21,3 +21,5 @@ Scripts for generating data
 10. `norm.py` is a Python script that demonstrates normalization techniques on a sample dataset (z-score normalization).
 
 11. `simple_pca_plotting.py` is a Python script that performs PCA on a sample dataset and generates a scatter plot of the first two principal components.
+
+12. `pca_plot_simple_withtextlabels.py` is a Python script that performs PCA on a sample dataset and generates a scatter plot of the first two principal components with text labels for each point.
