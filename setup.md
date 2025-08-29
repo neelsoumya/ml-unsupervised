@@ -186,7 +186,7 @@ git clone https://github.com/cambiotraining/ml-unsupervised
 * Install required Python packages
 
 ```python
-pip install numpy pandas keras tensorflow scikit-learn seaborn matplotlib scanpy pca
+pip install numpy pandas scikit-learn seaborn matplotlib scanpy pca
 ```
 
 or
